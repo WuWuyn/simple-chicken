@@ -1,0 +1,15 @@
+======================================== Training Manager TM001 - System Report
+This document provides a comprehensive overview of the entire academic system, generated for the Training Manager with ID TM001.
+
+Profile Information
+
+User ID: TM001
+Full Name: Quan Trong Minh
+Gender: Male
+Date of Birth: 1975-05-10
+Address: Hanoi
+Role: Training Manager
+
+Permissions:
+
+View all system data except other people's passwords.

@@ -1,0 +1,2770 @@
+Question,Condition,GeneratedSQL,ExecutionResult,ErrorMessage,SyntheticExamplesUsed,Result
+What is my student ID?,"{""role"": ""Student"", ""identity"": [""HE001""]}",SELECT student_id FROM Students WHERE student_id = 'HE001',SUCCESS,,4,"[
+  {
+    ""student_id"": ""HE001""
+  }
+]"
+What is my major?,"{""role"": ""Student"", ""identity"": [""HE001""]}",SELECT m.major_name FROM Students s JOIN Majors m ON s.major_id = m.major_id WHERE s.student_id = 'HE001',SUCCESS,,4,"[
+  {
+    ""major_name"": ""Artificial Intelligence""
+  }
+]"
+When did I start studying at the school?,"{""role"": ""Student"", ""identity"": [""HE001""]}",SELECT start_date FROM Students WHERE student_id = 'HE001',SUCCESS,,4,"[
+  {
+    ""start_date"": ""2024-09-01""
+  }
+]"
+What was the first semester I studied at the school?,"{""role"": ""Student"", ""identity"": [""HE001""]}",SELECT start_semester FROM Students WHERE student_id = 'HE001',SUCCESS,,4,"[
+  {
+    ""start_semester"": ""FA24""
+  }
+]"
+Find users with birthdays in January.,"{""role"": ""Training Manager"", ""identity"": []}",SELECT username FROM Users WHERE MONTH(user_dob) = 1,SUCCESS,,4,"[
+  {
+    ""username"": ""hailt""
+  },
+  {
+    ""username"": ""phuongvtm""
+  },
+  {
+    ""username"": ""trangbtt""
+  },
+  {
+    ""username"": ""userq""
+  }
+]"
+Find students whose names start with 'Student'.,"{""role"": ""Training Manager"", ""identity"": []}",SELECT fullname FROM Users WHERE fullname LIKE 'Student%',SUCCESS,,4,"[
+  {
+    ""fullname"": ""Student A""
+  },
+  {
+    ""fullname"": ""Student B""
+  },
+  {
+    ""fullname"": ""Student C""
+  },
+  {
+    ""fullname"": ""Student D""
+  },
+  {
+    ""fullname"": ""Student E""
+  },
+  {
+    ""fullname"": ""Student F""
+  },
+  {
+    ""fullname"": ""Student G""
+  },
+  {
+    ""fullname"": ""Student H""
+  },
+  {
+    ""fullname"": ""Student I""
+  },
+  {
+    ""fullname"": ""Student J""
+  },
+  {
+    ""fullname"": ""Student K""
+  },
+  {
+    ""fullname"": ""Student L""
+  },
+  {
+    ""fullname"": ""Student M""
+  },
+  {
+    ""fullname"": ""Student N""
+  },
+  {
+    ""fullname"": ""Student O""
+  },
+  {
+    ""fullname"": ""Student P""
+  },
+  {
+    ""fullname"": ""Student Q""
+  },
+  {
+    ""fullname"": ""Student R""
+  },
+  {
+    ""fullname"": ""Student S""
+  },
+  {
+    ""fullname"": ""Student T""
+  }
+]"
+How many female students are in the 'Software Engineering' major?,"{""role"": ""Training Manager"", ""identity"": []}",SELECT COUNT(*) FROM Students AS T1 JOIN Majors AS T2 ON T1.major_id = T2.major_id JOIN Users AS T3 ON T1.student_id = T3.user_id WHERE T2.major_name = 'Software Engineering' AND T3.user_gender = 'female';,SUCCESS,,4,"[
+  {
+    """": 3
+  }
+]"
+Show the list of students in the 'Artificial Intelligence' major.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT s.student_id, u.fullname
+FROM Students s
+JOIN Majors m ON s.major_id = m.major_id
+JOIN Users u ON s.student_id = u.user_id
+WHERE m.major_name = 'Artificial Intelligence';",SUCCESS,,4,"[
+  {
+    ""student_id"": ""HE001"",
+    ""fullname"": ""Student A""
+  },
+  {
+    ""student_id"": ""HE002"",
+    ""fullname"": ""Student B""
+  },
+  {
+    ""student_id"": ""HE003"",
+    ""fullname"": ""Student C""
+  },
+  {
+    ""student_id"": ""HE004"",
+    ""fullname"": ""Student D""
+  },
+  {
+    ""student_id"": ""HE005"",
+    ""fullname"": ""Student E""
+  }
+]"
+Show a list of students (ID and name) and their majors.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT s.student_id, u.fullname, m.major_name
+FROM Students s
+JOIN Majors m ON s.major_id = m.major_id
+JOIN Users u ON s.student_id = u.user_id;",SUCCESS,,4,"[
+  {
+    ""student_id"": ""HE001"",
+    ""fullname"": ""Student A"",
+    ""major_name"": ""Artificial Intelligence""
+  },
+  {
+    ""student_id"": ""HE002"",
+    ""fullname"": ""Student B"",
+    ""major_name"": ""Artificial Intelligence""
+  },
+  {
+    ""student_id"": ""HE003"",
+    ""fullname"": ""Student C"",
+    ""major_name"": ""Artificial Intelligence""
+  },
+  {
+    ""student_id"": ""HE004"",
+    ""fullname"": ""Student D"",
+    ""major_name"": ""Artificial Intelligence""
+  },
+  {
+    ""student_id"": ""HE005"",
+    ""fullname"": ""Student E"",
+    ""major_name"": ""Artificial Intelligence""
+  },
+  {
+    ""student_id"": ""HE006"",
+    ""fullname"": ""Student F"",
+    ""major_name"": ""Information System""
+  },
+  {
+    ""student_id"": ""HE007"",
+    ""fullname"": ""Student G"",
+    ""major_name"": ""Information System""
+  },
+  {
+    ""student_id"": ""HE008"",
+    ""fullname"": ""Student H"",
+    ""major_name"": ""Information System""
+  },
+  {
+    ""student_id"": ""HE009"",
+    ""fullname"": ""Student I"",
+    ""major_name"": ""Information System""
+  },
+  {
+    ""student_id"": ""HE010"",
+    ""fullname"": ""Student J"",
+    ""major_name"": ""Information System""
+  },
+  {
+    ""student_id"": ""HE011"",
+    ""fullname"": ""Student K"",
+    ""major_name"": ""Information Assurance""
+  },
+  {
+    ""student_id"": ""HE012"",
+    ""fullname"": ""Student L"",
+    ""major_name"": ""Information Assurance""
+  },
+  {
+    ""student_id"": ""HE013"",
+    ""fullname"": ""Student M"",
+    ""major_name"": ""Information Assurance""
+  },
+  {
+    ""student_id"": ""HE014"",
+    ""fullname"": ""Student N"",
+    ""major_name"": ""Information Assurance""
+  },
+  {
+    ""student_id"": ""HE015"",
+    ""fullname"": ""Student O"",
+    ""major_name"": ""Information Assurance""
+  },
+  {
+    ""student_id"": ""HE016"",
+    ""fullname"": ""Student P"",
+    ""major_name"": ""Software Engineering""
+  },
+  {
+    ""student_id"": ""HE017"",
+    ""fullname"": ""Student Q"",
+    ""major_name"": ""Software Engineering""
+  },
+  {
+    ""student_id"": ""HE018"",
+    ""fullname"": ""Student R"",
+    ""major_name"": ""Software Engineering""
+  },
+  {
+    ""student_id"": ""HE019"",
+    ""fullname"": ""Student S"",
+    ""major_name"": ""Software Engineering""
+  },
+  {
+    ""student_id"": ""HE020"",
+    ""fullname"": ""Student T"",
+    ""major_name"": ""Software Engineering""
+  }
+]"
+How many students are there in total at the school?,"{""role"": ""Training Manager"", ""identity"": []}",SELECT COUNT(*) FROM Students,SUCCESS,,4,"[
+  {
+    """": 20
+  }
+]"
+Which major has the fewest students?,"{""role"": ""Training Manager"", ""identity"": []}",SELECT TOP 1 major_name FROM Majors ORDER BY (SELECT COUNT(*) FROM Students WHERE major_id = Majors.major_id) ASC,SUCCESS,,4,"[
+  {
+    ""major_name"": ""Information Assurance""
+  }
+]"
+Find information for user ID HE011.,"{""role"": ""Admin"", ""identity"": []}",SELECT * FROM Users WHERE user_id = 'HE011';,SUCCESS,,4,"[
+  {
+    ""username"": ""userk"",
+    ""password"": ""123"",
+    ""user_id"": ""HE011"",
+    ""fullname"": ""Student K"",
+    ""user_gender"": ""male"",
+    ""user_dob"": ""2002-03-07"",
+    ""user_address"": ""H\u1ea3i D\u01b0\u01a1ng""
+  }
+]"
+List all students.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT student_id, fullname FROM Students JOIN Users ON Students.student_id = Users.user_id",SUCCESS,,4,"[
+  {
+    ""student_id"": ""HE001"",
+    ""fullname"": ""Student A""
+  },
+  {
+    ""student_id"": ""HE002"",
+    ""fullname"": ""Student B""
+  },
+  {
+    ""student_id"": ""HE003"",
+    ""fullname"": ""Student C""
+  },
+  {
+    ""student_id"": ""HE004"",
+    ""fullname"": ""Student D""
+  },
+  {
+    ""student_id"": ""HE005"",
+    ""fullname"": ""Student E""
+  },
+  {
+    ""student_id"": ""HE006"",
+    ""fullname"": ""Student F""
+  },
+  {
+    ""student_id"": ""HE007"",
+    ""fullname"": ""Student G""
+  },
+  {
+    ""student_id"": ""HE008"",
+    ""fullname"": ""Student H""
+  },
+  {
+    ""student_id"": ""HE009"",
+    ""fullname"": ""Student I""
+  },
+  {
+    ""student_id"": ""HE010"",
+    ""fullname"": ""Student J""
+  },
+  {
+    ""student_id"": ""HE011"",
+    ""fullname"": ""Student K""
+  },
+  {
+    ""student_id"": ""HE012"",
+    ""fullname"": ""Student L""
+  },
+  {
+    ""student_id"": ""HE013"",
+    ""fullname"": ""Student M""
+  },
+  {
+    ""student_id"": ""HE014"",
+    ""fullname"": ""Student N""
+  },
+  {
+    ""student_id"": ""HE015"",
+    ""fullname"": ""Student O""
+  },
+  {
+    ""student_id"": ""HE016"",
+    ""fullname"": ""Student P""
+  },
+  {
+    ""student_id"": ""HE017"",
+    ""fullname"": ""Student Q""
+  },
+  {
+    ""student_id"": ""HE018"",
+    ""fullname"": ""Student R""
+  },
+  {
+    ""student_id"": ""HE019"",
+    ""fullname"": ""Student S""
+  },
+  {
+    ""student_id"": ""HE020"",
+    ""fullname"": ""Student T""
+  }
+]"
+List the names and IDs of all students.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT u.fullname, u.user_id FROM Students s JOIN Users u ON s.student_id = u.user_id",SUCCESS,,4,"[
+  {
+    ""fullname"": ""Student A"",
+    ""user_id"": ""HE001""
+  },
+  {
+    ""fullname"": ""Student B"",
+    ""user_id"": ""HE002""
+  },
+  {
+    ""fullname"": ""Student C"",
+    ""user_id"": ""HE003""
+  },
+  {
+    ""fullname"": ""Student D"",
+    ""user_id"": ""HE004""
+  },
+  {
+    ""fullname"": ""Student E"",
+    ""user_id"": ""HE005""
+  },
+  {
+    ""fullname"": ""Student F"",
+    ""user_id"": ""HE006""
+  },
+  {
+    ""fullname"": ""Student G"",
+    ""user_id"": ""HE007""
+  },
+  {
+    ""fullname"": ""Student H"",
+    ""user_id"": ""HE008""
+  },
+  {
+    ""fullname"": ""Student I"",
+    ""user_id"": ""HE009""
+  },
+  {
+    ""fullname"": ""Student J"",
+    ""user_id"": ""HE010""
+  },
+  {
+    ""fullname"": ""Student K"",
+    ""user_id"": ""HE011""
+  },
+  {
+    ""fullname"": ""Student L"",
+    ""user_id"": ""HE012""
+  },
+  {
+    ""fullname"": ""Student M"",
+    ""user_id"": ""HE013""
+  },
+  {
+    ""fullname"": ""Student N"",
+    ""user_id"": ""HE014""
+  },
+  {
+    ""fullname"": ""Student O"",
+    ""user_id"": ""HE015""
+  },
+  {
+    ""fullname"": ""Student P"",
+    ""user_id"": ""HE016""
+  },
+  {
+    ""fullname"": ""Student Q"",
+    ""user_id"": ""HE017""
+  },
+  {
+    ""fullname"": ""Student R"",
+    ""user_id"": ""HE018""
+  },
+  {
+    ""fullname"": ""Student S"",
+    ""user_id"": ""HE019""
+  },
+  {
+    ""fullname"": ""Student T"",
+    ""user_id"": ""HE020""
+  }
+]"
+What is my role?,"{""role"": ""Student"", ""identity"": [""HE001""]}",SELECT r.role_name FROM UserRole AS ur JOIN Roles AS r ON ur.role_id = r.role_id WHERE ur.user_id = 'HE001',SUCCESS,,4,"[
+  {
+    ""role_name"": ""Student""
+  }
+]"
+List all courses.,"{""role"": ""Student"", ""identity"": []}",SELECT course_name FROM Courses,SUCCESS,,4,"[
+  {
+    ""course_name"": ""Machine Learning""
+  },
+  {
+    ""course_name"": ""Computer Organization and Architecture""
+  },
+  {
+    ""course_name"": ""Computer Vision""
+  },
+  {
+    ""course_name"": ""Introduction to Computer Science""
+  },
+  {
+    ""course_name"": ""Risk Management in Information Systems""
+  },
+  {
+    ""course_name"": ""Malware Analysis and Reverse Engineering""
+  },
+  {
+    ""course_name"": ""Policy Development in Information Assurance""
+  },
+  {
+    ""course_name"": ""Enterprise Resource Planning (ERP)""
+  },
+  {
+    ""course_name"": ""Information System Programming Project""
+  },
+  {
+    ""course_name"": ""Information System Design & Analysis""
+  },
+  {
+    ""course_name"": ""Mathematics for Engineering""
+  },
+  {
+    ""course_name"": ""Natural Language Processing""
+  },
+  {
+    ""course_name"": ""Software Architecture and Design""
+  },
+  {
+    ""course_name"": ""Software development project""
+  },
+  {
+    ""course_name"": ""Software Requirement""
+  }
+]"
+Please tell me about the Mathematics for Engineering course.,"{""role"": ""Student"", ""identity"": [""HE001""]}","SELECT course_name, no_credit, description FROM Courses WHERE course_name LIKE '%Mathematics for Engineering%';",SUCCESS,,4,"[
+  {
+    ""course_name"": ""Mathematics for Engineering"",
+    ""no_credit"": 3,
+    ""description"": ""This course will provide students with a solid foundation in essential mathematical concepts, including single-variable calculus, linear algebra, and vector spaces.""
+  }
+]"
+How many courses are offered?,"{""role"": ""Student"", ""identity"": [""HE001""]}",SELECT COUNT(*) FROM Courses;,SUCCESS,,4,"[
+  {
+    """": 15
+  }
+]"
+Which courses have 3 credits?,"{""role"": ""Student"", ""identity"": []}",SELECT course_name FROM Courses WHERE no_credit = 3,SUCCESS,,4,"[
+  {
+    ""course_name"": ""Machine Learning""
+  },
+  {
+    ""course_name"": ""Computer Organization and Architecture""
+  },
+  {
+    ""course_name"": ""Computer Vision""
+  },
+  {
+    ""course_name"": ""Introduction to Computer Science""
+  },
+  {
+    ""course_name"": ""Risk Management in Information Systems""
+  },
+  {
+    ""course_name"": ""Malware Analysis and Reverse Engineering""
+  },
+  {
+    ""course_name"": ""Policy Development in Information Assurance""
+  },
+  {
+    ""course_name"": ""Enterprise Resource Planning (ERP)""
+  },
+  {
+    ""course_name"": ""Information System Programming Project""
+  },
+  {
+    ""course_name"": ""Information System Design & Analysis""
+  },
+  {
+    ""course_name"": ""Mathematics for Engineering""
+  },
+  {
+    ""course_name"": ""Natural Language Processing""
+  },
+  {
+    ""course_name"": ""Software Architecture and Design""
+  },
+  {
+    ""course_name"": ""Software development project""
+  },
+  {
+    ""course_name"": ""Software Requirement""
+  }
+]"
+What does the content of the Natural Language Processing course include?,"{""role"": ""Student"", ""identity"": []}",SELECT description FROM Courses WHERE course_id = 'NLP',SUCCESS,,4,"[
+  {
+    ""description"": ""Explores the techniques and algorithms used to process and analyze human language, enabling applications like text analysis, chatbots, and translation systems.""
+  }
+]"
+Which course is named Machine Learning?,"{""role"": ""Student"", ""identity"": []}",SELECT course_id FROM Courses WHERE course_name = 'Machine Learning',SUCCESS,,4,"[
+  {
+    ""course_id"": ""AIL""
+  }
+]"
+How many course names start with 'I'?,"{""role"": ""Student"", ""identity"": []}",SELECT COUNT(*) FROM Courses WHERE course_name LIKE 'I%',SUCCESS,,4,"[
+  {
+    """": 3
+  }
+]"
+Which courses have fewer than 4 credits?,"{""role"": ""Student"", ""identity"": []}",SELECT course_name FROM Courses WHERE no_credit < 4,SUCCESS,,4,"[
+  {
+    ""course_name"": ""Machine Learning""
+  },
+  {
+    ""course_name"": ""Computer Organization and Architecture""
+  },
+  {
+    ""course_name"": ""Computer Vision""
+  },
+  {
+    ""course_name"": ""Introduction to Computer Science""
+  },
+  {
+    ""course_name"": ""Risk Management in Information Systems""
+  },
+  {
+    ""course_name"": ""Malware Analysis and Reverse Engineering""
+  },
+  {
+    ""course_name"": ""Policy Development in Information Assurance""
+  },
+  {
+    ""course_name"": ""Enterprise Resource Planning (ERP)""
+  },
+  {
+    ""course_name"": ""Information System Programming Project""
+  },
+  {
+    ""course_name"": ""Information System Design & Analysis""
+  },
+  {
+    ""course_name"": ""Mathematics for Engineering""
+  },
+  {
+    ""course_name"": ""Natural Language Processing""
+  },
+  {
+    ""course_name"": ""Software Architecture and Design""
+  },
+  {
+    ""course_name"": ""Software development project""
+  },
+  {
+    ""course_name"": ""Software Requirement""
+  }
+]"
+"Show the courses, sorted by number of credits (lowest to highest).","{""role"": ""Training Manager"", ""identity"": []}","SELECT course_name, no_credit FROM Courses ORDER BY no_credit ASC;",SUCCESS,,4,"[
+  {
+    ""course_name"": ""Machine Learning"",
+    ""no_credit"": 3
+  },
+  {
+    ""course_name"": ""Computer Organization and Architecture"",
+    ""no_credit"": 3
+  },
+  {
+    ""course_name"": ""Computer Vision"",
+    ""no_credit"": 3
+  },
+  {
+    ""course_name"": ""Introduction to Computer Science"",
+    ""no_credit"": 3
+  },
+  {
+    ""course_name"": ""Risk Management in Information Systems"",
+    ""no_credit"": 3
+  },
+  {
+    ""course_name"": ""Malware Analysis and Reverse Engineering"",
+    ""no_credit"": 3
+  },
+  {
+    ""course_name"": ""Policy Development in Information Assurance"",
+    ""no_credit"": 3
+  },
+  {
+    ""course_name"": ""Enterprise Resource Planning (ERP)"",
+    ""no_credit"": 3
+  },
+  {
+    ""course_name"": ""Information System Programming Project"",
+    ""no_credit"": 3
+  },
+  {
+    ""course_name"": ""Information System Design & Analysis"",
+    ""no_credit"": 3
+  },
+  {
+    ""course_name"": ""Mathematics for Engineering"",
+    ""no_credit"": 3
+  },
+  {
+    ""course_name"": ""Natural Language Processing"",
+    ""no_credit"": 3
+  },
+  {
+    ""course_name"": ""Software Architecture and Design"",
+    ""no_credit"": 3
+  },
+  {
+    ""course_name"": ""Software development project"",
+    ""no_credit"": 3
+  },
+  {
+    ""course_name"": ""Software Requirement"",
+    ""no_credit"": 3
+  }
+]"
+"Which courses have the word ""Software"" in their name?","{""role"": ""Student"", ""identity"": []}",SELECT course_name FROM Courses WHERE course_name LIKE '%Software%',SUCCESS,,4,"[
+  {
+    ""course_name"": ""Software Architecture and Design""
+  },
+  {
+    ""course_name"": ""Software development project""
+  },
+  {
+    ""course_name"": ""Software Requirement""
+  }
+]"
+Show the courses that do not have any description,"{""role"": ""Student"", ""identity"": []}",SELECT course_name FROM Courses WHERE description IS NULL,SUCCESS,,4,[]
+Find the names of courses with credits greater than 3,"{""role"": ""Student"", ""identity"": []}",SELECT course_name FROM Courses WHERE no_credit > 3,SUCCESS,,4,[]
+List all available classes.,"{""role"": ""Training Manager"", ""identity"": []}",SELECT class_id FROM Classes;,SUCCESS,,4,"[
+  {
+    ""class_id"": ""AI01""
+  },
+  {
+    ""class_id"": ""IA01""
+  },
+  {
+    ""class_id"": ""IS01""
+  },
+  {
+    ""class_id"": ""SE01""
+  }
+]"
+Show details for class 'SE01'.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT c.class_id, c.class_id FROM Classes AS c WHERE c.class_id = 'SE01'",SUCCESS,,4,"[
+  {
+    ""class_id"": ""SE01""
+  }
+]"
+How many classes are offered?,"{""role"": ""Training Manager"", ""identity"": []}",SELECT COUNT(DISTINCT class_id) FROM Classes,SUCCESS,,4,"[
+  {
+    """": 4
+  }
+]"
+List all class with more than 30 students,"{""role"": ""Training Manager"", ""identity"": []}",SELECT T1.class_id FROM Classes AS T1 JOIN ClassCourse AS T2 ON T1.class_id = T2.class_id JOIN Enrollments AS T3 ON T2.class_course_id = T3.class_course_id GROUP BY T1.class_id HAVING COUNT(T3.student_id) > 30,SUCCESS,,2,[]
+Find the classes that do not yet have any instructors assigned to them.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT c.class_id
+FROM Classes c
+LEFT JOIN ClassCourse cc ON c.class_id = cc.class_id
+WHERE cc.class_course_id IS NULL;",SUCCESS,,4,"[
+  {
+    ""class_id"": ""IS01""
+  },
+  {
+    ""class_id"": ""SE01""
+  }
+]"
+Display a list of classes and the number of courses that have been taught in each class.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT c.class_id, COUNT(cc.course_id) AS NumberOfCourses FROM Classes c LEFT JOIN ClassCourse cc ON c.class_id = cc.class_id GROUP BY c.class_id;",SUCCESS,,4,"[
+  {
+    ""class_id"": ""AI01"",
+    ""NumberOfCourses"": 3
+  },
+  {
+    ""class_id"": ""IA01"",
+    ""NumberOfCourses"": 2
+  },
+  {
+    ""class_id"": ""IS01"",
+    ""NumberOfCourses"": 0
+  },
+  {
+    ""class_id"": ""SE01"",
+    ""NumberOfCourses"": 0
+  }
+]"
+Which classes have been assigned more than one course?,"{""role"": ""Training Manager"", ""identity"": []}",SELECT class_id FROM ClassCourse GROUP BY class_id HAVING COUNT(*) > 1,SUCCESS,,4,"[
+  {
+    ""class_id"": ""AI01""
+  },
+  {
+    ""class_id"": ""IA01""
+  }
+]"
+Display a list of codes and names of instructors.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT lecturer_id, fullname FROM Lecturers JOIN Users ON Lecturers.lecturer_id = Users.user_id",SUCCESS,,4,"[
+  {
+    ""lecturer_id"": ""LEC01"",
+    ""fullname"": ""Giang""
+  },
+  {
+    ""lecturer_id"": ""LEC04"",
+    ""fullname"": ""Hai""
+  },
+  {
+    ""lecturer_id"": ""LEC05"",
+    ""fullname"": ""Phuong""
+  },
+  {
+    ""lecturer_id"": ""LEC03"",
+    ""fullname"": ""Trang""
+  },
+  {
+    ""lecturer_id"": ""LEC02"",
+    ""fullname"": ""Tuan""
+  }
+]"
+Information about the code and full name of the instructor named Trang.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT T1.user_id, T1.fullname FROM Users AS T1 JOIN Lecturers AS T2 ON T1.user_id = T2.lecturer_id WHERE T1.fullname LIKE '%Trang%'",SUCCESS,,4,"[
+  {
+    ""user_id"": ""LEC03"",
+    ""fullname"": ""Trang""
+  }
+]"
+List the lecturers belonging to the Software Engineering department.,"{""role"": ""Training Manager"", ""identity"": []}",SELECT L.fullname FROM Lecturers AS L JOIN Departments AS D ON L.dep_id = D.dep_id WHERE D.dep_name = 'Software Engineering',DB_ERROR,Lỗi MS SQL Server (42S22): [42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'fullname'. (207) (SQLExecDirectW) executing query: SELECT L.fullname FROM Lecturers AS L JOIN Departments AS D ON L.dep_id = D.dep_id WHERE D.dep_name = 'Software Engineering',4,[]
+"Find the lecturers whose code contains ""LEC"".","{""role"": ""Training Manager"", ""identity"": []}",SELECT lecturer_id FROM Lecturers WHERE lecturer_id LIKE '%LEC%',SUCCESS,,4,"[
+  {
+    ""lecturer_id"": ""LEC01""
+  },
+  {
+    ""lecturer_id"": ""LEC02""
+  },
+  {
+    ""lecturer_id"": ""LEC03""
+  },
+  {
+    ""lecturer_id"": ""LEC04""
+  },
+  {
+    ""lecturer_id"": ""LEC05""
+  }
+]"
+What are the names of the lecturers who teach the MAE subject?,"{""role"": ""Training Manager"", ""identity"": []}",SELECT DISTINCT L.fullname FROM Lecturers AS L JOIN ClassCourse AS CC ON L.lecturer_id = CC.lecturer_id JOIN Courses AS C ON CC.course_id = C.course_id WHERE C.course_id = 'MAE',DB_ERROR,Lỗi MS SQL Server (42S22): [42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'fullname'. (207) (SQLExecDirectW) executing query: SELECT DISTINCT L.fullname FROM Lecturers AS L JOIN ClassCourse AS CC ON L.lecturer_id = CC.lecturer_id JOIN Courses AS C ON CC.course_id = C.course_id WHERE C.course_id = 'MAE',4,[]
+List all departments.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT dep_id, dep_name FROM Departments;",SUCCESS,,4,"[
+  {
+    ""dep_id"": ""D01"",
+    ""dep_name"": ""Computing Fundamental""
+  },
+  {
+    ""dep_id"": ""D02"",
+    ""dep_name"": ""Artificial Intelligence""
+  },
+  {
+    ""dep_id"": ""D03"",
+    ""dep_name"": ""Information Assurance""
+  },
+  {
+    ""dep_id"": ""D04"",
+    ""dep_name"": ""Software Engineering""
+  }
+]"
+Find the department named 'Computing Fundamental'.,"{""role"": ""Training Manager"", ""identity"": []}",SELECT dep_name FROM Departments WHERE dep_name = 'Computing Fundamental',SUCCESS,,4,"[
+  {
+    ""dep_name"": ""Computing Fundamental""
+  }
+]"
+How many departments are there?,"{""role"": ""Training Manager"", ""identity"": []}",SELECT COUNT(*) FROM Departments;,SUCCESS,,4,"[
+  {
+    """": 4
+  }
+]"
+List all the majors offered.,"{""role"": ""Student"", ""identity"": []}",SELECT major_name FROM Majors,SUCCESS,,4,"[
+  {
+    ""major_name"": ""Artificial Intelligence""
+  },
+  {
+    ""major_name"": ""Information Assurance""
+  },
+  {
+    ""major_name"": ""Information System""
+  },
+  {
+    ""major_name"": ""Software Engineering""
+  }
+]"
+Which major starts with the letter 'I'?,"{""role"": ""Student"", ""identity"": []}",SELECT major_name FROM Majors WHERE major_name LIKE 'I%',SUCCESS,,4,"[
+  {
+    ""major_name"": ""Information Assurance""
+  },
+  {
+    ""major_name"": ""Information System""
+  }
+]"
+List all of the academic programs.,"{""role"": ""Student"", ""identity"": []}",SELECT major_name FROM Majors,SUCCESS,,4,"[
+  {
+    ""major_name"": ""Artificial Intelligence""
+  },
+  {
+    ""major_name"": ""Information Assurance""
+  },
+  {
+    ""major_name"": ""Information System""
+  },
+  {
+    ""major_name"": ""Software Engineering""
+  }
+]"
+What are the permissions for the 'Student' role?,"{""role"": ""Training Manager"", ""identity"": []}",SELECT p.permission_name FROM Roles r JOIN RolePermission rp ON r.role_id = rp.role_id JOIN Permissions p ON rp.permission_id = p.permission_id WHERE r.role_name = 'Student',SUCCESS,,2,[]
+Which users have permission to 'EditCourse'?,"{""role"": ""Training Manager"", ""identity"": []}",SELECT U.username FROM Users AS U JOIN UserRole AS UR ON U.user_id = UR.user_id JOIN Roles AS R ON UR.role_id = R.role_id JOIN RolePermission AS RP ON R.role_id = RP.role_id JOIN Permissions AS P ON RP.permission_id = P.permission_id WHERE P.permission_name = 'EditCourse',SUCCESS,,4,[]
+Which roles have the most permissions?,"{""role"": ""Training Manager"", ""identity"": []}",SELECT role_name FROM Roles WHERE role_id IN (SELECT role_id FROM RolePermission GROUP BY role_id ORDER BY COUNT(*) DESC),DB_ERROR,"Lỗi MS SQL Server (42000): [42000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The ORDER BY clause is invalid in views, inline functions, derived tables, subqueries, and common table expressions, unless TOP, OFFSET or FOR XML is also specified. (1033) (SQLExecDirectW) executing query: SELECT role_name FROM Roles WHERE role_id IN (SELECT role_id FROM RolePermission GROUP BY role_id ORDER BY COUNT(*) DESC)",4,[]
+Which course have I enrolled in?,"{""role"": ""Student"", ""identity"": [""HE001""]}",SELECT c.course_name FROM Enrollments e JOIN ClassCourse cc ON e.class_course_id = cc.class_course_id JOIN Courses c ON cc.course_id = c.course_id WHERE e.student_id = 'HE001',SUCCESS,,4,"[
+  {
+    ""course_name"": ""Machine Learning""
+  },
+  {
+    ""course_name"": ""Mathematics for Engineering""
+  },
+  {
+    ""course_name"": ""Natural Language Processing""
+  }
+]"
+How many courses am I enrolled in?,"{""role"": ""Student"", ""identity"": [""HE001""]}",SELECT COUNT(DISTINCT class_course_id) FROM Enrollments WHERE student_id = 'HE001',SUCCESS,,4,"[
+  {
+    """": 3
+  }
+]"
+"Provide information about my academic status in the Machine Learning course, which is being studied in the AI01 class.","{""role"": ""Student"", ""identity"": [""HE001""]}","SELECT E.average, E.status, C.course_name
+FROM Enrollments AS E
+JOIN ClassCourse AS CC ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C ON CC.course_id = C.course_id
+JOIN Classes AS CL ON CC.class_id = CL.class_id
+WHERE C.course_name = 'Machine Learning' AND CL.class_id = 'AI01' AND E.student_id = 'HE001';",SUCCESS,,4,"[
+  {
+    ""average"": 0.0,
+    ""status"": ""Studying"",
+    ""course_name"": ""Machine Learning""
+  }
+]"
+How many students are enrolled in class AI01 this semester?,"{""role"": ""Training Manager"", ""identity"": []}",SELECT COUNT(DISTINCT T1.student_id) FROM Enrollments AS T1 JOIN ClassCourse AS T2 ON T1.class_course_id = T2.class_course_id WHERE T2.class_id = 'AI01',SUCCESS,,4,"[
+  {
+    """": 5
+  }
+]"
+Show every student and the corresponding courses and classes they have enrolled in.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT s.student_id, s.fullname, c.course_name, cl.class_id
+FROM Students s
+JOIN Enrollments e ON s.student_id = e.student_id
+JOIN ClassCourse cc ON e.class_course_id = cc.class_course_id
+JOIN Courses c ON cc.course_id = c.course_id
+JOIN Classes cl ON cc.class_id = cl.class_id;",DB_ERROR,"Lỗi MS SQL Server (42S22): [42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'fullname'. (207) (SQLExecDirectW) executing query: SELECT s.student_id, s.fullname, c.course_name, cl.class_id
+FROM Students s
+JOIN Enrollments e ON s.student_id = e.student_id
+JOIN ClassCourse cc ON e.class_course_id = cc.class_course_id
+JOIN Courses c ON cc.course_id = c.course_id
+JOIN Classes cl ON cc.class_id = cl.class_id;",4,[]
+Which course has the highest historical average grade?,"{""role"": ""Training Manager"", ""identity"": []}","SELECT TOP 1 c.course_name, AVG(e.average) AS AverageGrade FROM Enrollments AS e JOIN ClassCourse AS cc ON e.class_course_id = cc.class_course_id JOIN Courses AS c ON cc.course_id = c.course_id GROUP BY c.course_name ORDER BY AverageGrade DESC",SUCCESS,,4,"[
+  {
+    ""course_name"": ""Mathematics for Engineering"",
+    ""AverageGrade"": 7.684
+  }
+]"
+"Which class and course has the highest average student score, considering only students who have completed the course?","{""role"": ""Training Manager"", ""identity"": []}","SELECT TOP 1 cc.class_id, c.course_name, AVG(e.average) AS average_score
+FROM Enrollments AS e
+JOIN ClassCourse AS cc ON e.class_course_id = cc.class_course_id
+JOIN Courses AS c ON cc.course_id = c.course_id
+WHERE e.status = 'Passed'
+GROUP BY cc.class_id, c.course_name
+ORDER BY average_score DESC;",SUCCESS,,4,"[
+  {
+    ""class_id"": ""AI01"",
+    ""course_name"": ""Mathematics for Engineering"",
+    ""average_score"": 8.745000000000001
+  }
+]"
+Which student has enrolled in the most courses?,"{""role"": ""Training Manager"", ""identity"": []}",SELECT TOP 1 WITH TIES T1.student_id FROM Enrollments AS T1 JOIN ClassCourse AS T2 ON T1.class_course_id  =  T2.class_course_id GROUP BY T1.student_id ORDER BY COUNT(*) DESC,SUCCESS,,4,"[
+  {
+    ""student_id"": ""HE001""
+  },
+  {
+    ""student_id"": ""HE002""
+  },
+  {
+    ""student_id"": ""HE003""
+  },
+  {
+    ""student_id"": ""HE004""
+  },
+  {
+    ""student_id"": ""HE005""
+  }
+]"
+What is the lowest average grade of students in any subject?,"{""role"": ""Training Manager"", ""identity"": []}",SELECT MIN(average) AS LowestAverageGrade FROM Enrollments,SUCCESS,,4,"[
+  {
+    ""LowestAverageGrade"": 0.0
+  }
+]"
+"Show the attendance status of students taking the Machine Learning course on January 6, 2025 which include student ID, student name and status","{""role"": ""Training Manager"", ""identity"": []}","SELECT s.student_id, s.fullname, a.status
+FROM Students s
+JOIN Enrollments e ON s.student_id = e.student_id
+JOIN ClassCourse cc ON e.class_course_id = cc.class_course_id
+JOIN Courses c ON cc.course_id = c.course_id
+JOIN Schedules sch ON cc.class_course_id = sch.class_course_id
+JOIN Attendance a ON e.enrollment_id = a.enrollment_id
+WHERE c.course_name = 'Machine Learning' AND sch.start_time >= '2025-01-06' AND sch.start_time < '2025-01-07';",DB_ERROR,"Lỗi MS SQL Server (42S22): [42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'fullname'. (207) (SQLExecDirectW) executing query: SELECT s.student_id, s.fullname, a.status
+FROM Students s
+JOIN Enrollments e ON s.student_id = e.student_id
+JOIN ClassCourse cc ON e.class_course_id = cc.class_course_id
+JOIN Courses c ON cc.course_id = c.course_id
+JOIN Schedules sch ON cc.class_course_id = sch.class_course_id
+JOIN Attendance a ON e.enrollment_id = a.enrollment_id
+WHERE c.course_name = 'Machine Learning' AND sch.start_time >= '2025-01-06' AND sch.start_time < '2025-01-07';",4,[]
+"Which students have been marked 'Absent' in any class, show their student ID","{""role"": ""Training Manager"", ""identity"": []}","SELECT DISTINCT e.student_id
+FROM Enrollments e
+JOIN Attendance a ON e.enrollment_id = a.enrollment_id
+WHERE a.status = 'Absent';",SUCCESS,,4,"[
+  {
+    ""student_id"": ""HE013""
+  }
+]"
+"Which students have been marked 'Absent' in this semester, including both student id and student name?","{""role"": ""Training Manager"", ""identity"": []}","SELECT s.student_id, u.fullname FROM Enrollments AS e JOIN ClassCourse AS cc ON e.class_course_id = cc.class_course_id JOIN Students AS s ON e.student_id = s.student_id JOIN Users AS u ON s.student_id = u.user_id JOIN Attendance AS a ON e.enrollment_id = a.enrollment_id WHERE a.status = 'Absent' AND cc.semester = (SELECT MAX(semester) FROM ClassCourse)",SUCCESS,,4,[]
+Show the attendance status of students in the AI01 class taking the Machine Learning course.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT a.status
+FROM Attendance a
+JOIN Enrollments e ON a.enrollment_id = e.enrollment_id
+JOIN ClassCourse cc ON e.class_course_id = cc.class_course_id
+JOIN Courses c ON cc.course_id = c.course_id
+WHERE cc.class_id = 'AI01' AND c.course_name = 'Machine Learning';",SUCCESS,,2,"[
+  {
+    ""status"": ""Present""
+  },
+  {
+    ""status"": ""Present""
+  },
+  {
+    ""status"": ""Present""
+  },
+  {
+    ""status"": ""Future""
+  },
+  {
+    ""status"": ""Future""
+  },
+  {
+    ""status"": ""Present""
+  },
+  {
+    ""status"": ""Present""
+  },
+  {
+    ""status"": ""Present""
+  },
+  {
+    ""status"": ""Future""
+  },
+  {
+    ""status"": ""Future""
+  },
+  {
+    ""status"": ""Present""
+  },
+  {
+    ""status"": ""Present""
+  },
+  {
+    ""status"": ""Present""
+  },
+  {
+    ""status"": ""Future""
+  },
+  {
+    ""status"": ""Future""
+  },
+  {
+    ""status"": ""Present""
+  },
+  {
+    ""status"": ""Present""
+  },
+  {
+    ""status"": ""Present""
+  },
+  {
+    ""status"": ""Future""
+  },
+  {
+    ""status"": ""Future""
+  },
+  {
+    ""status"": ""Present""
+  },
+  {
+    ""status"": ""Present""
+  },
+  {
+    ""status"": ""Present""
+  },
+  {
+    ""status"": ""Future""
+  },
+  {
+    ""status"": ""Future""
+  }
+]"
+Do I have any scheduled classes in the near future?,"{""role"": ""Student"", ""identity"": [""HE001""]}",SELECT 1 FROM Schedules AS s JOIN ClassCourse AS cc ON s.class_course_id = cc.class_course_id JOIN Enrollments AS e ON cc.class_course_id = e.class_course_id WHERE e.student_id = 'HE001' AND s.start_time > GETDATE(),SUCCESS,,4,[]
+How many Machine Learning classes have I attended?,"{""role"": ""Student"", ""identity"": [""HE001""]}",SELECT COUNT(DISTINCT T2.class_course_id) FROM Enrollments AS T1 JOIN ClassCourse AS T2 ON T1.class_course_id  =  T2.class_course_id JOIN Courses AS T3 ON T2.course_id  =  T3.course_id WHERE T3.course_name LIKE '%Machine Learning%' AND T1.student_id  =  'HE001',SUCCESS,,4,"[
+  {
+    """": 1
+  }
+]"
+How many lectures did I attend for each course this semester?,"{""role"": ""Student"", ""identity"": [""HE001""]}","SELECT c.course_name, COUNT(a.schedule_id) AS NumberOfLecturesAttended
+FROM Enrollments AS e
+JOIN ClassCourse AS cc ON e.class_course_id = cc.class_course_id
+JOIN Courses AS c ON cc.course_id = c.course_id
+JOIN Attendance AS a ON e.enrollment_id = a.enrollment_id
+WHERE e.student_id = 'HE001' AND cc.semester = 'SP25' AND a.status = 'Present'
+GROUP BY c.course_name;",SUCCESS,,4,"[
+  {
+    ""course_name"": ""Machine Learning"",
+    ""NumberOfLecturesAttended"": 3
+  },
+  {
+    ""course_name"": ""Natural Language Processing"",
+    ""NumberOfLecturesAttended"": 3
+  }
+]"
+"How many students were marked present in the AI01 class for the Machine Learning course on January 8, 2025?","{""role"": ""Training Manager"", ""identity"": []}","SELECT COUNT(DISTINCT A.enrollment_id)
+FROM Attendance AS A
+JOIN Schedules AS S ON A.schedule_id = S.schedule_id
+JOIN ClassCourse AS CC ON S.class_course_id = CC.class_course_id
+JOIN Courses AS C ON CC.course_id = C.course_id
+JOIN Classes AS CL ON CC.class_id = CL.class_id
+WHERE CL.class_id = 'AI01'
+  AND C.course_name = 'Machine Learning'
+  AND S.start_time >= '2025-01-08 00:00:00' AND S.start_time < '2025-01-09 00:00:00'
+  AND A.status = 'Present';",SUCCESS,,4,"[
+  {
+    """": 5
+  }
+]"
+Which classes have taken Mathematics for Engineering?,"{""role"": ""Training Manager"", ""identity"": []}",SELECT DISTINCT c.class_id FROM Classes c JOIN ClassCourse cc ON c.class_id = cc.class_id JOIN Courses co ON cc.course_id = co.course_id WHERE co.course_name = 'Mathematics for Engineering',SUCCESS,,4,"[
+  {
+    ""class_id"": ""AI01""
+  },
+  {
+    ""class_id"": ""IA01""
+  }
+]"
+Show the class section names and course names for all classes.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT c.class_id, co.course_name FROM ClassCourse AS cc JOIN Classes AS c ON cc.class_id = c.class_id JOIN Courses AS co ON cc.course_id = co.course_id",SUCCESS,,4,"[
+  {
+    ""class_id"": ""AI01"",
+    ""course_name"": ""Machine Learning""
+  },
+  {
+    ""class_id"": ""AI01"",
+    ""course_name"": ""Mathematics for Engineering""
+  },
+  {
+    ""class_id"": ""AI01"",
+    ""course_name"": ""Natural Language Processing""
+  },
+  {
+    ""class_id"": ""IA01"",
+    ""course_name"": ""Malware Analysis and Reverse Engineering""
+  },
+  {
+    ""class_id"": ""IA01"",
+    ""course_name"": ""Mathematics for Engineering""
+  }
+]"
+Find the class sections for 'Machine Learning' in the 'SP25' semester.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT DISTINCT s.schedule_id
+FROM Schedules AS s
+JOIN ClassCourse AS cc ON s.class_course_id = cc.class_course_id
+JOIN Courses AS c ON cc.course_id = c.course_id
+WHERE c.course_name = 'Machine Learning' AND cc.semester = 'SP25';",SUCCESS,,4,"[
+  {
+    ""schedule_id"": ""AI01_AIL_1""
+  },
+  {
+    ""schedule_id"": ""AI01_AIL_2""
+  },
+  {
+    ""schedule_id"": ""AI01_AIL_3""
+  },
+  {
+    ""schedule_id"": ""AI01_AIL_4""
+  },
+  {
+    ""schedule_id"": ""AI01_AIL_5""
+  }
+]"
+Which subjects have been offered for the AI01 class?,"{""role"": ""Training Manager"", ""identity"": []}",SELECT c.course_name FROM ClassCourse AS cc JOIN Courses AS c ON cc.course_id = c.course_id WHERE cc.class_id = 'AI01',SUCCESS,,4,"[
+  {
+    ""course_name"": ""Machine Learning""
+  },
+  {
+    ""course_name"": ""Mathematics for Engineering""
+  },
+  {
+    ""course_name"": ""Natural Language Processing""
+  }
+]"
+How many class are there in the FA24 semester?,"{""role"": ""Training Manager"", ""identity"": []}",SELECT COUNT(DISTINCT class_id) FROM ClassCourse WHERE semester = 'FA24',SUCCESS,,4,"[
+  {
+    """": 2
+  }
+]"
+List the Mathematics for Engineering classes taught by Lecturer Giang.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT c.course_name
+FROM Courses c
+JOIN ClassCourse cc ON c.course_id = cc.course_id
+JOIN Lecturers l ON cc.lecturer_id = l.lecturer_id
+JOIN Users u ON l.lecturer_id = u.user_id
+WHERE u.fullname = 'Giang' AND cc.class_id IN (SELECT class_id FROM Classes WHERE class_name LIKE '%Mathematics for Engineering%'); -- This assumes a 'class_name' column exists in the Classes table.  If not, more schema information is needed.",DB_ERROR,"Lỗi MS SQL Server (42S22): [42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'class_name'. (207) (SQLExecDirectW) executing query: SELECT c.course_name
+FROM Courses c
+JOIN ClassCourse cc ON c.course_id = cc.course_id
+JOIN Lecturers l ON cc.lecturer_id = l.lecturer_id
+JOIN Users u ON l.lecturer_id = u.user_id
+WHERE u.fullname = 'Giang' AND cc.class_id IN (SELECT class_id FROM Classes WHERE class_name LIKE '%Mathematics for Engineering%'); -- This assumes a 'class_name' column exists in the Classes table.  If not, more schema information is needed.",4,[]
+Show a list of classes along with the subjects and lecturers that have taught in that class.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT c.class_id, co.course_name, l.fullname FROM Classes AS c JOIN ClassCourse AS cc ON c.class_id = cc.class_id JOIN Courses AS co ON cc.course_id = co.course_id JOIN Lecturers AS l ON cc.lecturer_id = l.lecturer_id",DB_ERROR,"Lỗi MS SQL Server (42S22): [42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'fullname'. (207) (SQLExecDirectW) executing query: SELECT c.class_id, co.course_name, l.fullname FROM Classes AS c JOIN ClassCourse AS cc ON c.class_id = cc.class_id JOIN Courses AS co ON cc.course_id = co.course_id JOIN Lecturers AS l ON cc.lecturer_id = l.lecturer_id",4,[]
+Which lecturers teach the Machine Learning course?,"{""role"": ""Training Manager"", ""identity"": []}",SELECT L.fullname FROM Lecturers AS L JOIN ClassCourse AS CC ON L.lecturer_id = CC.lecturer_id JOIN Courses AS C ON CC.course_id = C.course_id WHERE C.course_name = 'Machine Learning',DB_ERROR,Lỗi MS SQL Server (42S22): [42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'fullname'. (207) (SQLExecDirectW) executing query: SELECT L.fullname FROM Lecturers AS L JOIN ClassCourse AS CC ON L.lecturer_id = CC.lecturer_id JOIN Courses AS C ON CC.course_id = C.course_id WHERE C.course_name = 'Machine Learning',4,[]
+The number of lecturers who have taught each subject.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT c.course_name, COUNT(DISTINCT cc.lecturer_id) AS NumberOfLecturers FROM Courses c LEFT JOIN ClassCourse cc ON c.course_id = cc.course_id GROUP BY c.course_name;",SUCCESS,,4,"[
+  {
+    ""course_name"": ""Computer Organization and Architecture"",
+    ""NumberOfLecturers"": 0
+  },
+  {
+    ""course_name"": ""Computer Vision"",
+    ""NumberOfLecturers"": 0
+  },
+  {
+    ""course_name"": ""Enterprise Resource Planning (ERP)"",
+    ""NumberOfLecturers"": 0
+  },
+  {
+    ""course_name"": ""Information System Design & Analysis"",
+    ""NumberOfLecturers"": 0
+  },
+  {
+    ""course_name"": ""Information System Programming Project"",
+    ""NumberOfLecturers"": 0
+  },
+  {
+    ""course_name"": ""Introduction to Computer Science"",
+    ""NumberOfLecturers"": 0
+  },
+  {
+    ""course_name"": ""Machine Learning"",
+    ""NumberOfLecturers"": 1
+  },
+  {
+    ""course_name"": ""Malware Analysis and Reverse Engineering"",
+    ""NumberOfLecturers"": 1
+  },
+  {
+    ""course_name"": ""Mathematics for Engineering"",
+    ""NumberOfLecturers"": 2
+  },
+  {
+    ""course_name"": ""Natural Language Processing"",
+    ""NumberOfLecturers"": 1
+  },
+  {
+    ""course_name"": ""Policy Development in Information Assurance"",
+    ""NumberOfLecturers"": 0
+  },
+  {
+    ""course_name"": ""Risk Management in Information Systems"",
+    ""NumberOfLecturers"": 0
+  },
+  {
+    ""course_name"": ""Software Architecture and Design"",
+    ""NumberOfLecturers"": 0
+  },
+  {
+    ""course_name"": ""Software development project"",
+    ""NumberOfLecturers"": 0
+  },
+  {
+    ""course_name"": ""Software Requirement"",
+    ""NumberOfLecturers"": 0
+  }
+]"
+Which courses does Professor Phuong teach?,"{""role"": ""Training Manager"", ""identity"": []}","SELECT c.course_name
+FROM ClassCourse AS cc
+JOIN Courses AS c ON cc.course_id = c.course_id
+JOIN Lecturers AS l ON cc.lecturer_id = l.lecturer_id
+JOIN Users AS u ON l.lecturer_id = u.user_id
+WHERE u.fullname = 'Phuong';",SUCCESS,,2,"[
+  {
+    ""course_name"": ""Natural Language Processing""
+  },
+  {
+    ""course_name"": ""Malware Analysis and Reverse Engineering""
+  }
+]"
+Which courses have no assigned lecturer for the SP25 semester?,"{""role"": ""Training Manager"", ""identity"": []}",SELECT c.course_id FROM ClassCourse c WHERE c.semester = 'SP25' AND c.lecturer_id IS NULL;,SUCCESS,,4,[]
+Show the list of lecturers and how many courses they each teach.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT L.fullname, COUNT(CC.course_id) AS NumberOfCoursesTaught FROM Lecturers AS L JOIN ClassCourse AS CC ON L.lecturer_id = CC.lecturer_id GROUP BY L.fullname",DB_ERROR,"Lỗi MS SQL Server (42S22): [42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'fullname'. (207) (SQLExecDirectW); [42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'fullname'. (207) executing query: SELECT L.fullname, COUNT(CC.course_id) AS NumberOfCoursesTaught FROM Lecturers AS L JOIN ClassCourse AS CC ON L.lecturer_id = CC.lecturer_id GROUP BY L.fullname",4,[]
+Which lecturers teach both 'Machine Learning' and 'Mathematics for Engineering'?,"{""role"": ""Training Manager"", ""identity"": []}","SELECT L.lecturer_id, L.fullname
+FROM Lecturers L
+JOIN ClassCourse CC ON L.lecturer_id = CC.lecturer_id
+JOIN Courses C ON CC.course_id = C.course_id
+WHERE C.course_name = 'Mathematics for Engineering';",DB_ERROR,"Lỗi MS SQL Server (42S22): [42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'fullname'. (207) (SQLExecDirectW) executing query: SELECT L.lecturer_id, L.fullname
+FROM Lecturers L
+JOIN ClassCourse CC ON L.lecturer_id = CC.lecturer_id
+JOIN Courses C ON CC.course_id = C.course_id
+WHERE C.course_name = 'Mathematics for Engineering';",4,[]
+Which courses have more than one lecturer in the same semester?,"{""role"": ""Training Manager"", ""identity"": []}","SELECT T2.course_name FROM ClassCourse AS T1 JOIN Courses AS T2 ON T1.course_id = T2.course_id GROUP BY T2.course_name, T1.semester HAVING COUNT(DISTINCT T1.lecturer_id) > 1",SUCCESS,,4,"[
+  {
+    ""course_name"": ""Mathematics for Engineering""
+  }
+]"
+Find the classes offered in the SP25 semester.,"{""role"": ""Training Manager"", ""identity"": []}",SELECT DISTINCT c.class_id FROM ClassCourse c WHERE c.semester = 'SP25',SUCCESS,,4,"[
+  {
+    ""class_id"": ""AI01""
+  },
+  {
+    ""class_id"": ""IA01""
+  }
+]"
+Which lecturers teach courses in the Computer Science major?,"{""role"": ""Training Manager"", ""identity"": []}",SELECT l.fullname FROM Lecturers l JOIN ClassCourse cc ON l.lecturer_id = cc.lecturer_id JOIN Courses c ON cc.course_id = c.course_id JOIN Curriculums cu ON c.course_id = cu.course_id JOIN Majors m ON cu.major_id = m.major_id WHERE m.major_name = 'Computer Science',DB_ERROR,Lỗi MS SQL Server (42S22): [42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'fullname'. (207) (SQLExecDirectW) executing query: SELECT l.fullname FROM Lecturers l JOIN ClassCourse cc ON l.lecturer_id = cc.lecturer_id JOIN Courses c ON cc.course_id = c.course_id JOIN Curriculums cu ON c.course_id = cu.course_id JOIN Majors m ON cu.major_id = m.major_id WHERE m.major_name = 'Computer Science',4,[]
+Find all courses taught by lecturers who are from the Computer Science department.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT DISTINCT c.course_name
+FROM Courses AS c
+INNER JOIN ClassCourse AS cc ON c.course_id = cc.course_id
+INNER JOIN Lecturers AS l ON cc.lecturer_id = l.lecturer_id
+INNER JOIN Departments AS d ON l.dep_id = d.dep_id
+WHERE d.dep_name = 'Computer Science';",SUCCESS,,4,[]
+Find lecturers and course names associated with classes having over 40 students.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT L.lecturer_id, C.course_name
+FROM ClassCourse AS CC
+JOIN Lecturers AS L ON CC.lecturer_id = L.lecturer_id
+JOIN Courses AS C ON CC.course_id = C.course_id
+JOIN Enrollments AS E ON CC.class_course_id = E.class_course_id
+GROUP BY L.lecturer_id, C.course_name
+HAVING COUNT(*) > 40;",SUCCESS,,4,[]
+List the required courses for the Information Assurance major.,"{""role"": ""Student"", ""identity"": []}",SELECT c.course_id FROM Curriculums c JOIN Majors m ON c.major_id = m.major_id WHERE m.major_name = 'Information Assurance',SUCCESS,,4,"[
+  {
+    ""course_id"": ""CEA""
+  },
+  {
+    ""course_id"": ""CSI""
+  },
+  {
+    ""course_id"": ""IAA""
+  },
+  {
+    ""course_id"": ""IAM""
+  },
+  {
+    ""course_id"": ""IAP""
+  },
+  {
+    ""course_id"": ""MAE""
+  }
+]"
+Show the list of majors and how many courses each has.,"{""role"": ""Student"", ""identity"": []}","SELECT m.major_name, COUNT(cu.course_id) AS NumberOfCourses FROM Majors m LEFT JOIN Curriculums cu ON m.major_id = cu.major_id GROUP BY m.major_name;",SUCCESS,,4,"[
+  {
+    ""major_name"": ""Artificial Intelligence"",
+    ""NumberOfCourses"": 6
+  },
+  {
+    ""major_name"": ""Information Assurance"",
+    ""NumberOfCourses"": 6
+  },
+  {
+    ""major_name"": ""Information System"",
+    ""NumberOfCourses"": 6
+  },
+  {
+    ""major_name"": ""Software Engineering"",
+    ""NumberOfCourses"": 6
+  }
+]"
+Which major has the most number of courses?,"{""role"": ""Student"", ""identity"": []}",SELECT TOP 1 T2.major_name FROM Curriculums AS T1 JOIN Majors AS T2 ON T1.major_id = T2.major_id GROUP BY T2.major_name ORDER BY COUNT(T1.course_id) DESC,SUCCESS,,4,"[
+  {
+    ""major_name"": ""Information Assurance""
+  }
+]"
+Which majors require the course Mathematics for Engineering?,"{""role"": ""Student"", ""identity"": []}",SELECT m.major_name FROM Majors m JOIN Curriculums c ON m.major_id = c.major_id JOIN Courses co ON c.course_id = co.course_id WHERE co.course_name = 'Mathematics for Engineering',SUCCESS,,4,"[
+  {
+    ""major_name"": ""Artificial Intelligence""
+  },
+  {
+    ""major_name"": ""Information Assurance""
+  },
+  {
+    ""major_name"": ""Information System""
+  },
+  {
+    ""major_name"": ""Software Engineering""
+  }
+]"
+Which majors do not require Introduction to Computer Science?,"{""role"": ""Student"", ""identity"": []}",SELECT major_name FROM Majors EXCEPT SELECT M.major_name FROM Majors AS M JOIN Curriculums AS C ON M.major_id = C.major_id JOIN Courses AS CO ON C.course_id = CO.course_id WHERE CO.course_name = 'Introduction to Computer Science',SUCCESS,,4,[]
+How many majors require Computer Organization and Architecture?,"{""role"": ""Student"", ""identity"": []}",SELECT COUNT(DISTINCT T1.major_id) FROM Curriculums AS T1 JOIN Courses AS T2 ON T1.course_id = T2.course_id WHERE T2.course_name = 'Computer Organization and Architecture',SUCCESS,,2,"[
+  {
+    """": 4
+  }
+]"
+Which majors require more than 5 courses?,"{""role"": ""Student"", ""identity"": []}",SELECT m.major_name FROM Majors m JOIN Curriculums c ON m.major_id = c.major_id GROUP BY m.major_name HAVING COUNT(*) > 5,SUCCESS,,4,"[
+  {
+    ""major_name"": ""Artificial Intelligence""
+  },
+  {
+    ""major_name"": ""Information Assurance""
+  },
+  {
+    ""major_name"": ""Information System""
+  },
+  {
+    ""major_name"": ""Software Engineering""
+  }
+]"
+List the names of the required courses for the Software Engineering major.,"{""role"": ""Student"", ""identity"": []}",SELECT c.course_name FROM Courses c JOIN Curriculums cu ON c.course_id = cu.course_id JOIN Majors m ON cu.major_id = m.major_id WHERE m.major_name = 'Software Engineering',SUCCESS,,4,"[
+  {
+    ""course_name"": ""Computer Organization and Architecture""
+  },
+  {
+    ""course_name"": ""Introduction to Computer Science""
+  },
+  {
+    ""course_name"": ""Mathematics for Engineering""
+  },
+  {
+    ""course_name"": ""Software Architecture and Design""
+  },
+  {
+    ""course_name"": ""Software development project""
+  },
+  {
+    ""course_name"": ""Software Requirement""
+  }
+]"
+Show the major names and the names of their required courses.,"{""role"": ""Student"", ""identity"": []}","SELECT m.major_name, c.course_name FROM Majors m JOIN Curriculums cu ON m.major_id = cu.major_id JOIN Courses c ON cu.course_id = c.course_id",SUCCESS,,4,"[
+  {
+    ""major_name"": ""Artificial Intelligence"",
+    ""course_name"": ""Machine Learning""
+  },
+  {
+    ""major_name"": ""Artificial Intelligence"",
+    ""course_name"": ""Computer Organization and Architecture""
+  },
+  {
+    ""major_name"": ""Artificial Intelligence"",
+    ""course_name"": ""Computer Vision""
+  },
+  {
+    ""major_name"": ""Artificial Intelligence"",
+    ""course_name"": ""Introduction to Computer Science""
+  },
+  {
+    ""major_name"": ""Artificial Intelligence"",
+    ""course_name"": ""Mathematics for Engineering""
+  },
+  {
+    ""major_name"": ""Artificial Intelligence"",
+    ""course_name"": ""Natural Language Processing""
+  },
+  {
+    ""major_name"": ""Information Assurance"",
+    ""course_name"": ""Computer Organization and Architecture""
+  },
+  {
+    ""major_name"": ""Information Assurance"",
+    ""course_name"": ""Introduction to Computer Science""
+  },
+  {
+    ""major_name"": ""Information Assurance"",
+    ""course_name"": ""Risk Management in Information Systems""
+  },
+  {
+    ""major_name"": ""Information Assurance"",
+    ""course_name"": ""Malware Analysis and Reverse Engineering""
+  },
+  {
+    ""major_name"": ""Information Assurance"",
+    ""course_name"": ""Policy Development in Information Assurance""
+  },
+  {
+    ""major_name"": ""Information Assurance"",
+    ""course_name"": ""Mathematics for Engineering""
+  },
+  {
+    ""major_name"": ""Information System"",
+    ""course_name"": ""Computer Organization and Architecture""
+  },
+  {
+    ""major_name"": ""Information System"",
+    ""course_name"": ""Introduction to Computer Science""
+  },
+  {
+    ""major_name"": ""Information System"",
+    ""course_name"": ""Enterprise Resource Planning (ERP)""
+  },
+  {
+    ""major_name"": ""Information System"",
+    ""course_name"": ""Information System Programming Project""
+  },
+  {
+    ""major_name"": ""Information System"",
+    ""course_name"": ""Information System Design & Analysis""
+  },
+  {
+    ""major_name"": ""Information System"",
+    ""course_name"": ""Mathematics for Engineering""
+  },
+  {
+    ""major_name"": ""Software Engineering"",
+    ""course_name"": ""Computer Organization and Architecture""
+  },
+  {
+    ""major_name"": ""Software Engineering"",
+    ""course_name"": ""Introduction to Computer Science""
+  },
+  {
+    ""major_name"": ""Software Engineering"",
+    ""course_name"": ""Mathematics for Engineering""
+  },
+  {
+    ""major_name"": ""Software Engineering"",
+    ""course_name"": ""Software Architecture and Design""
+  },
+  {
+    ""major_name"": ""Software Engineering"",
+    ""course_name"": ""Software development project""
+  },
+  {
+    ""major_name"": ""Software Engineering"",
+    ""course_name"": ""Software Requirement""
+  }
+]"
+Which courses are required by more than one major?,"{""role"": ""Student"", ""identity"": []}","SELECT c.course_name
+FROM Courses c
+JOIN Curriculums cu ON c.course_id = cu.course_id
+GROUP BY c.course_name
+HAVING COUNT(DISTINCT cu.major_id) > 1;",SUCCESS,,4,"[
+  {
+    ""course_name"": ""Computer Organization and Architecture""
+  },
+  {
+    ""course_name"": ""Introduction to Computer Science""
+  },
+  {
+    ""course_name"": ""Mathematics for Engineering""
+  }
+]"
+Which majors require both Mathematics for Engineering and Introduction to Computer Science?,"{""role"": ""Student"", ""identity"": []}","SELECT DISTINCT m.major_name
+FROM Majors m
+JOIN Curriculums c ON m.major_id = c.major_id
+JOIN Courses co ON c.course_id = co.course_id
+WHERE co.course_name IN ('Mathematics for Engineering', 'Introduction to Computer Science')
+GROUP BY m.major_name
+HAVING COUNT(*) = 2;",SUCCESS,,4,"[
+  {
+    ""major_name"": ""Artificial Intelligence""
+  },
+  {
+    ""major_name"": ""Information Assurance""
+  },
+  {
+    ""major_name"": ""Information System""
+  },
+  {
+    ""major_name"": ""Software Engineering""
+  }
+]"
+Show the names and  number of credits of the required courses for the Information Systems major.,"{""role"": ""Student"", ""identity"": []}","SELECT c.course_name, c.no_credit FROM Courses c JOIN Curriculums cu ON c.course_id = cu.course_id JOIN Majors m ON cu.major_id = m.major_id WHERE m.major_name = 'Information System'",SUCCESS,,4,"[
+  {
+    ""course_name"": ""Computer Organization and Architecture"",
+    ""no_credit"": 3
+  },
+  {
+    ""course_name"": ""Introduction to Computer Science"",
+    ""no_credit"": 3
+  },
+  {
+    ""course_name"": ""Enterprise Resource Planning (ERP)"",
+    ""no_credit"": 3
+  },
+  {
+    ""course_name"": ""Information System Programming Project"",
+    ""no_credit"": 3
+  },
+  {
+    ""course_name"": ""Information System Design & Analysis"",
+    ""no_credit"": 3
+  },
+  {
+    ""course_name"": ""Mathematics for Engineering"",
+    ""no_credit"": 3
+  }
+]"
+Which course is required by the most majors?,"{""role"": ""Student"", ""identity"": []}","SELECT TOP 1 c.course_name
+FROM Courses c
+JOIN Curriculums cu ON c.course_id = cu.course_id
+GROUP BY c.course_name
+ORDER BY COUNT(cu.major_id) DESC;",SUCCESS,,4,"[
+  {
+    ""course_name"": ""Computer Organization and Architecture""
+  }
+]"
+Which required courses for Software Engineering have more than 3 credits?,"{""role"": ""Student"", ""identity"": []}","SELECT c.course_name
+FROM Courses c
+JOIN Curriculums cu ON c.course_id = cu.course_id
+JOIN Majors m ON cu.major_id = m.major_id
+WHERE m.major_name = 'Software Engineering' AND c.no_credit > 3;",SUCCESS,,4,[]
+Show the courses not required in Information System major,"{""role"": ""Student"", ""identity"": []}","SELECT c.course_id, c.course_name FROM Courses c EXCEPT SELECT c.course_id, c.course_name FROM Courses c JOIN Curriculums cu ON c.course_id = cu.course_id JOIN Majors m ON cu.major_id = m.major_id WHERE m.major_name = 'Information System'",SUCCESS,,4,"[
+  {
+    ""course_id"": ""AIL"",
+    ""course_name"": ""Machine Learning""
+  },
+  {
+    ""course_id"": ""CPV"",
+    ""course_name"": ""Computer Vision""
+  },
+  {
+    ""course_id"": ""IAA"",
+    ""course_name"": ""Risk Management in Information Systems""
+  },
+  {
+    ""course_id"": ""IAM"",
+    ""course_name"": ""Malware Analysis and Reverse Engineering""
+  },
+  {
+    ""course_id"": ""IAP"",
+    ""course_name"": ""Policy Development in Information Assurance""
+  },
+  {
+    ""course_id"": ""NLP"",
+    ""course_name"": ""Natural Language Processing""
+  },
+  {
+    ""course_id"": ""SWD"",
+    ""course_name"": ""Software Architecture and Design""
+  },
+  {
+    ""course_id"": ""SWP"",
+    ""course_name"": ""Software development project""
+  },
+  {
+    ""course_id"": ""SWR"",
+    ""course_name"": ""Software Requirement""
+  }
+]"
+List my courses in ascending order of the course name,"{""role"": ""Student"", ""identity"": [""HE001""]}",SELECT c.course_name FROM Courses c JOIN ClassCourse cc ON c.course_id = cc.course_id JOIN Enrollments e ON cc.class_course_id = e.class_course_id WHERE e.student_id = 'HE001' ORDER BY c.course_name ASC,SUCCESS,,4,"[
+  {
+    ""course_name"": ""Machine Learning""
+  },
+  {
+    ""course_name"": ""Mathematics for Engineering""
+  },
+  {
+    ""course_name"": ""Natural Language Processing""
+  }
+]"
+List the courses required for my major?,"{""role"": ""Student"", ""identity"": [""HE001""]}","SELECT c.course_name
+FROM Courses c
+JOIN Curriculums cu ON c.course_id = cu.course_id
+JOIN Majors m ON cu.major_id = m.major_id
+JOIN Students s ON m.major_id = s.major_id
+WHERE s.student_id = 'HE001';",SUCCESS,,4,"[
+  {
+    ""course_name"": ""Machine Learning""
+  },
+  {
+    ""course_name"": ""Computer Organization and Architecture""
+  },
+  {
+    ""course_name"": ""Computer Vision""
+  },
+  {
+    ""course_name"": ""Introduction to Computer Science""
+  },
+  {
+    ""course_name"": ""Mathematics for Engineering""
+  },
+  {
+    ""course_name"": ""Natural Language Processing""
+  }
+]"
+List the instructors who taught the courses I have taken,"{""role"": ""Student"", ""identity"": [""HE001""]}",SELECT DISTINCT T1.fullname FROM Lecturers AS T1 JOIN ClassCourse AS T2 ON T1.lecturer_id = T2.lecturer_id JOIN Enrollments AS T3 ON T2.class_course_id = T3.class_course_id WHERE T3.student_id = 'HE001',DB_ERROR,Lỗi MS SQL Server (42S22): [42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'fullname'. (207) (SQLExecDirectW) executing query: SELECT DISTINCT T1.fullname FROM Lecturers AS T1 JOIN ClassCourse AS T2 ON T1.lecturer_id = T2.lecturer_id JOIN Enrollments AS T3 ON T2.class_course_id = T3.class_course_id WHERE T3.student_id = 'HE001',4,[]
+Which majors require taking Mathematics for Engineering,"{""role"": ""Training Manager"", ""identity"": []}",SELECT m.major_name FROM Majors m JOIN Curriculums c ON m.major_id = c.major_id JOIN Courses co ON c.course_id = co.course_id WHERE co.course_name = 'Mathematics for Engineering',SUCCESS,,4,"[
+  {
+    ""major_name"": ""Artificial Intelligence""
+  },
+  {
+    ""major_name"": ""Information Assurance""
+  },
+  {
+    ""major_name"": ""Information System""
+  },
+  {
+    ""major_name"": ""Software Engineering""
+  }
+]"
+Find all students enrolled in the same courses as me?,"{""role"": ""Student"", ""identity"": [""HE001""]}",SELECT DISTINCT T1.fullname FROM Users AS T1 INNER JOIN Students AS T2 ON T1.user_id = T2.student_id INNER JOIN Enrollments AS T3 ON T2.student_id = T3.student_id WHERE T3.class_course_id IN (SELECT class_course_id FROM Enrollments WHERE student_id = 'HE001') AND T1.user_id != 'HE001',SUCCESS,,4,"[
+  {
+    ""fullname"": ""Student B""
+  },
+  {
+    ""fullname"": ""Student C""
+  },
+  {
+    ""fullname"": ""Student D""
+  },
+  {
+    ""fullname"": ""Student E""
+  }
+]"
+Which students share a class with me but are not in my major?,"{""role"": ""Student"", ""identity"": [""HE001""]}","SELECT DISTINCT s.student_id
+FROM Enrollments e1
+JOIN ClassCourse cc ON e1.class_course_id = cc.class_course_id
+JOIN Enrollments e2 ON e2.class_course_id = cc.class_course_id
+JOIN Students s ON e2.student_id = s.student_id
+WHERE e1.student_id = 'HE001'
+  AND s.major_id <> (SELECT major_id FROM Students WHERE student_id = 'HE001');",SUCCESS,,4,[]
+Which are the most difficult courses based on the average grades of all students?,"{""role"": ""Training Manager"", ""identity"": []}","SELECT TOP 1 WITH TIES c.course_name, AVG(e.average) AS average_grade FROM Courses c JOIN ClassCourse cc ON c.course_id = cc.course_id JOIN Enrollments e ON cc.class_course_id = e.class_course_id GROUP BY c.course_name ORDER BY average_grade ASC",SUCCESS,,4,"[
+  {
+    ""course_name"": ""Machine Learning"",
+    ""average_grade"": 0.0
+  },
+  {
+    ""course_name"": ""Malware Analysis and Reverse Engineering"",
+    ""average_grade"": 0.0
+  },
+  {
+    ""course_name"": ""Natural Language Processing"",
+    ""average_grade"": 0.0
+  }
+]"
+Which student has the highest average grade across all their courses?,"{""role"": ""Training Manager"", ""identity"": []}",SELECT TOP 1 T1.student_id FROM Enrollments AS T1 JOIN ClassCourse AS T2 ON T1.class_course_id  =  T2.class_course_id GROUP BY T1.student_id ORDER BY AVG(T1.average) DESC,SUCCESS,,4,"[
+  {
+    ""student_id"": ""HE011""
+  }
+]"
+Which student currently has the highest cumulative GPA?,"{""role"": ""Training Manager"", ""identity"": []}",SELECT TOP 1 T1.student_id FROM Enrollments AS T1 ORDER BY T1.average DESC,SUCCESS,,4,"[
+  {
+    ""student_id"": ""HE011""
+  }
+]"
+List all classes on Monday this semester.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT c.class_id, s.start_time, s.end_time
+FROM Classes c
+JOIN ClassCourse cc ON c.class_id = cc.class_id
+JOIN Schedules s ON cc.class_course_id = s.class_course_id
+WHERE DATENAME(dw, s.start_time) = 'Monday' AND cc.semester = (SELECT MAX(semester) FROM ClassCourse);",SUCCESS,,4,"[
+  {
+    ""class_id"": ""AI01"",
+    ""start_time"": ""2025-01-06T07:30:00"",
+    ""end_time"": ""2025-01-06T09:50:00""
+  },
+  {
+    ""class_id"": ""AI01"",
+    ""start_time"": ""2025-01-13T07:30:00"",
+    ""end_time"": ""2025-01-13T09:50:00""
+  },
+  {
+    ""class_id"": ""AI01"",
+    ""start_time"": ""2025-01-20T07:30:00"",
+    ""end_time"": ""2025-01-20T09:50:00""
+  },
+  {
+    ""class_id"": ""AI01"",
+    ""start_time"": ""2025-01-06T10:00:00"",
+    ""end_time"": ""2025-01-06T12:20:00""
+  },
+  {
+    ""class_id"": ""AI01"",
+    ""start_time"": ""2025-01-13T10:00:00"",
+    ""end_time"": ""2025-01-13T12:20:00""
+  },
+  {
+    ""class_id"": ""AI01"",
+    ""start_time"": ""2025-01-20T10:00:00"",
+    ""end_time"": ""2025-01-20T12:20:00""
+  },
+  {
+    ""class_id"": ""IA01"",
+    ""start_time"": ""2025-01-06T12:50:00"",
+    ""end_time"": ""2025-01-06T15:10:00""
+  },
+  {
+    ""class_id"": ""IA01"",
+    ""start_time"": ""2025-01-13T12:50:00"",
+    ""end_time"": ""2025-01-13T15:10:00""
+  },
+  {
+    ""class_id"": ""IA01"",
+    ""start_time"": ""2025-01-20T12:50:00"",
+    ""end_time"": ""2025-01-20T15:10:00""
+  }
+]"
+Calculate total credits I am taking this semester,"{""role"": ""Student"", ""identity"": [""HE001""]}",SELECT SUM(T2.no_credit) AS TotalCredits FROM Enrollments AS T1 JOIN ClassCourse AS T3 ON T1.class_course_id = T3.class_course_id JOIN Courses AS T2 ON T3.course_id = T2.course_id WHERE T1.student_id = 'HE001' AND T3.semester = 'SP25',SUCCESS,,4,"[
+  {
+    ""TotalCredits"": 6
+  }
+]"
+What is my GPA?,"{""role"": ""Student"", ""identity"": [""HE001""]}",SELECT AVG(average) FROM Enrollments WHERE student_id = 'HE001',SUCCESS,,4,"[
+  {
+    """": 3.1666666666666665
+  }
+]"
+What is my enrollment status in course MAE?,"{""role"": ""Student"", ""identity"": [""HE001""]}",SELECT e.status FROM Enrollments e JOIN ClassCourse cc ON e.class_course_id = cc.class_course_id JOIN Courses c ON cc.course_id = c.course_id WHERE e.student_id = 'HE001' AND c.course_id = 'MAE',SUCCESS,,4,"[
+  {
+    ""status"": ""Passed""
+  }
+]"
+What are my component scores in the MAE subject?,"{""role"": ""Student"", ""identity"": [""HE001""]}","SELECT T3.grade_name, T4.grade_value
+FROM Enrollments AS T1
+JOIN ClassCourse AS T2 ON T1.class_course_id = T2.class_course_id
+JOIN CourseGrade AS T3 ON T2.course_id = T3.course_id
+JOIN StudentGradeDetails AS T4 ON T1.enrollment_id = T4.enrollment_id AND T3.course_grade_id = T4.course_grade_id
+WHERE T2.course_id = 'MAE' AND T1.student_id = 'HE001';",SUCCESS,,4,"[
+  {
+    ""grade_name"": ""Assignment"",
+    ""grade_value"": 9.2
+  },
+  {
+    ""grade_name"": ""Final Exam"",
+    ""grade_value"": 9.8
+  },
+  {
+    ""grade_name"": ""Progress Test"",
+    ""grade_value"": 9.4
+  }
+]"
+What are all the grade components for 'Mathematics for Engineering' and what's the average for each?,"{""role"": ""Training Manager"", ""identity"": []}","SELECT cg.grade_name, AVG(sgd.grade_value) AS average_grade
+FROM Courses c
+JOIN Curriculums cu ON c.course_id = cu.course_id
+JOIN CourseGrade cg ON c.course_id = cg.course_id
+JOIN StudentGradeDetails sgd ON cg.course_grade_id = sgd.course_grade_id
+WHERE c.course_name = 'Mathematics for Engineering'
+GROUP BY cg.grade_name;",SUCCESS,,4,"[
+  {
+    ""grade_name"": ""Assignment"",
+    ""average_grade"": 7.289999999999999
+  },
+  {
+    ""grade_name"": ""Final Exam"",
+    ""average_grade"": 7.87
+  },
+  {
+    ""grade_name"": ""Progress Test"",
+    ""average_grade"": 7.829999999999998
+  }
+]"
+Which students have a Practical Exam grade higher than 7 in Malware Analysis and Reverse Engineering?,"{""role"": ""Training Manager"", ""identity"": []}","SELECT s.student_id
+FROM Students s
+JOIN Enrollments e ON s.student_id = e.student_id
+JOIN ClassCourse cc ON e.class_course_id = cc.class_course_id
+JOIN Courses c ON cc.course_id = c.course_id
+JOIN StudentGradeDetails SGD ON e.enrollment_id = SGD.enrollment_id
+JOIN CourseGrade CG ON SGD.course_grade_id = CG.course_grade_id
+WHERE c.course_name = 'Malware Analysis and Reverse Engineering' AND CG.grade_name = 'Practical Exam' AND SGD.grade_value > 7;",SUCCESS,,4,"[
+  {
+    ""student_id"": ""HE011""
+  },
+  {
+    ""student_id"": ""HE012""
+  },
+  {
+    ""student_id"": ""HE013""
+  }
+]"
+Show my Assignment grade for Malware Analysis and Reverse Engineering.,"{""role"": ""Student"", ""identity"": [""HE011""]}","SELECT SGD.grade_value
+FROM StudentGradeDetails SGD
+JOIN CourseGrade CG ON SGD.course_grade_id = CG.course_grade_id
+JOIN Courses C ON CG.course_id = C.course_id
+JOIN Enrollments E ON SGD.enrollment_id = E.enrollment_id
+JOIN ClassCourse CC ON E.class_course_id = CC.class_course_id
+WHERE C.course_name = 'Malware Analysis and Reverse Engineering'
+  AND CG.grade_name = 'Assignment'
+  AND E.student_id = 'HE011';",SUCCESS,,4,"[
+  {
+    ""grade_value"": 9.0
+  }
+]"
+What's the weight of the Final Exam in Natural Language Processing?,"{""role"": ""Student"", ""identity"": []}","SELECT cg.grade_weight
+FROM Courses c
+JOIN CourseGrade cg ON c.course_id = cg.course_id
+WHERE c.course_name = 'Natural Language Processing' AND cg.grade_name = 'Final Exam';",SUCCESS,,4,"[
+  {
+    ""grade_weight"": 0.3
+  }
+]"
+Show all my grades and their weights in course MAE,"{""role"": ""Student"", ""identity"": [""HE001""]}","SELECT T1.grade_name, T1.grade_weight, T2.grade_value
+FROM CourseGrade AS T1
+INNER JOIN StudentGradeDetails AS T2 ON T1.course_grade_id = T2.course_grade_id
+INNER JOIN Enrollments AS T3 ON T2.enrollment_id = T3.enrollment_id
+INNER JOIN ClassCourse AS T4 ON T3.class_course_id = T4.class_course_id
+WHERE T4.course_id = 'MAE' AND T3.student_id = 'HE001';",SUCCESS,,4,"[
+  {
+    ""grade_name"": ""Assignment"",
+    ""grade_weight"": 0.3,
+    ""grade_value"": 9.2
+  },
+  {
+    ""grade_name"": ""Final Exam"",
+    ""grade_weight"": 0.4,
+    ""grade_value"": 9.8
+  },
+  {
+    ""grade_name"": ""Progress Test"",
+    ""grade_weight"": 0.3,
+    ""grade_value"": 9.4
+  }
+]"
+Show the course grades and comments for each assignment in MAE for my enrollment,"{""role"": ""Student"", ""identity"": [""HE001""]}","SELECT T1.grade_name, T2.grade_value, T2.comment
+FROM CourseGrade AS T1
+JOIN StudentGradeDetails AS T2 ON T1.course_grade_id = T2.course_grade_id
+JOIN Enrollments AS T3 ON T2.enrollment_id = T3.enrollment_id
+JOIN ClassCourse AS T4 ON T3.class_course_id = T4.class_course_id
+WHERE T4.course_id = 'MAE' AND T3.student_id = 'HE001' AND T1.grade_name LIKE '%Assignment%';",SUCCESS,,2,"[
+  {
+    ""grade_name"": ""Assignment"",
+    ""grade_value"": 9.2,
+    ""comment"": ""Grade Recorded""
+  }
+]"
+Find the average grade for all students in the course MAE,"{""role"": ""Training Manager"", ""identity"": []}",SELECT AVG(T1.average) AS AverageGrade FROM Enrollments AS T1 JOIN ClassCourse AS T2 ON T1.class_course_id  =  T2.class_course_id WHERE T2.course_id  =  'MAE',SUCCESS,,4,"[
+  {
+    ""AverageGrade"": 7.684
+  }
+]"
+Show my enrollement information (include my class and corresponding course) for courses where my average grade is above 8.,"{""role"": ""Student"", ""identity"": [""HE001""]}","SELECT c.class_id, co.course_name, e.average FROM Enrollments AS e JOIN ClassCourse AS co ON e.class_course_id = co.class_course_id JOIN Classes AS c ON co.class_id = c.class_id WHERE e.student_id = 'HE001' AND e.average > 8",DB_ERROR,"Lỗi MS SQL Server (42S22): [42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'course_name'. (207) (SQLExecDirectW) executing query: SELECT c.class_id, co.course_name, e.average FROM Enrollments AS e JOIN ClassCourse AS co ON e.class_course_id = co.class_course_id JOIN Classes AS c ON co.class_id = c.class_id WHERE e.student_id = 'HE001' AND e.average > 8",4,[]
+What is the highest grade value I received in course MAE?,"{""role"": ""Student"", ""identity"": [""HE001""]}","SELECT MAX(SGD.grade_value)
+FROM StudentGradeDetails AS SGD
+JOIN Enrollments AS E ON SGD.enrollment_id = E.enrollment_id
+JOIN ClassCourse AS CC ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C ON CC.course_id = C.course_id
+WHERE E.student_id = 'HE001' AND C.course_id = 'MAE';",SUCCESS,,4,"[
+  {
+    """": 9.8
+  }
+]"
+What is the average grade value of each of my completed courses/subjects?,"{""role"": ""Student"", ""identity"": [""HE001""]}","SELECT AVG(SGD.grade_value) AS AverageGradeValue, C.course_name
+FROM StudentGradeDetails AS SGD
+JOIN Enrollments AS E ON SGD.enrollment_id = E.enrollment_id
+JOIN ClassCourse AS CC ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C ON CC.course_id = C.course_id
+WHERE E.student_id = 'HE001' AND E.status = 'Passed'
+GROUP BY C.course_name;",SUCCESS,,4,"[
+  {
+    ""AverageGradeValue"": 9.466666666666667,
+    ""course_name"": ""Mathematics for Engineering""
+  }
+]"
+What was the course and class information corresponding to my top 5  highest grade?,"{""role"": ""Student"", ""identity"": [""HE001""]}","SELECT TOP 5 c.course_name, cc.class_id, sgd.grade_value
+FROM StudentGradeDetails AS sgd
+JOIN Enrollments AS e ON sgd.enrollment_id = e.enrollment_id
+JOIN ClassCourse AS cc ON e.class_course_id = cc.class_course_id
+JOIN Courses AS c ON cc.course_id = c.course_id
+WHERE e.student_id = 'HE001'
+ORDER BY sgd.grade_value DESC;",SUCCESS,,4,"[
+  {
+    ""course_name"": ""Natural Language Processing"",
+    ""class_id"": ""AI01"",
+    ""grade_value"": 10.0
+  },
+  {
+    ""course_name"": ""Mathematics for Engineering"",
+    ""class_id"": ""AI01"",
+    ""grade_value"": 9.8
+  },
+  {
+    ""course_name"": ""Mathematics for Engineering"",
+    ""class_id"": ""AI01"",
+    ""grade_value"": 9.4
+  },
+  {
+    ""course_name"": ""Mathematics for Engineering"",
+    ""class_id"": ""AI01"",
+    ""grade_value"": 9.2
+  },
+  {
+    ""course_name"": ""Machine Learning"",
+    ""class_id"": ""AI01"",
+    ""grade_value"": 9.0
+  }
+]"
+Which courses have a grade name called Final Exam?,"{""role"": ""Student"", ""identity"": []}",SELECT DISTINCT c.course_name FROM Courses c JOIN CourseGrade cg ON c.course_id = cg.course_id WHERE cg.grade_name = 'Final Exam',SUCCESS,,4,"[
+  {
+    ""course_name"": ""Computer Organization and Architecture""
+  },
+  {
+    ""course_name"": ""Computer Vision""
+  },
+  {
+    ""course_name"": ""Enterprise Resource Planning (ERP)""
+  },
+  {
+    ""course_name"": ""Information System Design & Analysis""
+  },
+  {
+    ""course_name"": ""Information System Programming Project""
+  },
+  {
+    ""course_name"": ""Introduction to Computer Science""
+  },
+  {
+    ""course_name"": ""Machine Learning""
+  },
+  {
+    ""course_name"": ""Malware Analysis and Reverse Engineering""
+  },
+  {
+    ""course_name"": ""Mathematics for Engineering""
+  },
+  {
+    ""course_name"": ""Natural Language Processing""
+  },
+  {
+    ""course_name"": ""Policy Development in Information Assurance""
+  },
+  {
+    ""course_name"": ""Risk Management in Information Systems""
+  },
+  {
+    ""course_name"": ""Software Architecture and Design""
+  },
+  {
+    ""course_name"": ""Software development project""
+  },
+  {
+    ""course_name"": ""Software Requirement""
+  }
+]"
+List the grades for the courses I've Passed.,"{""role"": ""Student"", ""identity"": [""HE001""]}","SELECT c.course_name,sgd.grade_value
+FROM Enrollments AS e
+JOIN ClassCourse AS cc ON e.class_course_id = cc.class_course_id
+JOIN Courses AS c ON cc.course_id = c.course_id
+JOIN StudentGradeDetails as sgd on e.enrollment_id = sgd.enrollment_id
+WHERE e.student_id = 'HE001' AND e.status = 'Passed';",SUCCESS,,4,"[
+  {
+    ""course_name"": ""Mathematics for Engineering"",
+    ""grade_value"": 9.2
+  },
+  {
+    ""course_name"": ""Mathematics for Engineering"",
+    ""grade_value"": 9.8
+  },
+  {
+    ""course_name"": ""Mathematics for Engineering"",
+    ""grade_value"": 9.4
+  }
+]"
+Which course has the highest number of students passing the subject?,"{""role"": ""Training Manager"", ""identity"": []}","SELECT TOP 1 c.course_name
+FROM Courses c
+JOIN ClassCourse cc ON c.course_id = cc.course_id
+JOIN Enrollments e ON cc.class_course_id = e.class_course_id
+WHERE e.status = 'Passed'
+GROUP BY c.course_name
+ORDER BY COUNT(e.enrollment_id) DESC;",SUCCESS,,4,"[
+  {
+    ""course_name"": ""Mathematics for Engineering""
+  }
+]"
+Show my transcript including course name grade and credits for each course,"{""role"": ""Student"", ""identity"": [""HE001""]}","SELECT c.course_name, AVG(sgd.grade_value) AS grade, c.no_credit
+FROM Enrollments AS e
+JOIN ClassCourse AS cc ON e.class_course_id = cc.class_course_id
+JOIN Courses AS c ON cc.course_id = c.course_id
+JOIN StudentGradeDetails AS sgd ON e.enrollment_id = sgd.enrollment_id
+WHERE e.student_id = 'HE001'
+GROUP BY c.course_name, c.no_credit;",SUCCESS,,2,"[
+  {
+    ""course_name"": ""Machine Learning"",
+    ""grade"": 8.5,
+    ""no_credit"": 3
+  },
+  {
+    ""course_name"": ""Mathematics for Engineering"",
+    ""grade"": 9.466666666666667,
+    ""no_credit"": 3
+  },
+  {
+    ""course_name"": ""Natural Language Processing"",
+    ""grade"": 9.066666666666666,
+    ""no_credit"": 3
+  }
+]"
+Show the academic standing of the students in the classes that I have taught.,"{""role"": ""Lecturer"", ""identity"": [""LEC01""]}",SELECT DISTINCT T3.status FROM ClassCourse AS T1 JOIN Enrollments AS T2 ON T1.class_course_id = T2.class_course_id JOIN Students AS T3 ON T2.student_id = T3.student_id WHERE T1.lecturer_id = 'LEC01',DB_ERROR,Lỗi MS SQL Server (42S22): [42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'status'. (207) (SQLExecDirectW) executing query: SELECT DISTINCT T3.status FROM ClassCourse AS T1 JOIN Enrollments AS T2 ON T1.class_course_id = T2.class_course_id JOIN Students AS T3 ON T2.student_id = T3.student_id WHERE T1.lecturer_id = 'LEC01',4,[]
+Show all class schedules this semester.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT s.schedule_id, cc.class_course_id, c.course_name, s.start_time, s.end_time, s.room FROM Schedules s JOIN ClassCourse cc ON s.class_course_id = cc.class_course_id JOIN Courses c ON cc.course_id = c.course_id WHERE cc.semester = 'SP25'",SUCCESS,,4,"[
+  {
+    ""schedule_id"": ""AI01_AIL_1"",
+    ""class_course_id"": ""AI01_AIL"",
+    ""course_name"": ""Machine Learning"",
+    ""start_time"": ""2025-01-06T07:30:00"",
+    ""end_time"": ""2025-01-06T09:50:00"",
+    ""room"": ""R001""
+  },
+  {
+    ""schedule_id"": ""AI01_AIL_2"",
+    ""class_course_id"": ""AI01_AIL"",
+    ""course_name"": ""Machine Learning"",
+    ""start_time"": ""2025-01-08T10:00:00"",
+    ""end_time"": ""2025-01-08T12:20:00"",
+    ""room"": ""R001""
+  },
+  {
+    ""schedule_id"": ""AI01_AIL_3"",
+    ""class_course_id"": ""AI01_AIL"",
+    ""course_name"": ""Machine Learning"",
+    ""start_time"": ""2025-01-13T07:30:00"",
+    ""end_time"": ""2025-01-13T09:50:00"",
+    ""room"": ""R001""
+  },
+  {
+    ""schedule_id"": ""AI01_AIL_4"",
+    ""class_course_id"": ""AI01_AIL"",
+    ""course_name"": ""Machine Learning"",
+    ""start_time"": ""2025-01-15T10:00:00"",
+    ""end_time"": ""2025-01-15T12:20:00"",
+    ""room"": ""R001""
+  },
+  {
+    ""schedule_id"": ""AI01_AIL_5"",
+    ""class_course_id"": ""AI01_AIL"",
+    ""course_name"": ""Machine Learning"",
+    ""start_time"": ""2025-01-20T07:30:00"",
+    ""end_time"": ""2025-01-20T09:50:00"",
+    ""room"": ""R001""
+  },
+  {
+    ""schedule_id"": ""AI01_NLP_1"",
+    ""class_course_id"": ""AI01_NLP"",
+    ""course_name"": ""Natural Language Processing"",
+    ""start_time"": ""2025-01-06T10:00:00"",
+    ""end_time"": ""2025-01-06T12:20:00"",
+    ""room"": ""R003""
+  },
+  {
+    ""schedule_id"": ""AI01_NLP_2"",
+    ""class_course_id"": ""AI01_NLP"",
+    ""course_name"": ""Natural Language Processing"",
+    ""start_time"": ""2025-01-08T07:30:00"",
+    ""end_time"": ""2025-01-08T09:50:00"",
+    ""room"": ""R003""
+  },
+  {
+    ""schedule_id"": ""AI01_NLP_3"",
+    ""class_course_id"": ""AI01_NLP"",
+    ""course_name"": ""Natural Language Processing"",
+    ""start_time"": ""2025-01-13T10:00:00"",
+    ""end_time"": ""2025-01-13T12:20:00"",
+    ""room"": ""R003""
+  },
+  {
+    ""schedule_id"": ""AI01_NLP_4"",
+    ""class_course_id"": ""AI01_NLP"",
+    ""course_name"": ""Natural Language Processing"",
+    ""start_time"": ""2025-01-15T07:30:00"",
+    ""end_time"": ""2025-01-15T09:50:00"",
+    ""room"": ""R003""
+  },
+  {
+    ""schedule_id"": ""AI01_NLP_5"",
+    ""class_course_id"": ""AI01_NLP"",
+    ""course_name"": ""Natural Language Processing"",
+    ""start_time"": ""2025-01-20T10:00:00"",
+    ""end_time"": ""2025-01-20T12:20:00"",
+    ""room"": ""R003""
+  },
+  {
+    ""schedule_id"": ""IA01_IAM_1"",
+    ""class_course_id"": ""IA01_IAM"",
+    ""course_name"": ""Malware Analysis and Reverse Engineering"",
+    ""start_time"": ""2025-01-06T12:50:00"",
+    ""end_time"": ""2025-01-06T15:10:00"",
+    ""room"": ""R004""
+  },
+  {
+    ""schedule_id"": ""IA01_IAM_2"",
+    ""class_course_id"": ""IA01_IAM"",
+    ""course_name"": ""Malware Analysis and Reverse Engineering"",
+    ""start_time"": ""2025-01-08T15:20:00"",
+    ""end_time"": ""2025-01-08T17:40:00"",
+    ""room"": ""R004""
+  },
+  {
+    ""schedule_id"": ""IA01_IAM_3"",
+    ""class_course_id"": ""IA01_IAM"",
+    ""course_name"": ""Malware Analysis and Reverse Engineering"",
+    ""start_time"": ""2025-01-13T12:50:00"",
+    ""end_time"": ""2025-01-13T15:10:00"",
+    ""room"": ""R004""
+  },
+  {
+    ""schedule_id"": ""IA01_IAM_4"",
+    ""class_course_id"": ""IA01_IAM"",
+    ""course_name"": ""Malware Analysis and Reverse Engineering"",
+    ""start_time"": ""2025-01-15T15:20:00"",
+    ""end_time"": ""2025-01-15T17:40:00"",
+    ""room"": ""R004""
+  },
+  {
+    ""schedule_id"": ""IA01_IAM_5"",
+    ""class_course_id"": ""IA01_IAM"",
+    ""course_name"": ""Malware Analysis and Reverse Engineering"",
+    ""start_time"": ""2025-01-20T12:50:00"",
+    ""end_time"": ""2025-01-20T15:10:00"",
+    ""room"": ""R004""
+  }
+]"
+Show the schedule for classes on September 9th 2024.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT s.room, s.start_time, s.end_time, cc.class_course_id, c.course_name FROM Schedules s JOIN ClassCourse cc ON s.class_course_id = cc.class_course_id JOIN Courses c ON cc.course_id = c.course_id WHERE CAST(s.start_time AS DATE) = '2024-09-09'",SUCCESS,,4,"[
+  {
+    ""room"": ""R002"",
+    ""start_time"": ""2024-09-09T07:30:00"",
+    ""end_time"": ""2024-09-09T09:50:00"",
+    ""class_course_id"": ""AI01_MAE"",
+    ""course_name"": ""Mathematics for Engineering""
+  },
+  {
+    ""room"": ""R003"",
+    ""start_time"": ""2024-09-09T07:30:00"",
+    ""end_time"": ""2024-09-09T09:50:00"",
+    ""class_course_id"": ""IA01_MAE"",
+    ""course_name"": ""Mathematics for Engineering""
+  }
+]"
+How many classes are held room 'R001' in this semester?,"{""role"": ""Training Manager"", ""identity"": []}",SELECT COUNT(DISTINCT s.class_course_id) FROM Schedules AS s JOIN ClassCourse AS cc ON s.class_course_id = cc.class_course_id WHERE s.room = 'R001' AND cc.semester = (SELECT MAX(semester) FROM ClassCourse),SUCCESS,,4,"[
+  {
+    """": 1
+  }
+]"
+Show the schedules for morning classes this semester (include class and course),"{""role"": ""Training Manager"", ""identity"": []}","SELECT c.class_id, co.course_name, s.start_time, s.end_time, s.room FROM ClassCourse AS cc JOIN Classes AS c ON cc.class_id = c.class_id JOIN Courses AS co ON cc.course_id = co.course_id JOIN Schedules AS s ON cc.class_course_id = s.class_course_id WHERE cc.semester = (SELECT TOP 1 semester FROM ClassCourse ORDER BY semester DESC) AND CAST(s.start_time AS TIME) >= '07:00:00' AND CAST(s.start_time AS TIME) < '12:00:00';",SUCCESS,,4,"[
+  {
+    ""class_id"": ""AI01"",
+    ""course_name"": ""Machine Learning"",
+    ""start_time"": ""2025-01-06T07:30:00"",
+    ""end_time"": ""2025-01-06T09:50:00"",
+    ""room"": ""R001""
+  },
+  {
+    ""class_id"": ""AI01"",
+    ""course_name"": ""Machine Learning"",
+    ""start_time"": ""2025-01-08T10:00:00"",
+    ""end_time"": ""2025-01-08T12:20:00"",
+    ""room"": ""R001""
+  },
+  {
+    ""class_id"": ""AI01"",
+    ""course_name"": ""Machine Learning"",
+    ""start_time"": ""2025-01-13T07:30:00"",
+    ""end_time"": ""2025-01-13T09:50:00"",
+    ""room"": ""R001""
+  },
+  {
+    ""class_id"": ""AI01"",
+    ""course_name"": ""Machine Learning"",
+    ""start_time"": ""2025-01-15T10:00:00"",
+    ""end_time"": ""2025-01-15T12:20:00"",
+    ""room"": ""R001""
+  },
+  {
+    ""class_id"": ""AI01"",
+    ""course_name"": ""Machine Learning"",
+    ""start_time"": ""2025-01-20T07:30:00"",
+    ""end_time"": ""2025-01-20T09:50:00"",
+    ""room"": ""R001""
+  },
+  {
+    ""class_id"": ""AI01"",
+    ""course_name"": ""Natural Language Processing"",
+    ""start_time"": ""2025-01-06T10:00:00"",
+    ""end_time"": ""2025-01-06T12:20:00"",
+    ""room"": ""R003""
+  },
+  {
+    ""class_id"": ""AI01"",
+    ""course_name"": ""Natural Language Processing"",
+    ""start_time"": ""2025-01-08T07:30:00"",
+    ""end_time"": ""2025-01-08T09:50:00"",
+    ""room"": ""R003""
+  },
+  {
+    ""class_id"": ""AI01"",
+    ""course_name"": ""Natural Language Processing"",
+    ""start_time"": ""2025-01-13T10:00:00"",
+    ""end_time"": ""2025-01-13T12:20:00"",
+    ""room"": ""R003""
+  },
+  {
+    ""class_id"": ""AI01"",
+    ""course_name"": ""Natural Language Processing"",
+    ""start_time"": ""2025-01-15T07:30:00"",
+    ""end_time"": ""2025-01-15T09:50:00"",
+    ""room"": ""R003""
+  },
+  {
+    ""class_id"": ""AI01"",
+    ""course_name"": ""Natural Language Processing"",
+    ""start_time"": ""2025-01-20T10:00:00"",
+    ""end_time"": ""2025-01-20T12:20:00"",
+    ""room"": ""R003""
+  }
+]"
+What time is the first Machine Learning class ('AIL') on Monday January 6th 2025?,"{""role"": ""Training Manager"", ""identity"": []}","SELECT MIN(start_time) FROM Schedules AS S JOIN ClassCourse AS CC ON S.class_course_id = CC.class_course_id JOIN Courses AS C ON CC.course_id = C.course_id WHERE C.course_id = 'AIL' AND CAST(start_time AS DATE) = '2025-01-06' AND DATENAME(dw, start_time) = 'Monday';",SUCCESS,,4,"[
+  {
+    """": ""2025-01-06T07:30:00""
+  }
+]"
+How many classes are scheduled for January 6th 2025?,"{""role"": ""Training Manager"", ""identity"": []}","SELECT COUNT(DISTINCT T1.class_course_id) FROM Schedules AS T1 WHERE CONVERT(DATE,T1.start_time) = '2025-01-06'",SUCCESS,,4,"[
+  {
+    """": 3
+  }
+]"
+Which subjects have a duration longer than 2 hours?,"{""role"": ""Training Manager"", ""identity"": []}","SELECT DISTINCT c.course_name
+FROM Courses c
+JOIN ClassCourse cc ON c.course_id = cc.course_id
+JOIN Schedules s ON cc.class_course_id = s.class_course_id
+WHERE DATEDIFF(hour, s.start_time, s.end_time) > 2;",SUCCESS,,4,"[
+  {
+    ""course_name"": ""Malware Analysis and Reverse Engineering""
+  }
+]"
+Show the timetable for class AI01 during the Fall semester of last year.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT T1.start_time, T1.end_time, T1.room FROM Schedules AS T1 JOIN ClassCourse AS T2 ON T1.class_course_id = T2.class_course_id WHERE T2.class_id = 'AI01' AND T2.semester = 'FA24'",SUCCESS,,2,"[
+  {
+    ""start_time"": ""2024-09-09T07:30:00"",
+    ""end_time"": ""2024-09-09T09:50:00"",
+    ""room"": ""R002""
+  },
+  {
+    ""start_time"": ""2024-09-11T10:00:00"",
+    ""end_time"": ""2024-09-11T12:20:00"",
+    ""room"": ""R002""
+  },
+  {
+    ""start_time"": ""2024-09-16T07:30:00"",
+    ""end_time"": ""2024-09-16T09:50:00"",
+    ""room"": ""R002""
+  },
+  {
+    ""start_time"": ""2024-09-18T10:00:00"",
+    ""end_time"": ""2024-09-18T12:20:00"",
+    ""room"": ""R002""
+  },
+  {
+    ""start_time"": ""2024-09-23T07:30:00"",
+    ""end_time"": ""2024-09-23T09:50:00"",
+    ""room"": ""R002""
+  }
+]"
+What is the number of classes held in each classroom this semester?,"{""role"": ""Training Manager"", ""identity"": []}","SELECT T1.room, COUNT(*) AS NumberOfClasses FROM Schedules AS T1 JOIN ClassCourse AS T2 ON T1.class_course_id = T2.class_course_id WHERE T2.semester = 'SP25' GROUP BY T1.room",SUCCESS,,4,"[
+  {
+    ""room"": ""R001"",
+    ""NumberOfClasses"": 5
+  },
+  {
+    ""room"": ""R003"",
+    ""NumberOfClasses"": 5
+  },
+  {
+    ""room"": ""R004"",
+    ""NumberOfClasses"": 5
+  }
+]"
+Show the morning classes in room R002 last semester.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT c.course_name, s.start_time, s.room
+FROM ClassCourse AS cc
+JOIN Schedules AS s ON cc.class_course_id = s.class_course_id
+JOIN Courses AS c ON cc.course_id = c.course_id
+WHERE s.room = 'R002' AND CAST(s.start_time AS DATE) BETWEEN DATEADD(month, -6, GETDATE()) AND GETDATE() AND CAST(s.start_time AS TIME) >= '00:00:00' AND CAST(s.start_time AS TIME) < '12:00:00';",SUCCESS,,4,[]
+"How many classes are held in the morning, afternoon in this semester?","{""role"": ""Training Manager"", ""identity"": []}","SELECT COUNT(CASE WHEN CAST(Schedules.start_time AS TIME) BETWEEN '00:00:00' AND '12:00:00' THEN 1 END) AS MorningClasses, COUNT(CASE WHEN CAST(Schedules.start_time AS TIME) BETWEEN '12:00:00' AND '18:00:00' THEN 1 END) AS AfternoonClasses FROM Schedules JOIN ClassCourse ON Schedules.class_course_id = ClassCourse.class_course_id WHERE ClassCourse.semester = (SELECT MAX(semester) FROM ClassCourse);",SUCCESS,,4,"[
+  {
+    ""MorningClasses"": 10,
+    ""AfternoonClasses"": 5
+  }
+]"
+Which days of the week does the AI01 class have Machine Learning?,"{""role"": ""Training Manager"", ""identity"": []}","SELECT DATENAME(dw, S.start_time) AS DayOfWeek FROM Schedules AS S JOIN ClassCourse AS CC ON S.class_course_id = CC.class_course_id JOIN Courses AS C ON CC.course_id = C.course_id JOIN Classes AS CL ON CC.class_id = CL.class_id WHERE CL.class_id = 'AI01' AND C.course_name = 'Machine Learning' GROUP BY DATENAME(dw, S.start_time)",SUCCESS,,4,"[
+  {
+    ""DayOfWeek"": ""Monday""
+  },
+  {
+    ""DayOfWeek"": ""Wednesday""
+  }
+]"
+How many scheduled sessions are there for the IA01 section?,"{""role"": ""Training Manager"", ""identity"": []}",SELECT COUNT(*) FROM Schedules AS T1 JOIN ClassCourse AS T2 ON T1.class_course_id = T2.class_course_id WHERE T2.class_id = 'IA01',SUCCESS,,4,"[
+  {
+    """": 10
+  }
+]"
+Show the schedule for all Mathematics for Engineering classes last semester.,"{""role"": ""Training Manager"", ""identity"": []}",SELECT s.* FROM Schedules s JOIN ClassCourse cc ON s.class_course_id = cc.class_course_id JOIN Courses c ON cc.course_id = c.course_id WHERE c.course_name LIKE '%Mathematics for Engineering%' AND cc.semester = 'FA24';,SUCCESS,,4,"[
+  {
+    ""schedule_id"": ""AI01_MAE_1"",
+    ""class_course_id"": ""AI01_MAE"",
+    ""start_time"": ""2024-09-09T07:30:00"",
+    ""end_time"": ""2024-09-09T09:50:00"",
+    ""room"": ""R002"",
+    ""slot"": 1
+  },
+  {
+    ""schedule_id"": ""AI01_MAE_2"",
+    ""class_course_id"": ""AI01_MAE"",
+    ""start_time"": ""2024-09-11T10:00:00"",
+    ""end_time"": ""2024-09-11T12:20:00"",
+    ""room"": ""R002"",
+    ""slot"": 2
+  },
+  {
+    ""schedule_id"": ""AI01_MAE_3"",
+    ""class_course_id"": ""AI01_MAE"",
+    ""start_time"": ""2024-09-16T07:30:00"",
+    ""end_time"": ""2024-09-16T09:50:00"",
+    ""room"": ""R002"",
+    ""slot"": 3
+  },
+  {
+    ""schedule_id"": ""AI01_MAE_4"",
+    ""class_course_id"": ""AI01_MAE"",
+    ""start_time"": ""2024-09-18T10:00:00"",
+    ""end_time"": ""2024-09-18T12:20:00"",
+    ""room"": ""R002"",
+    ""slot"": 4
+  },
+  {
+    ""schedule_id"": ""AI01_MAE_5"",
+    ""class_course_id"": ""AI01_MAE"",
+    ""start_time"": ""2024-09-23T07:30:00"",
+    ""end_time"": ""2024-09-23T09:50:00"",
+    ""room"": ""R002"",
+    ""slot"": 5
+  },
+  {
+    ""schedule_id"": ""IA01_MAE_1"",
+    ""class_course_id"": ""IA01_MAE"",
+    ""start_time"": ""2024-09-09T07:30:00"",
+    ""end_time"": ""2024-09-09T09:50:00"",
+    ""room"": ""R003"",
+    ""slot"": 1
+  },
+  {
+    ""schedule_id"": ""IA01_MAE_2"",
+    ""class_course_id"": ""IA01_MAE"",
+    ""start_time"": ""2024-09-11T10:00:00"",
+    ""end_time"": ""2024-09-11T12:20:00"",
+    ""room"": ""R003"",
+    ""slot"": 2
+  },
+  {
+    ""schedule_id"": ""IA01_MAE_3"",
+    ""class_course_id"": ""IA01_MAE"",
+    ""start_time"": ""2024-09-16T07:30:00"",
+    ""end_time"": ""2024-09-16T09:50:00"",
+    ""room"": ""R003"",
+    ""slot"": 3
+  },
+  {
+    ""schedule_id"": ""IA01_MAE_4"",
+    ""class_course_id"": ""IA01_MAE"",
+    ""start_time"": ""2024-09-18T10:00:00"",
+    ""end_time"": ""2024-09-18T12:20:00"",
+    ""room"": ""R003"",
+    ""slot"": 4
+  },
+  {
+    ""schedule_id"": ""IA01_MAE_5"",
+    ""class_course_id"": ""IA01_MAE"",
+    ""start_time"": ""2024-09-23T07:30:00"",
+    ""end_time"": ""2024-09-23T09:50:00"",
+    ""room"": ""R003"",
+    ""slot"": 5
+  }
+]"
+Which courses have classes on Mondays in this semester?,"{""role"": ""Training Manager"", ""identity"": []}","SELECT DISTINCT c.course_name
+FROM Courses c
+JOIN ClassCourse cc ON c.course_id = cc.course_id
+JOIN Schedules s ON cc.class_course_id = s.class_course_id
+WHERE DATENAME(dw, s.start_time) = 'Monday';",SUCCESS,,4,"[
+  {
+    ""course_name"": ""Machine Learning""
+  },
+  {
+    ""course_name"": ""Malware Analysis and Reverse Engineering""
+  },
+  {
+    ""course_name"": ""Mathematics for Engineering""
+  },
+  {
+    ""course_name"": ""Natural Language Processing""
+  }
+]"
+How many classes are there for each course this term?,"{""role"": ""Training Manager"", ""identity"": []}","SELECT c.course_name, COUNT(DISTINCT cc.class_id) AS NumberOfClasses FROM Courses c JOIN ClassCourse cc ON c.course_id = cc.course_id GROUP BY c.course_name",SUCCESS,,4,"[
+  {
+    ""course_name"": ""Machine Learning"",
+    ""NumberOfClasses"": 1
+  },
+  {
+    ""course_name"": ""Malware Analysis and Reverse Engineering"",
+    ""NumberOfClasses"": 1
+  },
+  {
+    ""course_name"": ""Mathematics for Engineering"",
+    ""NumberOfClasses"": 2
+  },
+  {
+    ""course_name"": ""Natural Language Processing"",
+    ""NumberOfClasses"": 1
+  }
+]"
+Which courses have classes that start after 3:00 PM this semester?,"{""role"": ""Training Manager"", ""identity"": []}","SELECT DISTINCT c.course_name
+FROM Schedules AS s
+JOIN ClassCourse AS cc ON s.class_course_id = cc.class_course_id
+JOIN Courses AS c ON cc.course_id = c.course_id
+WHERE CAST(s.start_time AS TIME) > '15:00:00';",SUCCESS,,2,"[
+  {
+    ""course_name"": ""Malware Analysis and Reverse Engineering""
+  }
+]"
+What's the total duration of all 'Malware Analysis and Reverse Engineering' classes?,"{""role"": ""Training Manager"", ""identity"": []}","SELECT SUM(DATEDIFF(minute, T1.start_time, T1.end_time)) AS TotalDurationInMinutes
+FROM Schedules AS T1
+JOIN ClassCourse AS T2 ON T1.class_course_id = T2.class_course_id
+JOIN Courses AS T3 ON T2.course_id = T3.course_id
+WHERE T3.course_name = 'Malware Analysis and Reverse Engineering';",SUCCESS,,4,"[
+  {
+    ""TotalDurationInMinutes"": 700
+  }
+]"
+Which courses have classes in room R004 this semester?,"{""role"": ""Training Manager"", ""identity"": []}","SELECT c.course_name
+FROM Courses c
+JOIN ClassCourse cc ON c.course_id = cc.course_id
+JOIN Schedules s ON cc.class_course_id = s.class_course_id
+WHERE s.room = 'R004' AND cc.semester = 'SP25';",SUCCESS,,4,"[
+  {
+    ""course_name"": ""Malware Analysis and Reverse Engineering""
+  },
+  {
+    ""course_name"": ""Malware Analysis and Reverse Engineering""
+  },
+  {
+    ""course_name"": ""Malware Analysis and Reverse Engineering""
+  },
+  {
+    ""course_name"": ""Malware Analysis and Reverse Engineering""
+  },
+  {
+    ""course_name"": ""Malware Analysis and Reverse Engineering""
+  }
+]"
+Show the schedule for classes taught by Professor Giang this semester.,"{""role"": ""Lecturer"", ""identity"": [""LEC01""]}","SELECT s.start_time, s.end_time, s.room, c.course_name
+FROM Schedules s
+JOIN ClassCourse cc ON s.class_course_id = cc.class_course_id
+JOIN Courses c ON cc.course_id = c.course_id
+JOIN Lecturers l ON cc.lecturer_id = l.lecturer_id
+JOIN Users u ON l.lecturer_id = u.user_id
+WHERE u.fullname = 'Giang' AND cc.semester = (SELECT MAX(semester) FROM ClassCourse);",SUCCESS,,4,"[
+  {
+    ""start_time"": ""2025-01-06T07:30:00"",
+    ""end_time"": ""2025-01-06T09:50:00"",
+    ""room"": ""R001"",
+    ""course_name"": ""Machine Learning""
+  },
+  {
+    ""start_time"": ""2025-01-08T10:00:00"",
+    ""end_time"": ""2025-01-08T12:20:00"",
+    ""room"": ""R001"",
+    ""course_name"": ""Machine Learning""
+  },
+  {
+    ""start_time"": ""2025-01-13T07:30:00"",
+    ""end_time"": ""2025-01-13T09:50:00"",
+    ""room"": ""R001"",
+    ""course_name"": ""Machine Learning""
+  },
+  {
+    ""start_time"": ""2025-01-15T10:00:00"",
+    ""end_time"": ""2025-01-15T12:20:00"",
+    ""room"": ""R001"",
+    ""course_name"": ""Machine Learning""
+  },
+  {
+    ""start_time"": ""2025-01-20T07:30:00"",
+    ""end_time"": ""2025-01-20T09:50:00"",
+    ""room"": ""R001"",
+    ""course_name"": ""Machine Learning""
+  }
+]"
+Which courses does Professor Hai teach?,"{""role"": ""Training Manager"", ""identity"": []}",SELECT c.course_name FROM Courses c JOIN ClassCourse cc ON c.course_id = cc.course_id JOIN Lecturers l ON cc.lecturer_id = l.lecturer_id WHERE l.fullname = 'Hai',DB_ERROR,Lỗi MS SQL Server (42S22): [42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'fullname'. (207) (SQLExecDirectW) executing query: SELECT c.course_name FROM Courses c JOIN ClassCourse cc ON c.course_id = cc.course_id JOIN Lecturers l ON cc.lecturer_id = l.lecturer_id WHERE l.fullname = 'Hai',4,[]
+How many classes does Professor Giang teach this semester?,"{""role"": ""Training Manager"", ""identity"": []}",SELECT COUNT(DISTINCT cc.class_id) FROM ClassCourse AS cc JOIN Lecturers AS l ON cc.lecturer_id = l.lecturer_id JOIN Users AS u ON l.lecturer_id = u.user_id WHERE u.fullname = 'Giang' AND cc.semester = (SELECT MAX(semester) FROM ClassCourse);,SUCCESS,,4,"[
+  {
+    """": 1
+  }
+]"
+Which lecturers have classes in the morning this semester?,"{""role"": ""Training Manager"", ""identity"": []}","SELECT DISTINCT L.lecturer_id
+FROM Lecturers AS L
+JOIN ClassCourse AS CC ON L.lecturer_id = CC.lecturer_id
+JOIN Schedules AS S ON CC.class_course_id = S.class_course_id
+WHERE CC.semester = (SELECT MAX(semester) FROM ClassCourse) AND CAST(S.start_time AS TIME) >= '00:00:00' AND CAST(S.start_time AS TIME) < '12:00:00';",SUCCESS,,4,"[
+  {
+    ""lecturer_id"": ""LEC01""
+  },
+  {
+    ""lecturer_id"": ""LEC05""
+  }
+]"
+Show the complete schedule (including class name course name and lecturer) for the AI01 class.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT c.class_id, co.course_name, l.fullname
+FROM Classes c
+JOIN ClassCourse co ON c.class_id = co.class_id
+JOIN Lecturers l ON co.lecturer_id = l.lecturer_id
+WHERE c.class_id = 'AI01';",DB_ERROR,"Lỗi MS SQL Server (42S22): [42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'course_name'. (207) (SQLExecDirectW); [42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'fullname'. (207) executing query: SELECT c.class_id, co.course_name, l.fullname
+FROM Classes c
+JOIN ClassCourse co ON c.class_id = co.class_id
+JOIN Lecturers l ON co.lecturer_id = l.lecturer_id
+WHERE c.class_id = 'AI01';",4,[]
+Which lecturer teaches the Mathematics for Engineering course for class IA01 on Monday at 7:30 AM?,"{""role"": ""Training Manager"", ""identity"": []}","SELECT L.fullname
+FROM Lecturers AS L
+JOIN ClassCourse AS CC ON L.lecturer_id = CC.lecturer_id
+JOIN Classes AS C ON CC.class_id = C.class_id
+JOIN Courses AS CO ON CC.course_id = CO.course_id
+JOIN Schedules AS S ON CC.class_course_id = S.class_course_id
+WHERE C.class_id = 'IA01' AND CO.course_name = 'Mathematics for Engineering' AND DATENAME(dw, S.start_time) = 'Monday' AND CAST(S.start_time AS TIME) = '07:30:00';",DB_ERROR,"Lỗi MS SQL Server (42S22): [42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'fullname'. (207) (SQLExecDirectW) executing query: SELECT L.fullname
+FROM Lecturers AS L
+JOIN ClassCourse AS CC ON L.lecturer_id = CC.lecturer_id
+JOIN Classes AS C ON CC.class_id = C.class_id
+JOIN Courses AS CO ON CC.course_id = CO.course_id
+JOIN Schedules AS S ON CC.class_course_id = S.class_course_id
+WHERE C.class_id = 'IA01' AND CO.course_name = 'Mathematics for Engineering' AND DATENAME(dw, S.start_time) = 'Monday' AND CAST(S.start_time AS TIME) = '07:30:00';",2,[]
+How many lecturers have classes scheduled on September 9th 2024?,"{""role"": ""Training Manager"", ""identity"": []}","SELECT COUNT(DISTINCT T1.lecturer_id)
+FROM ClassCourse AS T1
+JOIN Schedules AS T2 ON T1.class_course_id = T2.class_course_id
+WHERE CONVERT(DATE, T2.start_time) = '2024-09-09';",SUCCESS,,2,"[
+  {
+    """": 2
+  }
+]"
+Show Professor Giang's schedule sorted by start time.,"{""role"": ""Training Manager"", ""identity"": []}","SELECT s.schedule_id, s.start_time, s.end_time, s.room,s.slot FROM Schedules s JOIN ClassCourse cc ON s.class_course_id = cc.class_course_id JOIN Lecturers l ON cc.lecturer_id = l.lecturer_id JOIN Users u ON l.lecturer_id = u.user_id WHERE u.fullname = 'Giang' ORDER BY s.start_time",SUCCESS,,4,"[
+  {
+    ""schedule_id"": ""IA01_MAE_1"",
+    ""start_time"": ""2024-09-09T07:30:00"",
+    ""end_time"": ""2024-09-09T09:50:00"",
+    ""room"": ""R003"",
+    ""slot"": 1
+  },
+  {
+    ""schedule_id"": ""IA01_MAE_2"",
+    ""start_time"": ""2024-09-11T10:00:00"",
+    ""end_time"": ""2024-09-11T12:20:00"",
+    ""room"": ""R003"",
+    ""slot"": 2
+  },
+  {
+    ""schedule_id"": ""IA01_MAE_3"",
+    ""start_time"": ""2024-09-16T07:30:00"",
+    ""end_time"": ""2024-09-16T09:50:00"",
+    ""room"": ""R003"",
+    ""slot"": 3
+  },
+  {
+    ""schedule_id"": ""IA01_MAE_4"",
+    ""start_time"": ""2024-09-18T10:00:00"",
+    ""end_time"": ""2024-09-18T12:20:00"",
+    ""room"": ""R003"",
+    ""slot"": 4
+  },
+  {
+    ""schedule_id"": ""IA01_MAE_5"",
+    ""start_time"": ""2024-09-23T07:30:00"",
+    ""end_time"": ""2024-09-23T09:50:00"",
+    ""room"": ""R003"",
+    ""slot"": 5
+  },
+  {
+    ""schedule_id"": ""AI01_AIL_1"",
+    ""start_time"": ""2025-01-06T07:30:00"",
+    ""end_time"": ""2025-01-06T09:50:00"",
+    ""room"": ""R001"",
+    ""slot"": 1
+  },
+  {
+    ""schedule_id"": ""AI01_AIL_2"",
+    ""start_time"": ""2025-01-08T10:00:00"",
+    ""end_time"": ""2025-01-08T12:20:00"",
+    ""room"": ""R001"",
+    ""slot"": 2
+  },
+  {
+    ""schedule_id"": ""AI01_AIL_3"",
+    ""start_time"": ""2025-01-13T07:30:00"",
+    ""end_time"": ""2025-01-13T09:50:00"",
+    ""room"": ""R001"",
+    ""slot"": 3
+  },
+  {
+    ""schedule_id"": ""AI01_AIL_4"",
+    ""start_time"": ""2025-01-15T10:00:00"",
+    ""end_time"": ""2025-01-15T12:20:00"",
+    ""room"": ""R001"",
+    ""slot"": 4
+  },
+  {
+    ""schedule_id"": ""AI01_AIL_5"",
+    ""start_time"": ""2025-01-20T07:30:00"",
+    ""end_time"": ""2025-01-20T09:50:00"",
+    ""room"": ""R001"",
+    ""slot"": 5
+  }
+]"
+Show the schedule for course MAE this semester?,"{""role"": ""Training Manager"", ""identity"": []}","SELECT s.start_time, s.end_time, s.room, s.slot FROM Schedules s JOIN ClassCourse cc ON s.class_course_id = cc.class_course_id JOIN Courses c ON cc.course_id = c.course_id WHERE c.course_id = 'MAE' AND cc.semester = (SELECT MAX(semester) FROM ClassCourse)",SUCCESS,,4,[]
+Show my schedule for all the classes I am currently enrolled in.,"{""role"": ""Student"", ""identity"": [""HE001""]}",SELECT s.* FROM Schedules AS s JOIN ClassCourse AS cc ON s.class_course_id = cc.class_course_id JOIN Enrollments AS e ON cc.class_course_id = e.class_course_id WHERE e.student_id = 'HE001',SUCCESS,,4,"[
+  {
+    ""schedule_id"": ""AI01_AIL_1"",
+    ""class_course_id"": ""AI01_AIL"",
+    ""start_time"": ""2025-01-06T07:30:00"",
+    ""end_time"": ""2025-01-06T09:50:00"",
+    ""room"": ""R001"",
+    ""slot"": 1
+  },
+  {
+    ""schedule_id"": ""AI01_AIL_2"",
+    ""class_course_id"": ""AI01_AIL"",
+    ""start_time"": ""2025-01-08T10:00:00"",
+    ""end_time"": ""2025-01-08T12:20:00"",
+    ""room"": ""R001"",
+    ""slot"": 2
+  },
+  {
+    ""schedule_id"": ""AI01_AIL_3"",
+    ""class_course_id"": ""AI01_AIL"",
+    ""start_time"": ""2025-01-13T07:30:00"",
+    ""end_time"": ""2025-01-13T09:50:00"",
+    ""room"": ""R001"",
+    ""slot"": 3
+  },
+  {
+    ""schedule_id"": ""AI01_AIL_4"",
+    ""class_course_id"": ""AI01_AIL"",
+    ""start_time"": ""2025-01-15T10:00:00"",
+    ""end_time"": ""2025-01-15T12:20:00"",
+    ""room"": ""R001"",
+    ""slot"": 4
+  },
+  {
+    ""schedule_id"": ""AI01_AIL_5"",
+    ""class_course_id"": ""AI01_AIL"",
+    ""start_time"": ""2025-01-20T07:30:00"",
+    ""end_time"": ""2025-01-20T09:50:00"",
+    ""room"": ""R001"",
+    ""slot"": 5
+  },
+  {
+    ""schedule_id"": ""AI01_MAE_1"",
+    ""class_course_id"": ""AI01_MAE"",
+    ""start_time"": ""2024-09-09T07:30:00"",
+    ""end_time"": ""2024-09-09T09:50:00"",
+    ""room"": ""R002"",
+    ""slot"": 1
+  },
+  {
+    ""schedule_id"": ""AI01_MAE_2"",
+    ""class_course_id"": ""AI01_MAE"",
+    ""start_time"": ""2024-09-11T10:00:00"",
+    ""end_time"": ""2024-09-11T12:20:00"",
+    ""room"": ""R002"",
+    ""slot"": 2
+  },
+  {
+    ""schedule_id"": ""AI01_MAE_3"",
+    ""class_course_id"": ""AI01_MAE"",
+    ""start_time"": ""2024-09-16T07:30:00"",
+    ""end_time"": ""2024-09-16T09:50:00"",
+    ""room"": ""R002"",
+    ""slot"": 3
+  },
+  {
+    ""schedule_id"": ""AI01_MAE_4"",
+    ""class_course_id"": ""AI01_MAE"",
+    ""start_time"": ""2024-09-18T10:00:00"",
+    ""end_time"": ""2024-09-18T12:20:00"",
+    ""room"": ""R002"",
+    ""slot"": 4
+  },
+  {
+    ""schedule_id"": ""AI01_MAE_5"",
+    ""class_course_id"": ""AI01_MAE"",
+    ""start_time"": ""2024-09-23T07:30:00"",
+    ""end_time"": ""2024-09-23T09:50:00"",
+    ""room"": ""R002"",
+    ""slot"": 5
+  },
+  {
+    ""schedule_id"": ""AI01_NLP_1"",
+    ""class_course_id"": ""AI01_NLP"",
+    ""start_time"": ""2025-01-06T10:00:00"",
+    ""end_time"": ""2025-01-06T12:20:00"",
+    ""room"": ""R003"",
+    ""slot"": 1
+  },
+  {
+    ""schedule_id"": ""AI01_NLP_2"",
+    ""class_course_id"": ""AI01_NLP"",
+    ""start_time"": ""2025-01-08T07:30:00"",
+    ""end_time"": ""2025-01-08T09:50:00"",
+    ""room"": ""R003"",
+    ""slot"": 2
+  },
+  {
+    ""schedule_id"": ""AI01_NLP_3"",
+    ""class_course_id"": ""AI01_NLP"",
+    ""start_time"": ""2025-01-13T10:00:00"",
+    ""end_time"": ""2025-01-13T12:20:00"",
+    ""room"": ""R003"",
+    ""slot"": 3
+  },
+  {
+    ""schedule_id"": ""AI01_NLP_4"",
+    ""class_course_id"": ""AI01_NLP"",
+    ""start_time"": ""2025-01-15T07:30:00"",
+    ""end_time"": ""2025-01-15T09:50:00"",
+    ""room"": ""R003"",
+    ""slot"": 4
+  },
+  {
+    ""schedule_id"": ""AI01_NLP_5"",
+    ""class_course_id"": ""AI01_NLP"",
+    ""start_time"": ""2025-01-20T10:00:00"",
+    ""end_time"": ""2025-01-20T12:20:00"",
+    ""room"": ""R003"",
+    ""slot"": 5
+  }
+]"
+Which classes start after 10:00 AM this semester?,"{""role"": ""Training Manager"", ""identity"": []}",SELECT DISTINCT c.class_id FROM Classes AS c JOIN ClassCourse AS cc ON c.class_id = cc.class_id JOIN Schedules AS s ON cc.class_course_id = s.class_course_id WHERE s.start_time >= CAST(CAST(GETDATE() AS DATE) AS VARCHAR) + ' 10:00:00',SUCCESS,,4,[]
+Show my schedule for the next week,"{""role"": ""Student"", ""identity"": [""HE001""]}","SELECT s.* FROM Schedules s JOIN ClassCourse cc ON s.class_course_id = cc.class_course_id JOIN Enrollments e ON cc.class_course_id = e.class_course_id WHERE e.student_id = 'HE001' AND s.start_time >= DATEADD(wk, DATEDIFF(wk, 7, GETDATE()), 0) AND s.start_time < DATEADD(wk, DATEDIFF(wk, 0, GETDATE()), 7)",SUCCESS,,4,[]
+Show my schedule for the next week,"{""role"": ""Lecturer"", ""identity"": [""LEC01""]}","SELECT s.start_time, s.end_time, c.course_name
+FROM Schedules s
+JOIN ClassCourse cc ON s.class_course_id = cc.class_course_id
+JOIN Courses c ON cc.course_id = c.course_id
+JOIN ClassCourse cl ON cc.class_course_id = cl.class_course_id
+WHERE cl.lecturer_id = 'LEC01' AND s.start_time >= DATEADD(wk, DATEDIFF(wk, 7, GETDATE()), 0) AND s.start_time < DATEADD(wk, DATEDIFF(wk, 0, GETDATE()), 7)
+ORDER BY s.start_time;",SUCCESS,,4,[]
+What courses have no schedules assigned this semester?,"{""role"": ""Training Manager"", ""identity"": []}","SELECT c.course_name
+FROM Courses c
+JOIN ClassCourse cc ON c.course_id = cc.course_id
+LEFT JOIN Schedules s ON cc.class_course_id = s.class_course_id
+WHERE s.schedule_id IS NULL AND cc.semester = (SELECT MAX(semester) FROM ClassCourse);",SUCCESS,,4,[]
+"Show my class schedule for this semester, including the instructors.","{""role"": ""Student"", ""identity"": [""HE001""]}","SELECT s.start_time, s.end_time, s.room, c.course_name, l.fullname AS lecturer_name
+FROM Schedules s
+JOIN ClassCourse cc ON s.class_course_id = cc.class_course_id
+JOIN Courses c ON cc.course_id = c.course_id
+JOIN Lecturers l ON cc.lecturer_id = l.lecturer_id
+JOIN Enrollments e ON cc.class_course_id = e.class_course_id
+WHERE e.student_id = 'HE001' AND cc.semester = (SELECT TOP 1 start_semester FROM Students WHERE student_id = 'HE001');",DB_ERROR,"Lỗi MS SQL Server (42S22): [42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'fullname'. (207) (SQLExecDirectW) executing query: SELECT s.start_time, s.end_time, s.room, c.course_name, l.fullname AS lecturer_name
+FROM Schedules s
+JOIN ClassCourse cc ON s.class_course_id = cc.class_course_id
+JOIN Courses c ON cc.course_id = c.course_id
+JOIN Lecturers l ON cc.lecturer_id = l.lecturer_id
+JOIN Enrollments e ON cc.class_course_id = e.class_course_id
+WHERE e.student_id = 'HE001' AND cc.semester = (SELECT TOP 1 start_semester FROM Students WHERE student_id = 'HE001');",2,[]

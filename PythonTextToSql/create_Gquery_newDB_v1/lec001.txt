@@ -1,0 +1,99 @@
+Lecturer LEC001 Detailed Information
+This document summarizes all personal, academic, and teaching information for the lecturer with ID LEC001 based on the provided data.
+
+Personal Information
+
+Lecturer ID: LEC001
+Full Name: Nguyen Van Binh
+Gender: Male
+Date of Birth: 1980-03-15
+Address: Hanoi
+Role: Lecturer
+
+Academic Information
+
+Department: Artificial Intelligence
+
+Assigned Courses Overview
+
+A summary of the courses assigned to this lecturer.
+
+Semester: SP24
+Course: PRF192 - Programming Fundamentals
+Class name: AI01
+
+Semester: SP24
+Course: PRF192 - Programming Fundamentals
+Class name: SE02
+
+Semester: SU24
+Course: IAS301 - Information Assurance and Security
+Class name: IA01
+
+Semester: SU24
+Course: TOC201 - Theory of Computation
+Class name: CS02
+
+Detailed Class Information
+
+Course: PRF192 - Programming Fundamentals
+Class name: AI01 (Semester: SP24)
+
+Student Roster & Status:
+
+Student ID: HE00001, Full Name: Nguyen Van An, Status: Passed, Average: 7.5, Attendance: 8/10
+
+Student ID: HE00002, Full Name: Tran Thi Binh, Status: Failed, Average: 4.2, Attendance: 5/10
+
+Student ID: HE00003, Full Name: Le Van Cuong, Status: Passed, Average: 8.8, Attendance: 9/10
+
+Student ID: HE00004, Full Name: Pham Thi Dung, Status: Passed, Average: 5.5, Attendance: 8/10
+
+Course: PRF192 - Programming Fundamentals
+Class: SE02 (Semester: SP24)
+
+Student Roster & Status:
+
+Student ID: HE00030, Full Name: Tran Dieu My, Status: Passed, Average: 8.0, Attendance: 10/10
+
+Student ID: HE00031, Full Name: Phan Anh Tuan, Status: Passed, Average: 6.5, Attendance: 10/10
+
+Student ID: HE00032, Full Name: Vu Thuy Duong, Status: Failed, Average: 3.2, Attendance: 8/10
+
+Student ID: HE00033, Full Name: Hoang Minh Duc, Status: Passed, Average: 8.8, Attendance: 10/10
+
+Student ID: HE00034, Full Name: Le Thi Thu Trang, Status: Passed, Average: 5.9, Attendance: 9/10
+
+Course: IAS301 - Information Assurance and Security
+Class: IA01 (Semester: SU24)
+
+Student Roster & Status:
+
+Student ID: HE00014, Full Name: Mai Thi Quynh, Status: Studying, Average: 0, Attendance: 6/6
+
+Student ID: HE00015, Full Name: Phan Van Son, Status: Studying, Average: 0, Attendance: 6/6
+
+Student ID: HE00016, Full Name: Chau Thi Thao, Status: Studying, Average: 0, Attendance: 5/6
+
+Student ID: HE00017, Full Name: Tang Van Toan, Status: Studying, Average: 0, Attendance: 6/6
+
+Course: TOC201 - Theory of Computation
+Class: CS02 (Semester: SU24)
+
+Student Roster & Status:
+
+Student ID: HE00043, Full Name: Duong Cong Thanh, Status: Studying, Average: 0, Attendance: 6/6
+
+Student ID: HE00044, Full Name: Doan Minh Nguyet, Status: Studying, Average: 0, Attendance: 5/6
+
+Student ID: HE00045, Full Name: Ly Hoang Nam, Status: Studying, Average: 0, Attendance: 6/6
+
+Student ID: HE00046, Full Name: Mai Bao Chau, Status: Studying, Average: 0, Attendance: 6/6
+
+Student ID: HE00047, Full Name: Phan Tuan Kiet, Status: Studying, Average: 0, Attendance: 6/6
+
+Student ID: HE00048, Full Name: Chau My Le, Status: Studying, Average: 0, Attendance: 5/6
+
+Student ID: HE00049, Full Name: Tang Quoc Hung, Status: Studying, Average: 0, Attendance: 6/6
+
+Student ID: HE00050, Full Name: Kieu Diem My, Status: Studying, Average: 0, Attendance: 5/6
