@@ -1,0 +1,1477 @@
+﻿SQL,result
+"SELECT
+    COUNT(cc.class_course_id)
+FROM
+    ClassCourse CC
+JOIN Courses C ON CC.course_id = C.course_id
+Join Enrollments E on E.class_course_id = cc.class_course_id
+JOIN Students ST ON E.student_id = ST.student_id
+JOIN Users U ON ST.student_id = U.user_id
+WHERE
+    U.user_id = 'HE001'  
+    AND C.course_name = 'Machine Learning'  ","[{"""": 0}]"
+"SELECT COUNT(*) 
+FROM Schedules s 
+JOIN ClassCourse cc ON s.class_course_id = cc.class_course_id 
+WHERE cc.class_id = 'IA01'","[{"""": 0}]"
+"SELECT
+  COUNT(*)
+FROM Courses;","[{"""": 20}]"
+"SELECT
+  COUNT(DISTINCT class_id)
+FROM ClassCourse
+WHERE
+  semester = 'FA24';","[{"""": 0}]"
+"SELECT COUNT(DISTINCT cc.lecturer_id) 
+FROM Schedules s JOIN ClassCourse cc ON s.class_course_id = cc.class_course_id 
+WHERE CAST(s.start_time AS DATE) = '2024-09-09'","[{"""": 0}]"
+"SELECT
+  COUNT(DISTINCT student_id)
+FROM Students;","[{"""": 50}]"
+"SELECT MIN(start_time) 
+FROM Schedules s 
+JOIN ClassCourse cc ON s.class_course_id = cc.class_course_id 
+JOIN Courses c ON cc.course_id = c.course_id 
+WHERE c.course_name = 'Machine Learning' AND CAST(s.start_time AS DATE) = '2025-01-06'","[{"""": null}]"
+"SELECT
+  COUNT(DISTINCT S.student_id)
+FROM Students AS S
+JOIN Majors AS M
+  ON S.major_id = M.major_id
+JOIN Users AS U
+  ON S.student_id = U.user_id
+WHERE
+  M.major_name = 'Software Engineering' AND U.user_gender = 'female';","[{"""": 7}]"
+"SELECT
+  COUNT(*)
+FROM Courses
+WHERE
+  course_name LIKE 'I%';","[{"""": 2}]"
+"SELECT
+  COUNT(DISTINCT CC.course_id)
+FROM Enrollments AS E
+JOIN ClassCourse AS CC
+  ON E.class_course_id = CC.class_course_id
+WHERE
+  E.student_id = 'HE001';","[{"""": 0}]"
+"SELECT
+  COUNT(*)
+FROM Classes;","[{"""": 8}]"
+"SELECT
+  COUNT(*)
+FROM Departments;","[{"""": 4}]"
+"SELECT count(DISTINCT major_id)
+FROM Curriculums
+WHERE course_id = 'CEA';","[{"""": 0}]"
+"SELECT
+  COUNT(DISTINCT A.enrollment_id)
+FROM Attendance AS A
+JOIN Schedules AS S
+  ON A.schedule_id = S.schedule_id
+JOIN ClassCourse AS CC
+  ON S.class_course_id = CC.class_course_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+WHERE
+  CC.class_id = 'AI01'
+  AND C.course_name = 'Machine Learning'
+  AND A.status = 'Present'
+  AND CAST(S.start_time AS DATE) = '2025-01-08';","[{"""": 0}]"
+"SELECT MAX(sgd.grade_value) 
+FROM StudentGradeDetails sgd JOIN Enrollments e ON sgd.enrollment_id = e.enrollment_id 
+JOIN ClassCourse cc ON e.class_course_id = cc.class_course_id 
+WHERE e.student_id = 'HE001' AND cc.course_id = 'MAE'","[{"""": null}]"
+"SELECT DATENAME(weekday, s.start_time) 
+FROM Schedules s 
+JOIN ClassCourse cc ON s.class_course_id = cc.class_course_id 
+JOIN Courses c ON cc.course_id = c.course_id 
+WHERE cc.class_id = 'AI01' AND c.course_name = 'Machine Learning' 
+GROUP BY DATENAME(weekday, s.start_time)",Không có dòng nào được trả về.
+"SELECT
+  E.average AS AverageGrade,
+  E.status AS EnrollmentStatus
+FROM Enrollments AS E
+JOIN ClassCourse AS CC
+  ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+WHERE
+  E.student_id = 'HE001' AND C.course_name = 'Machine Learning' AND CC.class_id = 'AI01';",Không có dòng nào được trả về.
+"SELECT
+    AVG(E.average) AS AverageGrade
+FROM
+    Enrollments E
+JOIN ClassCourse CC ON E.class_course_id = CC.class_course_id
+JOIN Courses C ON CC.course_id = C.course_id
+WHERE
+    C.course_id = 'MAE' 
+    AND E.status <> 'Studying';","[{""AverageGrade"": null}]"
+"SELECT
+  COUNT(DISTINCT cc.class_id) AS class_count
+FROM Schedules AS s
+JOIN ClassCourse AS cc
+  ON s.class_course_id = cc.class_course_id
+WHERE
+  CAST(s.start_time AS DATE) = '2025-01-06';","[{""class_count"": 0}]"
+"SELECT
+  cc.class_id
+FROM ClassCourse AS cc
+JOIN Courses AS c
+  ON cc.course_id = c.course_id
+WHERE
+  c.course_name = 'Machine Learning' AND cc.semester = 'SP25';",Không có dòng nào được trả về.
+"SELECT
+  CC.class_id
+FROM ClassCourse AS CC
+GROUP BY
+  CC.class_id
+HAVING
+  COUNT(DISTINCT CC.course_id) > 1;","[{""class_id"": ""AI_K1_FA23""}, {""class_id"": ""AI_K2_SP24""}, {""class_id"": ""CS_K1_FA23""}, {""class_id"": ""CS_K2_SP24""}, {""class_id"": ""IA_K1_FA23""}, {""class_id"": ""IA_K2_SU24""}, {""class_id"": ""SE_K1_SP24""}, {""class_id"": ""SE_K2_SU24""}]"
+"SELECT T1.class_id
+FROM ClassCourse AS T1
+INNER JOIN Courses AS T2
+  ON T1.course_id = T2.course_id
+WHERE
+  T2.course_name = 'Mathematics for Engineering';",Không có dòng nào được trả về.
+"SELECT DISTINCT
+  class_id
+FROM ClassCourse
+WHERE
+  semester = 'SP25';",Không có dòng nào được trả về.
+"SELECT DISTINCT
+  c.class_id
+FROM Classes AS c
+JOIN ClassCourse AS cc
+  ON c.class_id = cc.class_id
+JOIN Schedules AS s
+  ON cc.class_course_id = s.class_course_id
+WHERE
+  DATENAME(weekday, S.start_time) = 'Monday' AND CC.semester = 'SP25';",Không có dòng nào được trả về.
+"SELECT
+  class_id
+FROM Classes;","[{""class_id"": ""AI_K1_FA23""}, {""class_id"": ""AI_K2_SP24""}, {""class_id"": ""CS_K1_FA23""}, {""class_id"": ""CS_K2_SP24""}, {""class_id"": ""IA_K1_FA23""}, {""class_id"": ""IA_K2_SU24""}, {""class_id"": ""SE_K1_SP24""}, {""class_id"": ""SE_K2_SU24""}]"
+"SELECT
+  CC.class_id,
+  CC.course_id,
+  E.average,
+  E.status AS enrollment_status
+FROM Enrollments AS E
+JOIN ClassCourse AS CC
+  ON E.class_course_id = CC.class_course_id
+WHERE
+  E.student_id = 'HE001' AND E.average > 8;",Không có dòng nào được trả về.
+"SELECT
+  T3.class_id,
+  T3.course_id,
+  T1.start_time,
+  T1.end_time,
+  T1.room,
+  T1.slot
+FROM Schedules AS T1
+INNER JOIN ClassCourse AS T3
+  ON T1.class_course_id = T3.class_course_id
+WHERE
+  DATEPART(hour, T1.start_time) < 12
+ORDER BY
+  T3.class_id,
+  T1.start_time;","[{""class_id"": ""AI_K1_FA23"", ""course_id"": ""PRF192"", ""start_time"": ""2024-01-08 07:30:00"", ""end_time"": ""2024-01-08 09:50:00"", ""room"": ""R001"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""CSD201"", ""start_time"": ""2024-01-09 07:30:00"", ""end_time"": ""2024-01-09 09:50:00"", ""room"": ""R002"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""PRF192"", ""start_time"": ""2024-01-15 07:30:00"", ""end_time"": ""2024-01-15 09:50:00"", ""room"": ""R001"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""CSD201"", ""start_time"": ""2024-01-16 07:30:00"", ""end_time"": ""2024-01-16 09:50:00"", ""room"": ""R002"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""PRF192"", ""start_time"": ""2024-01-22 07:30:00"", ""end_time"": ""2024-01-22 09:50:00"", ""room"": ""R001"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""CSD201"", ""start_time"": ""2024-01-23 07:30:00"", ""end_time"": ""2024-01-23 09:50:00"", ""room"": ""R002"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""PRF192"", ""start_time"": ""2024-01-29 07:30:00"", ""end_time"": ""2024-01-29 09:50:00"", ""room"": ""R001"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""CSD201"", ""start_time"": ""2024-01-30 07:30:00"", ""end_time"": ""2024-01-30 09:50:00"", ""room"": ""R002"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""PRF192"", ""start_time"": ""2024-02-05 07:30:00"", ""end_time"": ""2024-02-05 09:50:00"", ""room"": ""R001"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""CSD201"", ""start_time"": ""2024-02-06 07:30:00"", ""end_time"": ""2024-02-06 09:50:00"", ""room"": ""R002"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""PRF192"", ""start_time"": ""2024-02-12 07:30:00"", ""end_time"": ""2024-02-12 09:50:00"", ""room"": ""R001"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""CSD201"", ""start_time"": ""2024-02-13 07:30:00"", ""end_time"": ""2024-02-13 09:50:00"", ""room"": ""R002"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""PRF192"", ""start_time"": ""2024-02-19 07:30:00"", ""end_time"": ""2024-02-19 09:50:00"", ""room"": ""R001"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""CSD201"", ""start_time"": ""2024-02-20 07:30:00"", ""end_time"": ""2024-02-20 09:50:00"", ""room"": ""R002"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""PRF192"", ""start_time"": ""2024-02-26 07:30:00"", ""end_time"": ""2024-02-26 09:50:00"", ""room"": ""R001"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""CSD201"", ""start_time"": ""2024-02-27 07:30:00"", ""end_time"": ""2024-02-27 09:50:00"", ""room"": ""R002"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""PRF192"", ""start_time"": ""2024-03-04 07:30:00"", ""end_time"": ""2024-03-04 09:50:00"", ""room"": ""R001"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""CSD201"", ""start_time"": ""2024-03-05 07:30:00"", ""end_time"": ""2024-03-05 09:50:00"", ""room"": ""R002"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""PRF192"", ""start_time"": ""2024-03-11 07:30:00"", ""end_time"": ""2024-03-11 09:50:00"", ""room"": ""R001"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""CSD201"", ""start_time"": ""2024-03-12 07:30:00"", ""end_time"": ""2024-03-12 09:50:00"", ""room"": ""R002"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""AIL301"", ""start_time"": ""2024-05-06 07:30:00"", ""end_time"": ""2024-05-06 09:50:00"", ""room"": ""R001"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""NLP302"", ""start_time"": ""2024-05-07 07:30:00"", ""end_time"": ""2024-05-07 09:50:00"", ""room"": ""R002"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""AIL301"", ""start_time"": ""2024-05-13 07:30:00"", ""end_time"": ""2024-05-13 09:50:00"", ""room"": ""R001"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""NLP302"", ""start_time"": ""2024-05-14 07:30:00"", ""end_time"": ""2024-05-14 09:50:00"", ""room"": ""R002"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""AIL301"", ""start_time"": ""2024-05-20 07:30:00"", ""end_time"": ""2024-05-20 09:50:00"", ""room"": ""R001"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""NLP302"", ""start_time"": ""2024-05-21 07:30:00"", ""end_time"": ""2024-05-21 09:50:00"", ""room"": ""R002"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""AIL301"", ""start_time"": ""2024-05-27 07:30:00"", ""end_time"": ""2024-05-27 09:50:00"", ""room"": ""R001"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""NLP302"", ""start_time"": ""2024-05-28 07:30:00"", ""end_time"": ""2024-05-28 09:50:00"", ""room"": ""R002"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""AIL301"", ""start_time"": ""2024-06-03 07:30:00"", ""end_time"": ""2024-06-03 09:50:00"", ""room"": ""R001"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""NLP302"", ""start_time"": ""2024-06-04 07:30:00"", ""end_time"": ""2024-06-04 09:50:00"", ""room"": ""R002"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""AIL301"", ""start_time"": ""2024-06-10 07:30:00"", ""end_time"": ""2024-06-10 09:50:00"", ""room"": ""R001"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""NLP302"", ""start_time"": ""2024-06-11 07:30:00"", ""end_time"": ""2024-06-11 09:50:00"", ""room"": ""R002"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""AIL301"", ""start_time"": ""2024-06-17 07:30:00"", ""end_time"": ""2024-06-17 09:50:00"", ""room"": ""R001"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""NLP302"", ""start_time"": ""2024-06-18 07:30:00"", ""end_time"": ""2024-06-18 09:50:00"", ""room"": ""R002"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""AIL301"", ""start_time"": ""2024-06-24 07:30:00"", ""end_time"": ""2024-06-24 09:50:00"", ""room"": ""R001"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""NLP302"", ""start_time"": ""2024-06-25 07:30:00"", ""end_time"": ""2024-06-25 09:50:00"", ""room"": ""R002"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""AIL301"", ""start_time"": ""2024-07-01 07:30:00"", ""end_time"": ""2024-07-01 09:50:00"", ""room"": ""R001"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""NLP302"", ""start_time"": ""2024-07-02 07:30:00"", ""end_time"": ""2024-07-02 09:50:00"", ""room"": ""R002"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""AIL301"", ""start_time"": ""2024-07-08 07:30:00"", ""end_time"": ""2024-07-08 09:50:00"", ""room"": ""R001"", ""slot"": 1}, {""class_id"": ""AI_K1_FA23"", ""course_id"": ""NLP302"", ""start_time"": ""2024-07-09 07:30:00"", ""end_time"": ""2024-07-09 09:50:00"", ""room"": ""R002"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-01-10 07:30:00"", ""end_time"": ""2024-01-10 09:50:00"", ""room"": ""R003"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""CSD201"", ""start_time"": ""2024-01-11 07:30:00"", ""end_time"": ""2024-01-11 09:50:00"", ""room"": ""R004"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-01-17 07:30:00"", ""end_time"": ""2024-01-17 09:50:00"", ""room"": ""R003"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""CSD201"", ""start_time"": ""2024-01-18 07:30:00"", ""end_time"": ""2024-01-18 09:50:00"", ""room"": ""R004"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-01-24 07:30:00"", ""end_time"": ""2024-01-24 09:50:00"", ""room"": ""R003"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""CSD201"", ""start_time"": ""2024-01-25 07:30:00"", ""end_time"": ""2024-01-25 09:50:00"", ""room"": ""R004"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-01-31 07:30:00"", ""end_time"": ""2024-01-31 09:50:00"", ""room"": ""R003"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""CSD201"", ""start_time"": ""2024-02-01 07:30:00"", ""end_time"": ""2024-02-01 09:50:00"", ""room"": ""R004"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-02-07 07:30:00"", ""end_time"": ""2024-02-07 09:50:00"", ""room"": ""R003"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""CSD201"", ""start_time"": ""2024-02-08 07:30:00"", ""end_time"": ""2024-02-08 09:50:00"", ""room"": ""R004"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-02-14 07:30:00"", ""end_time"": ""2024-02-14 09:50:00"", ""room"": ""R003"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""CSD201"", ""start_time"": ""2024-02-15 07:30:00"", ""end_time"": ""2024-02-15 09:50:00"", ""room"": ""R004"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-02-21 07:30:00"", ""end_time"": ""2024-02-21 09:50:00"", ""room"": ""R003"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""CSD201"", ""start_time"": ""2024-02-22 07:30:00"", ""end_time"": ""2024-02-22 09:50:00"", ""room"": ""R004"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-02-28 07:30:00"", ""end_time"": ""2024-02-28 09:50:00"", ""room"": ""R003"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""CSD201"", ""start_time"": ""2024-02-29 07:30:00"", ""end_time"": ""2024-02-29 09:50:00"", ""room"": ""R004"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-03-06 07:30:00"", ""end_time"": ""2024-03-06 09:50:00"", ""room"": ""R003"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""CSD201"", ""start_time"": ""2024-03-07 07:30:00"", ""end_time"": ""2024-03-07 09:50:00"", ""room"": ""R004"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-03-13 07:30:00"", ""end_time"": ""2024-03-13 09:50:00"", ""room"": ""R003"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""CSD201"", ""start_time"": ""2024-03-14 07:30:00"", ""end_time"": ""2024-03-14 09:50:00"", ""room"": ""R004"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""AIL301"", ""start_time"": ""2024-05-08 07:30:00"", ""end_time"": ""2024-05-08 09:50:00"", ""room"": ""R003"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""NLP302"", ""start_time"": ""2024-05-09 07:30:00"", ""end_time"": ""2024-05-09 09:50:00"", ""room"": ""R004"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""AIL301"", ""start_time"": ""2024-05-15 07:30:00"", ""end_time"": ""2024-05-15 09:50:00"", ""room"": ""R003"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""NLP302"", ""start_time"": ""2024-05-16 07:30:00"", ""end_time"": ""2024-05-16 09:50:00"", ""room"": ""R004"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""AIL301"", ""start_time"": ""2024-05-22 07:30:00"", ""end_time"": ""2024-05-22 09:50:00"", ""room"": ""R003"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""NLP302"", ""start_time"": ""2024-05-23 07:30:00"", ""end_time"": ""2024-05-23 09:50:00"", ""room"": ""R004"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""AIL301"", ""start_time"": ""2024-05-29 07:30:00"", ""end_time"": ""2024-05-29 09:50:00"", ""room"": ""R003"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""NLP302"", ""start_time"": ""2024-05-30 07:30:00"", ""end_time"": ""2024-05-30 09:50:00"", ""room"": ""R004"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""AIL301"", ""start_time"": ""2024-06-05 07:30:00"", ""end_time"": ""2024-06-05 09:50:00"", ""room"": ""R003"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""NLP302"", ""start_time"": ""2024-06-06 07:30:00"", ""end_time"": ""2024-06-06 09:50:00"", ""room"": ""R004"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""AIL301"", ""start_time"": ""2024-06-12 07:30:00"", ""end_time"": ""2024-06-12 09:50:00"", ""room"": ""R003"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""NLP302"", ""start_time"": ""2024-06-13 07:30:00"", ""end_time"": ""2024-06-13 09:50:00"", ""room"": ""R004"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""AIL301"", ""start_time"": ""2024-06-19 07:30:00"", ""end_time"": ""2024-06-19 09:50:00"", ""room"": ""R003"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""NLP302"", ""start_time"": ""2024-06-20 07:30:00"", ""end_time"": ""2024-06-20 09:50:00"", ""room"": ""R004"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""AIL301"", ""start_time"": ""2024-06-26 07:30:00"", ""end_time"": ""2024-06-26 09:50:00"", ""room"": ""R003"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""NLP302"", ""start_time"": ""2024-06-27 07:30:00"", ""end_time"": ""2024-06-27 09:50:00"", ""room"": ""R004"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""AIL301"", ""start_time"": ""2024-07-03 07:30:00"", ""end_time"": ""2024-07-03 09:50:00"", ""room"": ""R003"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""NLP302"", ""start_time"": ""2024-07-04 07:30:00"", ""end_time"": ""2024-07-04 09:50:00"", ""room"": ""R004"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""AIL301"", ""start_time"": ""2024-07-10 07:30:00"", ""end_time"": ""2024-07-10 09:50:00"", ""room"": ""R003"", ""slot"": 1}, {""class_id"": ""AI_K2_SP24"", ""course_id"": ""NLP302"", ""start_time"": ""2024-07-11 07:30:00"", ""end_time"": ""2024-07-11 09:50:00"", ""room"": ""R004"", ""slot"": 1}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""DBI202"", ""start_time"": ""2024-01-08 10:00:00"", ""end_time"": ""2024-01-08 12:20:00"", ""room"": ""R001"", ""slot"": 2}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""PRF192"", ""start_time"": ""2024-01-12 07:30:00"", ""end_time"": ""2024-01-12 09:50:00"", ""room"": ""R005"", ""slot"": 1}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""DBI202"", ""start_time"": ""2024-01-15 10:00:00"", ""end_time"": ""2024-01-15 12:20:00"", ""room"": ""R001"", ""slot"": 2}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""PRF192"", ""start_time"": ""2024-01-19 07:30:00"", ""end_time"": ""2024-01-19 09:50:00"", ""room"": ""R005"", ""slot"": 1}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""DBI202"", ""start_time"": ""2024-01-22 10:00:00"", ""end_time"": ""2024-01-22 12:20:00"", ""room"": ""R001"", ""slot"": 2}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""PRF192"", ""start_time"": ""2024-01-26 07:30:00"", ""end_time"": ""2024-01-26 09:50:00"", ""room"": ""R005"", ""slot"": 1}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""DBI202"", ""start_time"": ""2024-01-29 10:00:00"", ""end_time"": ""2024-01-29 12:20:00"", ""room"": ""R001"", ""slot"": 2}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""PRF192"", ""start_time"": ""2024-02-02 07:30:00"", ""end_time"": ""2024-02-02 09:50:00"", ""room"": ""R005"", ""slot"": 1}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""DBI202"", ""start_time"": ""2024-02-05 10:00:00"", ""end_time"": ""2024-02-05 12:20:00"", ""room"": ""R001"", ""slot"": 2}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""PRF192"", ""start_time"": ""2024-02-09 07:30:00"", ""end_time"": ""2024-02-09 09:50:00"", ""room"": ""R005"", ""slot"": 1}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""DBI202"", ""start_time"": ""2024-02-12 10:00:00"", ""end_time"": ""2024-02-12 12:20:00"", ""room"": ""R001"", ""slot"": 2}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""PRF192"", ""start_time"": ""2024-02-16 07:30:00"", ""end_time"": ""2024-02-16 09:50:00"", ""room"": ""R005"", ""slot"": 1}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""DBI202"", ""start_time"": ""2024-02-19 10:00:00"", ""end_time"": ""2024-02-19 12:20:00"", ""room"": ""R001"", ""slot"": 2}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""PRF192"", ""start_time"": ""2024-02-23 07:30:00"", ""end_time"": ""2024-02-23 09:50:00"", ""room"": ""R005"", ""slot"": 1}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""DBI202"", ""start_time"": ""2024-02-26 10:00:00"", ""end_time"": ""2024-02-26 12:20:00"", ""room"": ""R001"", ""slot"": 2}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""PRF192"", ""start_time"": ""2024-03-01 07:30:00"", ""end_time"": ""2024-03-01 09:50:00"", ""room"": ""R005"", ""slot"": 1}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""DBI202"", ""start_time"": ""2024-03-04 10:00:00"", ""end_time"": ""2024-03-04 12:20:00"", ""room"": ""R001"", ""slot"": 2}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""PRF192"", ""start_time"": ""2024-03-08 07:30:00"", ""end_time"": ""2024-03-08 09:50:00"", ""room"": ""R005"", ""slot"": 1}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""DBI202"", ""start_time"": ""2024-03-11 10:00:00"", ""end_time"": ""2024-03-11 12:20:00"", ""room"": ""R001"", ""slot"": 2}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""PRF192"", ""start_time"": ""2024-03-15 07:30:00"", ""end_time"": ""2024-03-15 09:50:00"", ""room"": ""R005"", ""slot"": 1}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""NET302"", ""start_time"": ""2024-05-06 10:00:00"", ""end_time"": ""2024-05-06 12:20:00"", ""room"": ""R001"", ""slot"": 2}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""IAS301"", ""start_time"": ""2024-05-10 07:30:00"", ""end_time"": ""2024-05-10 09:50:00"", ""room"": ""R005"", ""slot"": 1}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""NET302"", ""start_time"": ""2024-05-13 10:00:00"", ""end_time"": ""2024-05-13 12:20:00"", ""room"": ""R001"", ""slot"": 2}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""IAS301"", ""start_time"": ""2024-05-17 07:30:00"", ""end_time"": ""2024-05-17 09:50:00"", ""room"": ""R005"", ""slot"": 1}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""NET302"", ""start_time"": ""2024-05-20 10:00:00"", ""end_time"": ""2024-05-20 12:20:00"", ""room"": ""R001"", ""slot"": 2}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""IAS301"", ""start_time"": ""2024-05-24 07:30:00"", ""end_time"": ""2024-05-24 09:50:00"", ""room"": ""R005"", ""slot"": 1}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""NET302"", ""start_time"": ""2024-05-27 10:00:00"", ""end_time"": ""2024-05-27 12:20:00"", ""room"": ""R001"", ""slot"": 2}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""IAS301"", ""start_time"": ""2024-05-31 07:30:00"", ""end_time"": ""2024-05-31 09:50:00"", ""room"": ""R005"", ""slot"": 1}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""NET302"", ""start_time"": ""2024-06-03 10:00:00"", ""end_time"": ""2024-06-03 12:20:00"", ""room"": ""R001"", ""slot"": 2}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""IAS301"", ""start_time"": ""2024-06-07 07:30:00"", ""end_time"": ""2024-06-07 09:50:00"", ""room"": ""R005"", ""slot"": 1}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""NET302"", ""start_time"": ""2024-06-10 10:00:00"", ""end_time"": ""2024-06-10 12:20:00"", ""room"": ""R001"", ""slot"": 2}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""IAS301"", ""start_time"": ""2024-06-14 07:30:00"", ""end_time"": ""2024-06-14 09:50:00"", ""room"": ""R005"", ""slot"": 1}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""NET302"", ""start_time"": ""2024-06-17 10:00:00"", ""end_time"": ""2024-06-17 12:20:00"", ""room"": ""R001"", ""slot"": 2}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""IAS301"", ""start_time"": ""2024-06-21 07:30:00"", ""end_time"": ""2024-06-21 09:50:00"", ""room"": ""R005"", ""slot"": 1}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""NET302"", ""start_time"": ""2024-06-24 10:00:00"", ""end_time"": ""2024-06-24 12:20:00"", ""room"": ""R001"", ""slot"": 2}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""IAS301"", ""start_time"": ""2024-06-28 07:30:00"", ""end_time"": ""2024-06-28 09:50:00"", ""room"": ""R005"", ""slot"": 1}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""NET302"", ""start_time"": ""2024-07-01 10:00:00"", ""end_time"": ""2024-07-01 12:20:00"", ""room"": ""R001"", ""slot"": 2}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""IAS301"", ""start_time"": ""2024-07-05 07:30:00"", ""end_time"": ""2024-07-05 09:50:00"", ""room"": ""R005"", ""slot"": 1}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""NET302"", ""start_time"": ""2024-07-08 10:00:00"", ""end_time"": ""2024-07-08 12:20:00"", ""room"": ""R001"", ""slot"": 2}, {""class_id"": ""IA_K1_FA23"", ""course_id"": ""IAS301"", ""start_time"": ""2024-07-12 07:30:00"", ""end_time"": ""2024-07-12 09:50:00"", ""room"": ""R005"", ""slot"": 1}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-01-09 10:00:00"", ""end_time"": ""2024-01-09 12:20:00"", ""room"": ""R002"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""DBI202"", ""start_time"": ""2024-01-10 10:00:00"", ""end_time"": ""2024-01-10 12:20:00"", ""room"": ""R003"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-01-16 10:00:00"", ""end_time"": ""2024-01-16 12:20:00"", ""room"": ""R002"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""DBI202"", ""start_time"": ""2024-01-17 10:00:00"", ""end_time"": ""2024-01-17 12:20:00"", ""room"": ""R003"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-01-23 10:00:00"", ""end_time"": ""2024-01-23 12:20:00"", ""room"": ""R002"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""DBI202"", ""start_time"": ""2024-01-24 10:00:00"", ""end_time"": ""2024-01-24 12:20:00"", ""room"": ""R003"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-01-30 10:00:00"", ""end_time"": ""2024-01-30 12:20:00"", ""room"": ""R002"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""DBI202"", ""start_time"": ""2024-01-31 10:00:00"", ""end_time"": ""2024-01-31 12:20:00"", ""room"": ""R003"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-02-06 10:00:00"", ""end_time"": ""2024-02-06 12:20:00"", ""room"": ""R002"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""DBI202"", ""start_time"": ""2024-02-07 10:00:00"", ""end_time"": ""2024-02-07 12:20:00"", ""room"": ""R003"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-02-13 10:00:00"", ""end_time"": ""2024-02-13 12:20:00"", ""room"": ""R002"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""DBI202"", ""start_time"": ""2024-02-14 10:00:00"", ""end_time"": ""2024-02-14 12:20:00"", ""room"": ""R003"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-02-20 10:00:00"", ""end_time"": ""2024-02-20 12:20:00"", ""room"": ""R002"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""DBI202"", ""start_time"": ""2024-02-21 10:00:00"", ""end_time"": ""2024-02-21 12:20:00"", ""room"": ""R003"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-02-27 10:00:00"", ""end_time"": ""2024-02-27 12:20:00"", ""room"": ""R002"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""DBI202"", ""start_time"": ""2024-02-28 10:00:00"", ""end_time"": ""2024-02-28 12:20:00"", ""room"": ""R003"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-03-05 10:00:00"", ""end_time"": ""2024-03-05 12:20:00"", ""room"": ""R002"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""DBI202"", ""start_time"": ""2024-03-06 10:00:00"", ""end_time"": ""2024-03-06 12:20:00"", ""room"": ""R003"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-03-12 10:00:00"", ""end_time"": ""2024-03-12 12:20:00"", ""room"": ""R002"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""DBI202"", ""start_time"": ""2024-03-13 10:00:00"", ""end_time"": ""2024-03-13 12:20:00"", ""room"": ""R003"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""IAS301"", ""start_time"": ""2024-05-07 10:00:00"", ""end_time"": ""2024-05-07 12:20:00"", ""room"": ""R002"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""NET302"", ""start_time"": ""2024-05-08 10:00:00"", ""end_time"": ""2024-05-08 12:20:00"", ""room"": ""R003"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""IAS301"", ""start_time"": ""2024-05-14 10:00:00"", ""end_time"": ""2024-05-14 12:20:00"", ""room"": ""R002"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""NET302"", ""start_time"": ""2024-05-15 10:00:00"", ""end_time"": ""2024-05-15 12:20:00"", ""room"": ""R003"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""IAS301"", ""start_time"": ""2024-05-21 10:00:00"", ""end_time"": ""2024-05-21 12:20:00"", ""room"": ""R002"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""NET302"", ""start_time"": ""2024-05-22 10:00:00"", ""end_time"": ""2024-05-22 12:20:00"", ""room"": ""R003"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""IAS301"", ""start_time"": ""2024-05-28 10:00:00"", ""end_time"": ""2024-05-28 12:20:00"", ""room"": ""R002"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""NET302"", ""start_time"": ""2024-05-29 10:00:00"", ""end_time"": ""2024-05-29 12:20:00"", ""room"": ""R003"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""IAS301"", ""start_time"": ""2024-06-04 10:00:00"", ""end_time"": ""2024-06-04 12:20:00"", ""room"": ""R002"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""NET302"", ""start_time"": ""2024-06-05 10:00:00"", ""end_time"": ""2024-06-05 12:20:00"", ""room"": ""R003"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""IAS301"", ""start_time"": ""2024-06-11 10:00:00"", ""end_time"": ""2024-06-11 12:20:00"", ""room"": ""R002"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""NET302"", ""start_time"": ""2024-06-12 10:00:00"", ""end_time"": ""2024-06-12 12:20:00"", ""room"": ""R003"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""IAS301"", ""start_time"": ""2024-06-18 10:00:00"", ""end_time"": ""2024-06-18 12:20:00"", ""room"": ""R002"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""NET302"", ""start_time"": ""2024-06-19 10:00:00"", ""end_time"": ""2024-06-19 12:20:00"", ""room"": ""R003"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""IAS301"", ""start_time"": ""2024-06-25 10:00:00"", ""end_time"": ""2024-06-25 12:20:00"", ""room"": ""R002"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""NET302"", ""start_time"": ""2024-06-26 10:00:00"", ""end_time"": ""2024-06-26 12:20:00"", ""room"": ""R003"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""IAS301"", ""start_time"": ""2024-07-02 10:00:00"", ""end_time"": ""2024-07-02 12:20:00"", ""room"": ""R002"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""NET302"", ""start_time"": ""2024-07-03 10:00:00"", ""end_time"": ""2024-07-03 12:20:00"", ""room"": ""R003"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""IAS301"", ""start_time"": ""2024-07-09 10:00:00"", ""end_time"": ""2024-07-09 12:20:00"", ""room"": ""R002"", ""slot"": 2}, {""class_id"": ""IA_K2_SU24"", ""course_id"": ""NET302"", ""start_time"": ""2024-07-10 10:00:00"", ""end_time"": ""2024-07-10 12:20:00"", ""room"": ""R003"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-01-11 10:00:00"", ""end_time"": ""2024-01-11 12:20:00"", ""room"": ""R004"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""MAD101"", ""start_time"": ""2024-01-12 10:00:00"", ""end_time"": ""2024-01-12 12:20:00"", ""room"": ""R005"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-01-18 10:00:00"", ""end_time"": ""2024-01-18 12:20:00"", ""room"": ""R004"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""MAD101"", ""start_time"": ""2024-01-19 10:00:00"", ""end_time"": ""2024-01-19 12:20:00"", ""room"": ""R005"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-01-25 10:00:00"", ""end_time"": ""2024-01-25 12:20:00"", ""room"": ""R004"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""MAD101"", ""start_time"": ""2024-01-26 10:00:00"", ""end_time"": ""2024-01-26 12:20:00"", ""room"": ""R005"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-02-01 10:00:00"", ""end_time"": ""2024-02-01 12:20:00"", ""room"": ""R004"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""MAD101"", ""start_time"": ""2024-02-02 10:00:00"", ""end_time"": ""2024-02-02 12:20:00"", ""room"": ""R005"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-02-08 10:00:00"", ""end_time"": ""2024-02-08 12:20:00"", ""room"": ""R004"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""MAD101"", ""start_time"": ""2024-02-09 10:00:00"", ""end_time"": ""2024-02-09 12:20:00"", ""room"": ""R005"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-02-15 10:00:00"", ""end_time"": ""2024-02-15 12:20:00"", ""room"": ""R004"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""MAD101"", ""start_time"": ""2024-02-16 10:00:00"", ""end_time"": ""2024-02-16 12:20:00"", ""room"": ""R005"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-02-22 10:00:00"", ""end_time"": ""2024-02-22 12:20:00"", ""room"": ""R004"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""MAD101"", ""start_time"": ""2024-02-23 10:00:00"", ""end_time"": ""2024-02-23 12:20:00"", ""room"": ""R005"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-02-29 10:00:00"", ""end_time"": ""2024-02-29 12:20:00"", ""room"": ""R004"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""MAD101"", ""start_time"": ""2024-03-01 10:00:00"", ""end_time"": ""2024-03-01 12:20:00"", ""room"": ""R005"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-03-07 10:00:00"", ""end_time"": ""2024-03-07 12:20:00"", ""room"": ""R004"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""MAD101"", ""start_time"": ""2024-03-08 10:00:00"", ""end_time"": ""2024-03-08 12:20:00"", ""room"": ""R005"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""PRF192"", ""start_time"": ""2024-03-14 10:00:00"", ""end_time"": ""2024-03-14 12:20:00"", ""room"": ""R004"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""MAD101"", ""start_time"": ""2024-03-15 10:00:00"", ""end_time"": ""2024-03-15 12:20:00"", ""room"": ""R005"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""SWE301"", ""start_time"": ""2024-05-09 10:00:00"", ""end_time"": ""2024-05-09 12:20:00"", ""room"": ""R004"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""PRJ302"", ""start_time"": ""2024-05-10 10:00:00"", ""end_time"": ""2024-05-10 12:20:00"", ""room"": ""R005"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""SWE301"", ""start_time"": ""2024-05-16 10:00:00"", ""end_time"": ""2024-05-16 12:20:00"", ""room"": ""R004"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""PRJ302"", ""start_time"": ""2024-05-17 10:00:00"", ""end_time"": ""2024-05-17 12:20:00"", ""room"": ""R005"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""SWE301"", ""start_time"": ""2024-05-23 10:00:00"", ""end_time"": ""2024-05-23 12:20:00"", ""room"": ""R004"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""PRJ302"", ""start_time"": ""2024-05-24 10:00:00"", ""end_time"": ""2024-05-24 12:20:00"", ""room"": ""R005"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""SWE301"", ""start_time"": ""2024-05-30 10:00:00"", ""end_time"": ""2024-05-30 12:20:00"", ""room"": ""R004"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""PRJ302"", ""start_time"": ""2024-05-31 10:00:00"", ""end_time"": ""2024-05-31 12:20:00"", ""room"": ""R005"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""SWE301"", ""start_time"": ""2024-06-06 10:00:00"", ""end_time"": ""2024-06-06 12:20:00"", ""room"": ""R004"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""PRJ302"", ""start_time"": ""2024-06-07 10:00:00"", ""end_time"": ""2024-06-07 12:20:00"", ""room"": ""R005"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""SWE301"", ""start_time"": ""2024-06-13 10:00:00"", ""end_time"": ""2024-06-13 12:20:00"", ""room"": ""R004"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""PRJ302"", ""start_time"": ""2024-06-14 10:00:00"", ""end_time"": ""2024-06-14 12:20:00"", ""room"": ""R005"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""SWE301"", ""start_time"": ""2024-06-20 10:00:00"", ""end_time"": ""2024-06-20 12:20:00"", ""room"": ""R004"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""PRJ302"", ""start_time"": ""2024-06-21 10:00:00"", ""end_time"": ""2024-06-21 12:20:00"", ""room"": ""R005"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""SWE301"", ""start_time"": ""2024-06-27 10:00:00"", ""end_time"": ""2024-06-27 12:20:00"", ""room"": ""R004"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""PRJ302"", ""start_time"": ""2024-06-28 10:00:00"", ""end_time"": ""2024-06-28 12:20:00"", ""room"": ""R005"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""SWE301"", ""start_time"": ""2024-07-04 10:00:00"", ""end_time"": ""2024-07-04 12:20:00"", ""room"": ""R004"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""PRJ302"", ""start_time"": ""2024-07-05 10:00:00"", ""end_time"": ""2024-07-05 12:20:00"", ""room"": ""R005"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""SWE301"", ""start_time"": ""2024-07-11 10:00:00"", ""end_time"": ""2024-07-11 12:20:00"", ""room"": ""R004"", ""slot"": 2}, {""class_id"": ""SE_K1_SP24"", ""course_id"": ""PRJ302"", ""start_time"": ""2024-07-12 10:00:00"", ""end_time"": ""2024-07-12 12:20:00"", ""room"": ""R005"", ""slot"": 2}]"
+"SELECT
+  c.class_id,
+  co.course_name
+FROM Classes AS c
+JOIN ClassCourse AS cc
+  ON c.class_id = cc.class_id
+JOIN Courses AS co
+  ON cc.course_id = co.course_id;","[{""class_id"": ""AI_K1_FA23"", ""course_name"": ""Artificial Intelligence and Machine Learning""}, {""class_id"": ""AI_K1_FA23"", ""course_name"": ""Data Structures and Algorithms""}, {""class_id"": ""AI_K1_FA23"", ""course_name"": ""Natural Language Processing""}, {""class_id"": ""AI_K1_FA23"", ""course_name"": ""Programming Fundamentals""}, {""class_id"": ""AI_K2_SP24"", ""course_name"": ""Artificial Intelligence and Machine Learning""}, {""class_id"": ""AI_K2_SP24"", ""course_name"": ""Data Structures and Algorithms""}, {""class_id"": ""AI_K2_SP24"", ""course_name"": ""Natural Language Processing""}, {""class_id"": ""AI_K2_SP24"", ""course_name"": ""Programming Fundamentals""}, {""class_id"": ""CS_K1_FA23"", ""course_name"": ""Data Structures and Algorithms""}, {""class_id"": ""CS_K1_FA23"", ""course_name"": ""Database Systems""}, {""class_id"": ""CS_K1_FA23"", ""course_name"": ""Operating Systems""}, {""class_id"": ""CS_K1_FA23"", ""course_name"": ""Theory of Computation""}, {""class_id"": ""CS_K2_SP24"", ""course_name"": ""Data Structures and Algorithms""}, {""class_id"": ""CS_K2_SP24"", ""course_name"": ""Database Systems""}, {""class_id"": ""CS_K2_SP24"", ""course_name"": ""Operating Systems""}, {""class_id"": ""CS_K2_SP24"", ""course_name"": ""Theory of Computation""}, {""class_id"": ""IA_K1_FA23"", ""course_name"": ""Database Systems""}, {""class_id"": ""IA_K1_FA23"", ""course_name"": ""Information Assurance and Security""}, {""class_id"": ""IA_K1_FA23"", ""course_name"": ""Network Security""}, {""class_id"": ""IA_K1_FA23"", ""course_name"": ""Programming Fundamentals""}, {""class_id"": ""IA_K2_SU24"", ""course_name"": ""Database Systems""}, {""class_id"": ""IA_K2_SU24"", ""course_name"": ""Information Assurance and Security""}, {""class_id"": ""IA_K2_SU24"", ""course_name"": ""Network Security""}, {""class_id"": ""IA_K2_SU24"", ""course_name"": ""Programming Fundamentals""}, {""class_id"": ""SE_K1_SP24"", ""course_name"": ""Mathematics for Developers""}, {""class_id"": ""SE_K1_SP24"", ""course_name"": ""Programming Fundamentals""}, {""class_id"": ""SE_K1_SP24"", ""course_name"": ""Software Project Management""}, {""class_id"": ""SE_K1_SP24"", ""course_name"": ""Software Engineering Principles""}, {""class_id"": ""SE_K2_SU24"", ""course_name"": ""Mathematics for Developers""}, {""class_id"": ""SE_K2_SU24"", ""course_name"": ""Programming Fundamentals""}, {""class_id"": ""SE_K2_SU24"", ""course_name"": ""Software Project Management""}, {""class_id"": ""SE_K2_SU24"", ""course_name"": ""Software Engineering Principles""}]"
+"SELECT
+  CC.class_id,
+  C.course_name,
+  L.lecturer_id
+FROM ClassCourse AS CC
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+JOIN Lecturers AS L
+  ON CC.lecturer_id = L.lecturer_id;","[{""class_id"": ""AI_K1_FA23"", ""course_name"": ""Artificial Intelligence and Machine Learning"", ""lecturer_id"": ""LEC003""}, {""class_id"": ""AI_K1_FA23"", ""course_name"": ""Data Structures and Algorithms"", ""lecturer_id"": ""LEC002""}, {""class_id"": ""AI_K1_FA23"", ""course_name"": ""Natural Language Processing"", ""lecturer_id"": ""LEC004""}, {""class_id"": ""AI_K1_FA23"", ""course_name"": ""Programming Fundamentals"", ""lecturer_id"": ""LEC001""}, {""class_id"": ""AI_K2_SP24"", ""course_name"": ""Artificial Intelligence and Machine Learning"", ""lecturer_id"": ""LEC007""}, {""class_id"": ""AI_K2_SP24"", ""course_name"": ""Data Structures and Algorithms"", ""lecturer_id"": ""LEC006""}, {""class_id"": ""AI_K2_SP24"", ""course_name"": ""Natural Language Processing"", ""lecturer_id"": ""LEC008""}, {""class_id"": ""AI_K2_SP24"", ""course_name"": ""Programming Fundamentals"", ""lecturer_id"": ""LEC005""}, {""class_id"": ""CS_K1_FA23"", ""course_name"": ""Data Structures and Algorithms"", ""lecturer_id"": ""LEC005""}, {""class_id"": ""CS_K1_FA23"", ""course_name"": ""Database Systems"", ""lecturer_id"": ""LEC006""}, {""class_id"": ""CS_K1_FA23"", ""course_name"": ""Operating Systems"", ""lecturer_id"": ""LEC008""}, {""class_id"": ""CS_K1_FA23"", ""course_name"": ""Theory of Computation"", ""lecturer_id"": ""LEC007""}, {""class_id"": ""CS_K2_SP24"", ""course_name"": ""Data Structures and Algorithms"", ""lecturer_id"": ""LEC009""}, {""class_id"": ""CS_K2_SP24"", ""course_name"": ""Database Systems"", ""lecturer_id"": ""LEC010""}, {""class_id"": ""CS_K2_SP24"", ""course_name"": ""Operating Systems"", ""lecturer_id"": ""LEC002""}, {""class_id"": ""CS_K2_SP24"", ""course_name"": ""Theory of Computation"", ""lecturer_id"": ""LEC001""}, {""class_id"": ""IA_K1_FA23"", ""course_name"": ""Database Systems"", ""lecturer_id"": ""LEC010""}, {""class_id"": ""IA_K1_FA23"", ""course_name"": ""Information Assurance and Security"", ""lecturer_id"": ""LEC001""}, {""class_id"": ""IA_K1_FA23"", ""course_name"": ""Network Security"", ""lecturer_id"": ""LEC002""}, {""class_id"": ""IA_K1_FA23"", ""course_name"": ""Programming Fundamentals"", ""lecturer_id"": ""LEC009""}, {""class_id"": ""IA_K2_SU24"", ""course_name"": ""Database Systems"", ""lecturer_id"": ""LEC004""}, {""class_id"": ""IA_K2_SU24"", ""course_name"": ""Information Assurance and Security"", ""lecturer_id"": ""LEC005""}, {""class_id"": ""IA_K2_SU24"", ""course_name"": ""Network Security"", ""lecturer_id"": ""LEC006""}, {""class_id"": ""IA_K2_SU24"", ""course_name"": ""Programming Fundamentals"", ""lecturer_id"": ""LEC003""}, {""class_id"": ""SE_K1_SP24"", ""course_name"": ""Mathematics for Developers"", ""lecturer_id"": ""LEC008""}, {""class_id"": ""SE_K1_SP24"", ""course_name"": ""Programming Fundamentals"", ""lecturer_id"": ""LEC007""}, {""class_id"": ""SE_K1_SP24"", ""course_name"": ""Software Project Management"", ""lecturer_id"": ""LEC010""}, {""class_id"": ""SE_K1_SP24"", ""course_name"": ""Software Engineering Principles"", ""lecturer_id"": ""LEC009""}, {""class_id"": ""SE_K2_SU24"", ""course_name"": ""Mathematics for Developers"", ""lecturer_id"": ""LEC002""}, {""class_id"": ""SE_K2_SU24"", ""course_name"": ""Programming Fundamentals"", ""lecturer_id"": ""LEC001""}, {""class_id"": ""SE_K2_SU24"", ""course_name"": ""Software Project Management"", ""lecturer_id"": ""LEC004""}, {""class_id"": ""SE_K2_SU24"", ""course_name"": ""Software Engineering Principles"", ""lecturer_id"": ""LEC003""}]"
+"SELECT
+  CC.class_id,
+  C.course_name,
+  U.fullname AS lecturer_name,
+  S.start_time,
+  S.end_time,
+  S.room,
+  S.slot,
+  CC.semester
+FROM Schedules AS S
+JOIN ClassCourse AS CC
+  ON S.class_course_id = CC.class_course_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+JOIN Lecturers AS L
+  ON CC.lecturer_id = L.lecturer_id
+JOIN Users AS U
+  ON L.lecturer_id = U.user_id
+WHERE
+  CC.semester = 'SP25';",Không có dòng nào được trả về.
+"SELECT TOP 1 WITH TIES
+    CC.class_id,
+    C.course_name,
+    AVG(E.average) AS AverageScore
+FROM
+    Enrollments AS E
+JOIN
+    ClassCourse AS CC ON E.class_course_id = CC.class_course_id
+JOIN
+    Courses AS C ON CC.course_id = C.course_id
+WHERE
+    E.status <> 'Studying' 
+GROUP BY
+    CC.class_id, C.course_name
+ORDER BY
+    AverageScore DESC;","[{""class_id"": ""CS_K1_FA23"", ""course_name"": ""Data Structures and Algorithms"", ""AverageScore"": 7.25}]"
+"SELECT
+  cc.class_id,
+  c.course_name,
+  s.start_time,
+  s.end_time,
+  s.room,
+  s.slot
+FROM Schedules AS s
+JOIN ClassCourse AS cc
+  ON s.class_course_id = cc.class_course_id
+JOIN Courses AS c
+  ON cc.course_id = c.course_id
+WHERE
+  s.room = 'R002' AND cc.semester = 'FA24'
+  AND DATEPART(hour, s.start_time) < 12;",Không có dòng nào được trả về.
+"SELECT
+  CC.class_id,
+  C.course_name,
+  S.start_time,
+  S.end_time,
+  S.room,
+  S.slot
+FROM Schedules AS S
+JOIN ClassCourse AS CC
+  ON S.class_course_id = CC.class_course_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+WHERE
+  CAST(S.start_time AS DATE) = '2024-09-09';",Không có dòng nào được trả về.
+"SELECT
+  C.class_id,
+  COUNT(CC.course_id) AS number_of_courses
+FROM Classes AS C
+LEFT JOIN ClassCourse AS CC
+  ON C.class_id = CC.class_id
+GROUP BY
+  C.class_id;","[{""class_id"": ""AI_K1_FA23"", ""number_of_courses"": 4}, {""class_id"": ""AI_K2_SP24"", ""number_of_courses"": 4}, {""class_id"": ""CS_K1_FA23"", ""number_of_courses"": 4}, {""class_id"": ""CS_K2_SP24"", ""number_of_courses"": 4}, {""class_id"": ""IA_K1_FA23"", ""number_of_courses"": 4}, {""class_id"": ""IA_K2_SU24"", ""number_of_courses"": 4}, {""class_id"": ""SE_K1_SP24"", ""number_of_courses"": 4}, {""class_id"": ""SE_K2_SU24"", ""number_of_courses"": 4}]"
+"SELECT DISTINCT
+  T1.class_id
+FROM ClassCourse AS T1
+INNER JOIN Courses AS T2
+  ON T1.course_id = T2.course_id
+INNER JOIN Lecturers AS T3
+  ON T1.lecturer_id = T3.lecturer_id
+INNER JOIN Users AS T4
+  ON T3.lecturer_id = T4.user_id
+WHERE
+  T2.course_name = 'Mathematics for Engineering' AND T4.fullname = 'Giang';",Không có dòng nào được trả về.
+"SELECT DISTINCT T2.class_id
+FROM Schedules AS T1
+INNER JOIN ClassCourse AS T2
+  ON T1.class_course_id = T2.class_course_id
+INNER JOIN Courses AS T3
+  ON T2.course_id = T3.course_id
+WHERE
+  CAST(T1.start_time AS TIME) > '10:00:00' AND T2.semester = 'SP25';",Không có dòng nào được trả về.
+"SELECT class_id
+FROM Classes
+EXCEPT
+SELECT DISTINCT class_id
+FROM ClassCourse",Không có dòng nào được trả về.
+"SELECT
+  *
+FROM Classes
+WHERE
+  class_id = 'SE01';",Không có dòng nào được trả về.
+"SELECT DISTINCT cc.course_id 
+FROM Schedules s 
+JOIN ClassCourse cc ON s.class_course_id = cc.class_course_id 
+WHERE DATEDIFF(minute, start_time, end_time) > 120","[{""course_id"": ""AIL301""}, {""course_id"": ""CSD201""}, {""course_id"": ""DBI202""}, {""course_id"": ""IAS301""}, {""course_id"": ""MAD101""}, {""course_id"": ""NET302""}, {""course_id"": ""NLP302""}, {""course_id"": ""OSG202""}, {""course_id"": ""PRF192""}, {""course_id"": ""PRJ302""}, {""course_id"": ""SWE301""}, {""course_id"": ""TOC201""}]"
+"SELECT
+  C.course_id,
+  CC.class_id,
+  S.start_time,
+  S.end_time,
+  S.room,
+  S.slot
+FROM Schedules AS S
+JOIN ClassCourse AS CC
+  ON S.class_course_id = CC.class_course_id
+JOIN Lecturers AS L
+  ON CC.lecturer_id = L.lecturer_id
+JOIN Users AS U
+  ON L.lecturer_id = U.user_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+WHERE
+  U.fullname LIKE '%Giang%' AND CC.semester = 'SP25';",Không có dòng nào được trả về.
+"SELECT
+  course_id,
+  course_name
+FROM Courses;","[{""course_id"": ""AIE303"", ""course_name"": ""AI Ethics and Society""}, {""course_id"": ""AIL301"", ""course_name"": ""Artificial Intelligence and Machine Learning""}, {""course_id"": ""AIV304"", ""course_name"": ""AI in Vision""}, {""course_id"": ""CNW203"", ""course_name"": ""Computer Networks""}, {""course_id"": ""CRY303"", ""course_name"": ""Cryptography""}, {""course_id"": ""CSD201"", ""course_name"": ""Data Structures and Algorithms""}, {""course_id"": ""DBI202"", ""course_name"": ""Database Systems""}, {""course_id"": ""IAS301"", ""course_name"": ""Information Assurance and Security""}, {""course_id"": ""ISS304"", ""course_name"": ""Information Security Systems""}, {""course_id"": ""MAD101"", ""course_name"": ""Mathematics for Developers""}, {""course_id"": ""NET302"", ""course_name"": ""Network Security""}, {""course_id"": ""NLP302"", ""course_name"": ""Natural Language Processing""}, {""course_id"": ""OSG202"", ""course_name"": ""Operating Systems""}, {""course_id"": ""PPL204"", ""course_name"": ""Programming Paradigms""}, {""course_id"": ""PRF192"", ""course_name"": ""Programming Fundamentals""}, {""course_id"": ""PRJ302"", ""course_name"": ""Software Project Management""}, {""course_id"": ""SDE303"", ""course_name"": ""Software Design and Architecture""}, {""course_id"": ""SWE301"", ""course_name"": ""Software Engineering Principles""}, {""course_id"": ""SWT304"", ""course_name"": ""Software Testing and Quality Assurance""}, {""course_id"": ""TOC201"", ""course_name"": ""Theory of Computation""}]"
+"SELECT
+  course_id,
+  course_name
+FROM Courses
+WHERE
+  no_credit = 3;","[{""course_id"": ""AIE303"", ""course_name"": ""AI Ethics and Society""}, {""course_id"": ""AIL301"", ""course_name"": ""Artificial Intelligence and Machine Learning""}, {""course_id"": ""AIV304"", ""course_name"": ""AI in Vision""}, {""course_id"": ""CNW203"", ""course_name"": ""Computer Networks""}, {""course_id"": ""CRY303"", ""course_name"": ""Cryptography""}, {""course_id"": ""CSD201"", ""course_name"": ""Data Structures and Algorithms""}, {""course_id"": ""DBI202"", ""course_name"": ""Database Systems""}, {""course_id"": ""IAS301"", ""course_name"": ""Information Assurance and Security""}, {""course_id"": ""ISS304"", ""course_name"": ""Information Security Systems""}, {""course_id"": ""MAD101"", ""course_name"": ""Mathematics for Developers""}, {""course_id"": ""NET302"", ""course_name"": ""Network Security""}, {""course_id"": ""NLP302"", ""course_name"": ""Natural Language Processing""}, {""course_id"": ""OSG202"", ""course_name"": ""Operating Systems""}, {""course_id"": ""PPL204"", ""course_name"": ""Programming Paradigms""}, {""course_id"": ""PRF192"", ""course_name"": ""Programming Fundamentals""}, {""course_id"": ""PRJ302"", ""course_name"": ""Software Project Management""}, {""course_id"": ""SDE303"", ""course_name"": ""Software Design and Architecture""}, {""course_id"": ""SWE301"", ""course_name"": ""Software Engineering Principles""}, {""course_id"": ""SWT304"", ""course_name"": ""Software Testing and Quality Assurance""}, {""course_id"": ""TOC201"", ""course_name"": ""Theory of Computation""}]"
+"SELECT
+  course_id,
+  course_name
+FROM Courses
+WHERE
+  no_credit < 4;","[{""course_id"": ""AIE303"", ""course_name"": ""AI Ethics and Society""}, {""course_id"": ""AIL301"", ""course_name"": ""Artificial Intelligence and Machine Learning""}, {""course_id"": ""AIV304"", ""course_name"": ""AI in Vision""}, {""course_id"": ""CNW203"", ""course_name"": ""Computer Networks""}, {""course_id"": ""CRY303"", ""course_name"": ""Cryptography""}, {""course_id"": ""CSD201"", ""course_name"": ""Data Structures and Algorithms""}, {""course_id"": ""DBI202"", ""course_name"": ""Database Systems""}, {""course_id"": ""IAS301"", ""course_name"": ""Information Assurance and Security""}, {""course_id"": ""ISS304"", ""course_name"": ""Information Security Systems""}, {""course_id"": ""MAD101"", ""course_name"": ""Mathematics for Developers""}, {""course_id"": ""NET302"", ""course_name"": ""Network Security""}, {""course_id"": ""NLP302"", ""course_name"": ""Natural Language Processing""}, {""course_id"": ""OSG202"", ""course_name"": ""Operating Systems""}, {""course_id"": ""PPL204"", ""course_name"": ""Programming Paradigms""}, {""course_id"": ""PRF192"", ""course_name"": ""Programming Fundamentals""}, {""course_id"": ""PRJ302"", ""course_name"": ""Software Project Management""}, {""course_id"": ""SDE303"", ""course_name"": ""Software Design and Architecture""}, {""course_id"": ""SWE301"", ""course_name"": ""Software Engineering Principles""}, {""course_id"": ""SWT304"", ""course_name"": ""Software Testing and Quality Assurance""}, {""course_id"": ""TOC201"", ""course_name"": ""Theory of Computation""}]"
+"SELECT
+  course_id,
+  course_name,
+  no_credit
+FROM Courses
+ORDER BY
+  no_credit;","[{""course_id"": ""AIE303"", ""course_name"": ""AI Ethics and Society"", ""no_credit"": 3}, {""course_id"": ""AIL301"", ""course_name"": ""Artificial Intelligence and Machine Learning"", ""no_credit"": 3}, {""course_id"": ""AIV304"", ""course_name"": ""AI in Vision"", ""no_credit"": 3}, {""course_id"": ""CNW203"", ""course_name"": ""Computer Networks"", ""no_credit"": 3}, {""course_id"": ""CRY303"", ""course_name"": ""Cryptography"", ""no_credit"": 3}, {""course_id"": ""CSD201"", ""course_name"": ""Data Structures and Algorithms"", ""no_credit"": 3}, {""course_id"": ""DBI202"", ""course_name"": ""Database Systems"", ""no_credit"": 3}, {""course_id"": ""IAS301"", ""course_name"": ""Information Assurance and Security"", ""no_credit"": 3}, {""course_id"": ""ISS304"", ""course_name"": ""Information Security Systems"", ""no_credit"": 3}, {""course_id"": ""MAD101"", ""course_name"": ""Mathematics for Developers"", ""no_credit"": 3}, {""course_id"": ""NET302"", ""course_name"": ""Network Security"", ""no_credit"": 3}, {""course_id"": ""NLP302"", ""course_name"": ""Natural Language Processing"", ""no_credit"": 3}, {""course_id"": ""OSG202"", ""course_name"": ""Operating Systems"", ""no_credit"": 3}, {""course_id"": ""PPL204"", ""course_name"": ""Programming Paradigms"", ""no_credit"": 3}, {""course_id"": ""PRF192"", ""course_name"": ""Programming Fundamentals"", ""no_credit"": 3}, {""course_id"": ""PRJ302"", ""course_name"": ""Software Project Management"", ""no_credit"": 3}, {""course_id"": ""SDE303"", ""course_name"": ""Software Design and Architecture"", ""no_credit"": 3}, {""course_id"": ""SWE301"", ""course_name"": ""Software Engineering Principles"", ""no_credit"": 3}, {""course_id"": ""SWT304"", ""course_name"": ""Software Testing and Quality Assurance"", ""no_credit"": 3}, {""course_id"": ""TOC201"", ""course_name"": ""Theory of Computation"", ""no_credit"": 3}]"
+"SELECT
+  *
+FROM Courses
+WHERE
+  course_name = 'Machine Learning';",Không có dòng nào được trả về.
+"SELECT T1.course_id, T1.course_name
+FROM Courses AS T1
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM ClassCourse AS T2
+    INNER JOIN Schedules AS T3 ON T2.class_course_id = T3.class_course_id
+    WHERE T2.course_id = T1.course_id
+      AND T2.semester = 'SP25' 
+);","[{""course_id"": ""AIE303"", ""course_name"": ""AI Ethics and Society""}, {""course_id"": ""AIL301"", ""course_name"": ""Artificial Intelligence and Machine Learning""}, {""course_id"": ""AIV304"", ""course_name"": ""AI in Vision""}, {""course_id"": ""CNW203"", ""course_name"": ""Computer Networks""}, {""course_id"": ""CRY303"", ""course_name"": ""Cryptography""}, {""course_id"": ""CSD201"", ""course_name"": ""Data Structures and Algorithms""}, {""course_id"": ""DBI202"", ""course_name"": ""Database Systems""}, {""course_id"": ""IAS301"", ""course_name"": ""Information Assurance and Security""}, {""course_id"": ""ISS304"", ""course_name"": ""Information Security Systems""}, {""course_id"": ""MAD101"", ""course_name"": ""Mathematics for Developers""}, {""course_id"": ""NET302"", ""course_name"": ""Network Security""}, {""course_id"": ""NLP302"", ""course_name"": ""Natural Language Processing""}, {""course_id"": ""OSG202"", ""course_name"": ""Operating Systems""}, {""course_id"": ""PPL204"", ""course_name"": ""Programming Paradigms""}, {""course_id"": ""PRF192"", ""course_name"": ""Programming Fundamentals""}, {""course_id"": ""PRJ302"", ""course_name"": ""Software Project Management""}, {""course_id"": ""SDE303"", ""course_name"": ""Software Design and Architecture""}, {""course_id"": ""SWE301"", ""course_name"": ""Software Engineering Principles""}, {""course_id"": ""SWT304"", ""course_name"": ""Software Testing and Quality Assurance""}, {""course_id"": ""TOC201"", ""course_name"": ""Theory of Computation""}]"
+"SELECT cc.course_id,
+        e.average, 
+        cc.semester
+FROM Enrollments AS e
+JOIN ClassCourse AS cc ON e.class_course_id = cc.class_course_id
+WHERE
+  e.student_id = 'HE001' AND e.status <> 'Studying';",Không có dòng nào được trả về.
+"SELECT TOP 5
+    CC.course_id,
+    CC.class_id,
+    E.average AS Grade
+FROM Enrollments AS E
+JOIN ClassCourse AS CC
+    ON E.class_course_id = CC.class_course_id
+WHERE
+    E.student_id = 'HE001'
+ORDER BY
+    E.average DESC;",Không có dòng nào được trả về.
+"SELECT
+  *
+FROM Courses
+WHERE
+  course_name = 'Mathematics for Engineering';",Không có dòng nào được trả về.
+"SELECT
+  CC.course_id,
+  Sch.start_time,
+  Sch.end_time,
+  Sch.room,
+  Sch.slot
+FROM ClassCourse AS CC
+JOIN Schedules AS Sch
+  ON CC.class_course_id = Sch.class_course_id
+WHERE
+  CC.class_id = 'AI01' AND CC.semester = 'FA24';",Không có dòng nào được trả về.
+"SELECT
+  course_id,
+  course_name
+FROM Courses
+WHERE
+  course_name LIKE '%Software%';","[{""course_id"": ""PRJ302"", ""course_name"": ""Software Project Management""}, {""course_id"": ""SDE303"", ""course_name"": ""Software Design and Architecture""}, {""course_id"": ""SWE301"", ""course_name"": ""Software Engineering Principles""}, {""course_id"": ""SWT304"", ""course_name"": ""Software Testing and Quality Assurance""}]"
+"SELECT
+  c.course_name
+FROM Students AS s
+JOIN Majors AS m
+  ON s.major_id = m.major_id
+JOIN Curriculums AS cur
+  ON m.major_id = cur.major_id
+JOIN Courses AS c
+  ON cur.course_id = c.course_id
+WHERE
+  s.student_id = 'HE001'
+ORDER BY
+  c.course_name ASC;",Không có dòng nào được trả về.
+"SELECT c.course_name
+FROM Courses c
+WHERE c.course_id NOT IN (SELECT cc.course_id FROM ClassCourse cc WHERE cc.semester = 'SP25');","[{""course_name"": ""AI Ethics and Society""}, {""course_name"": ""Artificial Intelligence and Machine Learning""}, {""course_name"": ""AI in Vision""}, {""course_name"": ""Computer Networks""}, {""course_name"": ""Cryptography""}, {""course_name"": ""Data Structures and Algorithms""}, {""course_name"": ""Database Systems""}, {""course_name"": ""Information Assurance and Security""}, {""course_name"": ""Information Security Systems""}, {""course_name"": ""Mathematics for Developers""}, {""course_name"": ""Network Security""}, {""course_name"": ""Natural Language Processing""}, {""course_name"": ""Operating Systems""}, {""course_name"": ""Programming Paradigms""}, {""course_name"": ""Programming Fundamentals""}, {""course_name"": ""Software Project Management""}, {""course_name"": ""Software Design and Architecture""}, {""course_name"": ""Software Engineering Principles""}, {""course_name"": ""Software Testing and Quality Assurance""}, {""course_name"": ""Theory of Computation""}]"
+"SELECT c.course_name
+FROM Curriculums cur
+JOIN Courses c ON cur.course_id = c.course_id
+GROUP BY c.course_name
+HAVING COUNT(DISTINCT cur.major_id) > 1;","[{""course_name"": ""Data Structures and Algorithms""}, {""course_name"": ""Database Systems""}, {""course_name"": ""Programming Fundamentals""}]"
+"SELECT
+  c.course_name
+FROM Curriculums AS cu
+JOIN Majors AS m
+  ON cu.major_id = m.major_id
+JOIN Courses AS c
+  ON cu.course_id = c.course_id
+WHERE
+  m.major_name = 'Software Engineering';","[{""course_name"": ""Mathematics for Developers""}, {""course_name"": ""Programming Fundamentals""}, {""course_name"": ""Software Project Management""}, {""course_name"": ""Software Design and Architecture""}, {""course_name"": ""Software Engineering Principles""}, {""course_name"": ""Software Testing and Quality Assurance""}]"
+"SELECT
+  c.course_name
+FROM Curriculums AS cur
+JOIN Majors AS m
+  ON cur.major_id = m.major_id
+JOIN Courses AS c
+  ON cur.course_id = c.course_id
+WHERE
+  m.major_name = 'Information Assurance';","[{""course_name"": ""Cryptography""}, {""course_name"": ""Database Systems""}, {""course_name"": ""Information Assurance and Security""}, {""course_name"": ""Information Security Systems""}, {""course_name"": ""Network Security""}, {""course_name"": ""Programming Fundamentals""}]"
+"SELECT TOP 1 WITH TIES
+    c.course_name
+FROM
+    Curriculums cu
+JOIN
+    Courses c ON cu.course_id = c.course_id
+GROUP BY
+    c.course_name
+ORDER BY
+    COUNT(cu.major_id) DESC;","[{""course_name"": ""Programming Fundamentals""}]"
+"SELECT
+  c.course_name,
+  c.no_credit
+FROM Curriculums AS cu
+JOIN Majors AS m
+  ON cu.major_id = m.major_id
+JOIN Courses AS c
+  ON cu.course_id = c.course_id
+WHERE
+  m.major_name = 'Information System';",Không có dòng nào được trả về.
+"SELECT DISTINCT c.course_name 
+FROM Courses c JOIN CourseGrade cg ON c.course_id = cg.course_id 
+WHERE cg.grade_name = 'Practical Exam'",Không có dòng nào được trả về.
+"SELECT
+  C.course_name
+FROM Curriculums AS CU
+JOIN Majors AS M
+  ON CU.major_id = M.major_id
+JOIN Courses AS C
+  ON CU.course_id = C.course_id
+JOIN Students AS S
+  ON M.major_id = S.major_id
+WHERE
+  S.student_id = 'HE001';",Không có dòng nào được trả về.
+"SELECT course_name
+FROM Courses
+WHERE course_id NOT IN (SELECT course_id FROM Curriculums WHERE major_id = 'IS');","[{""course_name"": ""AI Ethics and Society""}, {""course_name"": ""Artificial Intelligence and Machine Learning""}, {""course_name"": ""AI in Vision""}, {""course_name"": ""Computer Networks""}, {""course_name"": ""Cryptography""}, {""course_name"": ""Data Structures and Algorithms""}, {""course_name"": ""Database Systems""}, {""course_name"": ""Information Assurance and Security""}, {""course_name"": ""Information Security Systems""}, {""course_name"": ""Mathematics for Developers""}, {""course_name"": ""Network Security""}, {""course_name"": ""Natural Language Processing""}, {""course_name"": ""Operating Systems""}, {""course_name"": ""Programming Paradigms""}, {""course_name"": ""Programming Fundamentals""}, {""course_name"": ""Software Project Management""}, {""course_name"": ""Software Design and Architecture""}, {""course_name"": ""Software Engineering Principles""}, {""course_name"": ""Software Testing and Quality Assurance""}, {""course_name"": ""Theory of Computation""}]"
+"SELECT DISTINCT T1.course_name
+FROM Courses AS T1
+INNER JOIN ClassCourse AS T2
+  ON T1.course_id = T2.course_id
+INNER JOIN Schedules AS T3
+  ON T2.class_course_id = T3.class_course_id
+WHERE
+  DATENAME(weekday, T3.start_time) = 'Monday' AND T2.semester = 'SP25';",Không có dòng nào được trả về.
+"SELECT
+  C.course_name
+FROM Enrollments AS E
+JOIN ClassCourse AS CC
+  ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+WHERE
+  E.student_id = 'HE001';",Không có dòng nào được trả về.
+"SELECT
+  c.course_name
+FROM ClassCourse AS cc
+JOIN Courses AS c
+  ON cc.course_id = c.course_id
+WHERE
+  cc.class_id = 'AI01';",Không có dòng nào được trả về.
+"SELECT
+  C.course_name,
+  COUNT(A.status) AS AttendedLecturesCount
+FROM Attendance AS A
+JOIN Enrollments AS E
+  ON A.enrollment_id = E.enrollment_id
+JOIN ClassCourse AS CC
+  ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+WHERE
+  E.student_id = 'HE001' AND CC.semester = 'SP25' AND A.status = 'Present'
+GROUP BY
+  C.course_name;",Không có dòng nào được trả về.
+"SELECT c.course_name, e.average, c.no_credit 
+FROM Enrollments e 
+JOIN ClassCourse cc ON e.class_course_id = cc.class_course_id 
+JOIN Courses c ON cc.course_id = c.course_id 
+WHERE e.student_id = 'HE001'",Không có dòng nào được trả về.
+"SELECT
+  T4.course_name,
+  T3.class_id,
+  T1.start_time,
+  T1.end_time,
+  T1.room,
+  T1.slot
+FROM Schedules AS T1
+JOIN ClassCourse AS T3
+  ON T1.class_course_id = T3.class_course_id
+JOIN Enrollments AS T2
+  ON T3.class_course_id = T2.class_course_id
+JOIN Courses AS T4
+  ON T3.course_id = T4.course_id
+WHERE
+  T2.student_id = 'HE001' AND T2.status = 'Studying';",Không có dòng nào được trả về.
+"SELECT
+  C.course_name,
+  CL.class_id,
+  S.start_time,
+  S.end_time,
+  S.room,
+  S.slot,
+  CC.semester
+FROM Users AS U
+JOIN Lecturers AS L
+  ON U.user_id = L.lecturer_id
+JOIN ClassCourse AS CC
+  ON L.lecturer_id = CC.lecturer_id
+JOIN Schedules AS S
+  ON CC.class_course_id = S.class_course_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+JOIN Classes AS CL
+  ON CC.class_id = CL.class_id
+WHERE
+  U.fullname LIKE N'%Giang' AND CC.semester = 'SP25'
+ORDER BY
+  S.start_time;",Không có dòng nào được trả về.
+"SELECT c.course_name, u.fullname, s.start_time, s.end_time, s.room 
+FROM Schedules s 
+JOIN ClassCourse cc ON s.class_course_id = cc.class_course_id 
+JOIN Courses c ON cc.course_id = c.course_id 
+JOIN Lecturers l ON cc.lecturer_id = l.lecturer_id 
+JOIN Users u ON l.lecturer_id = u.user_id 
+WHERE cc.class_id = 'AI01'",Không có dòng nào được trả về.
+"SELECT
+    C.course_name,
+    LU.fullname,
+    S.start_time , 
+    S.end_time ,     
+    S.room,
+    S.slot
+FROM Enrollments AS E
+JOIN Students AS ST ON E.student_id = ST.student_id
+JOIN ClassCourse AS CC ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C ON CC.course_id = C.course_id
+JOIN Schedules AS S ON CC.class_course_id = S.class_course_id
+JOIN Lecturers AS L ON CC.lecturer_id = L.lecturer_id
+JOIN Users AS LU ON L.lecturer_id = LU.user_id
+WHERE
+    ST.student_id = 'HE001' 
+    AND CC.semester = 'SP25';",Không có dòng nào được trả về.
+"SELECT
+  T2.course_name,
+  COUNT(T1.class_id) AS NumberOfClasses
+FROM ClassCourse AS T1
+JOIN Courses AS T2
+  ON T1.course_id = T2.course_id
+WHERE
+  T1.semester = 'SP25' 
+GROUP BY
+  T2.course_name",Không có dòng nào được trả về.
+"SELECT c.course_name, COUNT(DISTINCT cc.lecturer_id) AS NumberOfLecturers
+FROM ClassCourse cc
+JOIN Courses c ON cc.course_id = c.course_id
+GROUP BY c.course_name;","[{""course_name"": ""Artificial Intelligence and Machine Learning"", ""NumberOfLecturers"": 2}, {""course_name"": ""Data Structures and Algorithms"", ""NumberOfLecturers"": 4}, {""course_name"": ""Database Systems"", ""NumberOfLecturers"": 3}, {""course_name"": ""Information Assurance and Security"", ""NumberOfLecturers"": 2}, {""course_name"": ""Mathematics for Developers"", ""NumberOfLecturers"": 2}, {""course_name"": ""Natural Language Processing"", ""NumberOfLecturers"": 2}, {""course_name"": ""Network Security"", ""NumberOfLecturers"": 2}, {""course_name"": ""Operating Systems"", ""NumberOfLecturers"": 2}, {""course_name"": ""Programming Fundamentals"", ""NumberOfLecturers"": 5}, {""course_name"": ""Software Engineering Principles"", ""NumberOfLecturers"": 2}, {""course_name"": ""Software Project Management"", ""NumberOfLecturers"": 2}, {""course_name"": ""Theory of Computation"", ""NumberOfLecturers"": 2}]"
+"SELECT DISTINCT T1.course_name
+FROM Courses AS T1
+INNER JOIN ClassCourse AS T2
+  ON T1.course_id = T2.course_id
+INNER JOIN Schedules AS T3
+  ON T2.class_course_id = T3.class_course_id
+WHERE
+  DATEPART(hour, T3.start_time) >= 15
+  AND T2.semester = 'SP25';",Không có dòng nào được trả về.
+"SELECT DISTINCT T1.course_name
+FROM Courses AS T1
+INNER JOIN ClassCourse AS T2
+  ON T1.course_id = T2.course_id
+INNER JOIN Schedules AS T3
+  ON T2.class_course_id = T3.class_course_id
+WHERE
+  T3.room = 'R004' AND T2.semester = 'SP25';",Không có dòng nào được trả về.
+"SELECT c.course_name
+FROM ClassCourse cc
+JOIN Courses c ON cc.course_id = c.course_id
+GROUP BY c.course_name, cc.semester
+HAVING COUNT(DISTINCT cc.lecturer_id) > 1;","[{""course_name"": ""Data Structures and Algorithms""}, {""course_name"": ""Database Systems""}, {""course_name"": ""Mathematics for Developers""}, {""course_name"": ""Programming Fundamentals""}, {""course_name"": ""Artificial Intelligence and Machine Learning""}, {""course_name"": ""Information Assurance and Security""}, {""course_name"": ""Natural Language Processing""}, {""course_name"": ""Network Security""}, {""course_name"": ""Operating Systems""}, {""course_name"": ""Software Engineering Principles""}, {""course_name"": ""Software Project Management""}, {""course_name"": ""Theory of Computation""}]"
+"SELECT c.course_name
+FROM ClassCourse cc
+JOIN Courses c ON cc.course_id = c.course_id
+JOIN Lecturers l ON cc.lecturer_id = l.lecturer_id
+JOIN Departments d ON l.dep_id = d.dep_id
+WHERE d.dep_name = 'Software Engineering'","[{""course_name"": ""Data Structures and Algorithms""}, {""course_name"": ""Data Structures and Algorithms""}, {""course_name"": ""Database Systems""}, {""course_name"": ""Database Systems""}, {""course_name"": ""Operating Systems""}, {""course_name"": ""Database Systems""}, {""course_name"": ""Network Security""}, {""course_name"": ""Network Security""}, {""course_name"": ""Software Project Management""}, {""course_name"": ""Mathematics for Developers""}]"
+"SELECT TOP 1 WITH TIES
+  c.course_name
+FROM Enrollments AS e
+JOIN ClassCourse AS cc
+  ON e.class_course_id = cc.class_course_id
+JOIN Courses AS c
+  ON cc.course_id = c.course_id
+WHERE
+  e.status <> 'Studying'
+GROUP BY
+  c.course_name
+ORDER BY
+  AVG(e.average) ASC;","[{""course_name"": ""Programming Fundamentals""}]"
+"SELECT C.course_name, AVG(E.average) AS AverageGrade
+FROM Enrollments AS E
+JOIN ClassCourse AS CC ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C ON CC.course_id = C.course_id
+WHERE E.status <> 'Studying'  
+GROUP BY C.course_name
+HAVING AVG(E.average) = (
+    SELECT MAX(AvgGrade)
+    FROM (
+        SELECT AVG(E2.average) AS AvgGrade
+        FROM Enrollments AS E2
+        JOIN ClassCourse AS CC2 ON E2.class_course_id = CC2.class_course_id
+        JOIN Courses AS C2 ON CC2.course_id = C2.course_id
+        WHERE E2.status <> 'Studying'  
+        GROUP BY C2.course_name
+    ) AS Subquery
+);","[{""course_name"": ""Mathematics for Developers"", ""AverageGrade"": 6.755555555555556}]"
+"SELECT
+  c.course_name,
+  cg.grade_name,
+  sgd.grade_value
+FROM Enrollments AS e
+JOIN StudentGradeDetails AS sgd
+  ON e.enrollment_id = sgd.enrollment_id
+JOIN CourseGrade AS cg
+  ON sgd.course_grade_id = cg.course_grade_id
+JOIN ClassCourse AS cc
+  ON e.class_course_id = cc.class_course_id
+JOIN Courses AS c
+  ON cc.course_id = c.course_id
+WHERE
+  e.student_id = 'HE001' AND e.status = 'Passed';",Không có dòng nào được trả về.
+"SELECT TOP 1 WITH TIES
+  c.course_name,
+  COUNT(DISTINCT e.student_id) AS passed_student_count
+FROM Enrollments AS e
+JOIN ClassCourse AS cc
+  ON e.class_course_id = cc.class_course_id
+JOIN Courses AS c
+  ON cc.course_id = c.course_id
+WHERE
+  e.status = 'Passed'
+GROUP BY
+  c.course_name
+ORDER BY
+  passed_student_count DESC;","[{""course_name"": ""Programming Fundamentals"", ""passed_student_count"": 20}]"
+"SELECT c.course_name
+FROM ClassCourse cc
+JOIN Courses c ON cc.course_id = c.course_id
+JOIN Lecturers l ON cc.lecturer_id = l.lecturer_id
+JOIN Users u ON l.lecturer_id = u.user_id
+WHERE u.fullname = 'Phuong';",Không có dòng nào được trả về.
+"WITH RankedEnrollments AS (
+  SELECT
+    E.student_id,
+    E.average,
+    C.no_credit,
+    CC.course_id,
+    ROW_NUMBER() OVER (
+      PARTITION BY
+        E.student_id,
+        CC.course_id
+      ORDER BY
+        TRY_CAST(RIGHT(CC.semester, 2) AS INT) DESC,
+        CASE LEFT(CC.semester, 2)
+          WHEN 'FA' THEN 3 
+          WHEN 'SU' THEN 2 
+          WHEN 'SP' THEN 1 
+          ELSE 0
+        END DESC,
+        E.enrollment_id DESC 
+    ) as rn
+  FROM Enrollments AS E
+  JOIN ClassCourse AS CC
+    ON E.class_course_id = CC.class_course_id
+  JOIN Courses AS C
+    ON CC.course_id = C.course_id
+  WHERE
+    E.student_id = 'HE001' 
+    AND E.status <> 'Studying' 
+    AND C.no_credit > 0 
+), FilteredEnrollments AS (
+  SELECT
+    student_id,
+    average,
+    no_credit
+  FROM RankedEnrollments
+  WHERE
+    rn = 1 
+), StudentGPA AS (
+  SELECT
+    FE.student_id,
+    CASE 
+      WHEN SUM(FE.no_credit) > 0 THEN SUM(FE.average * FE.no_credit) / CAST(SUM(FE.no_credit) AS FLOAT)
+      ELSE 0
+    END AS CumulativeGPA,
+    SUM(FE.no_credit) as TotalCreditsConsidered
+  FROM FilteredEnrollments AS FE
+  GROUP BY
+    FE.student_id
+)
+SELECT
+  SG.CumulativeGPA
+FROM StudentGPA AS SG",Không có dòng nào được trả về.
+"SELECT
+  *
+FROM Departments
+WHERE
+  dep_name = 'Computing Fundamental';","[{""dep_id"": ""D01"", ""dep_name"": ""Computing Fundamental""}]"
+"SELECT
+  dep_id,
+  dep_name
+FROM Departments;","[{""dep_id"": ""D01"", ""dep_name"": ""Computing Fundamental""}, {""dep_id"": ""D02"", ""dep_name"": ""Artificial Intelligence""}, {""dep_id"": ""D03"", ""dep_name"": ""Information Assurance""}, {""dep_id"": ""D04"", ""dep_name"": ""Software Engineering""}]"
+"SELECT
+  description
+FROM Courses
+WHERE
+  course_name = 'Natural Language Processing';","[{""description"": ""Techniques for enabling computers to process and understand human language.""}]"
+"SELECT DISTINCT T4.fullname
+FROM Courses AS T1
+INNER JOIN ClassCourse AS T2
+  ON T1.course_id = T2.course_id
+INNER JOIN Lecturers AS T3
+  ON T2.lecturer_id = T3.lecturer_id
+INNER JOIN Users AS T4
+  ON T3.lecturer_id = T4.user_id
+WHERE
+  T1.course_name = 'Machine Learning';",Không có dòng nào được trả về.
+"SELECT T3.fullname, T2.course_id, T2.class_id
+FROM Enrollments AS T1
+INNER JOIN ClassCourse AS T2
+  ON T1.class_course_id = T2.class_course_id
+INNER JOIN Users AS T3
+  ON T2.lecturer_id = T3.user_id
+WHERE
+  T1.student_id = 'HE001';",Không có dòng nào được trả về.
+"SELECT U.fullname
+FROM ClassCourse AS CC
+         JOIN Courses C ON C.course_id = CC.course_id
+         JOIN Lecturers L on CC.lecturer_id = L.lecturer_id
+        JOIN Users U on L.lecturer_id = U.user_id
+WHERE C.course_id = 'MAE';",Không có dòng nào được trả về.
+"SELECT
+  U.fullname,
+  C.course_name,
+    CC.class_id
+FROM Enrollments AS E
+JOIN ClassCourse AS CC
+  ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+JOIN Students AS S
+  ON E.student_id = S.student_id
+JOIN Users AS U
+  ON S.student_id = U.user_id;","[{""fullname"": ""Nguyễn Văn An"", ""course_name"": ""Artificial Intelligence and Machine Learning"", ""class_id"": ""AI_K1_FA23""}, {""fullname"": ""Nguyễn Văn An"", ""course_name"": ""Data Structures and Algorithms"", ""class_id"": ""AI_K1_FA23""}, {""fullname"": ""Nguyễn Văn An"", ""course_name"": ""Natural Language Processing"", ""class_id"": ""AI_K1_FA23""}, {""fullname"": ""Nguyễn Văn An"", ""course_name"": ""Programming Fundamentals"", ""class_id"": ""AI_K1_FA23""}, {""fullname"": ""Trần Thị Bình"", ""course_name"": ""Artificial Intelligence and Machine Learning"", ""class_id"": ""AI_K1_FA23""}, {""fullname"": ""Trần Thị Bình"", ""course_name"": ""Data Structures and Algorithms"", ""class_id"": ""AI_K1_FA23""}, {""fullname"": ""Trần Thị Bình"", ""course_name"": ""Natural Language Processing"", ""class_id"": ""AI_K1_FA23""}, {""fullname"": ""Trần Thị Bình"", ""course_name"": ""Programming Fundamentals"", ""class_id"": ""AI_K1_FA23""}, {""fullname"": ""Lê Văn Cường"", ""course_name"": ""Artificial Intelligence and Machine Learning"", ""class_id"": ""AI_K1_FA23""}, {""fullname"": ""Lê Văn Cường"", ""course_name"": ""Data Structures and Algorithms"", ""class_id"": ""AI_K1_FA23""}, {""fullname"": ""Lê Văn Cường"", ""course_name"": ""Natural Language Processing"", ""class_id"": ""AI_K1_FA23""}, {""fullname"": ""Lê Văn Cường"", ""course_name"": ""Programming Fundamentals"", ""class_id"": ""AI_K1_FA23""}, {""fullname"": ""Phạm Thị Dung"", ""course_name"": ""Artificial Intelligence and Machine Learning"", ""class_id"": ""AI_K1_FA23""}, {""fullname"": ""Phạm Thị Dung"", ""course_name"": ""Data Structures and Algorithms"", ""class_id"": ""AI_K1_FA23""}, {""fullname"": ""Phạm Thị Dung"", ""course_name"": ""Natural Language Processing"", ""class_id"": ""AI_K1_FA23""}, {""fullname"": ""Phạm Thị Dung"", ""course_name"": ""Programming Fundamentals"", ""class_id"": ""AI_K1_FA23""}, {""fullname"": ""Hoàng Văn Giang"", ""course_name"": ""Artificial Intelligence and Machine Learning"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Hoàng Văn Giang"", ""course_name"": ""Data Structures and Algorithms"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Hoàng Văn Giang"", ""course_name"": ""Natural Language Processing"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Hoàng Văn Giang"", ""course_name"": ""Programming Fundamentals"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Vũ Thị Hương"", ""course_name"": ""Artificial Intelligence and Machine Learning"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Vũ Thị Hương"", ""course_name"": ""Data Structures and Algorithms"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Vũ Thị Hương"", ""course_name"": ""Natural Language Processing"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Vũ Thị Hương"", ""course_name"": ""Programming Fundamentals"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Đặng Văn Khánh"", ""course_name"": ""Artificial Intelligence and Machine Learning"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Đặng Văn Khánh"", ""course_name"": ""Data Structures and Algorithms"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Đặng Văn Khánh"", ""course_name"": ""Natural Language Processing"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Đặng Văn Khánh"", ""course_name"": ""Programming Fundamentals"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Bùi Thị Lan"", ""course_name"": ""Artificial Intelligence and Machine Learning"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Bùi Thị Lan"", ""course_name"": ""Data Structures and Algorithms"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Bùi Thị Lan"", ""course_name"": ""Natural Language Processing"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Bùi Thị Lan"", ""course_name"": ""Programming Fundamentals"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Hồ Văn Minh"", ""course_name"": ""Artificial Intelligence and Machine Learning"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Hồ Văn Minh"", ""course_name"": ""Data Structures and Algorithms"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Hồ Văn Minh"", ""course_name"": ""Natural Language Processing"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Hồ Văn Minh"", ""course_name"": ""Programming Fundamentals"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Ngô Thị Nga"", ""course_name"": ""Artificial Intelligence and Machine Learning"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Ngô Thị Nga"", ""course_name"": ""Natural Language Processing"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Dương Văn Oai"", ""course_name"": ""Artificial Intelligence and Machine Learning"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Dương Văn Oai"", ""course_name"": ""Natural Language Processing"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Đoàn Thị Phượng"", ""course_name"": ""Artificial Intelligence and Machine Learning"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Đoàn Thị Phượng"", ""course_name"": ""Natural Language Processing"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Lý Văn Quân"", ""course_name"": ""Artificial Intelligence and Machine Learning"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Lý Văn Quân"", ""course_name"": ""Natural Language Processing"", ""class_id"": ""AI_K2_SP24""}, {""fullname"": ""Mai Thị Quỳnh"", ""course_name"": ""Database Systems"", ""class_id"": ""IA_K1_FA23""}, {""fullname"": ""Mai Thị Quỳnh"", ""course_name"": ""Information Assurance and Security"", ""class_id"": ""IA_K1_FA23""}, {""fullname"": ""Mai Thị Quỳnh"", ""course_name"": ""Network Security"", ""class_id"": ""IA_K1_FA23""}, {""fullname"": ""Mai Thị Quỳnh"", ""course_name"": ""Programming Fundamentals"", ""class_id"": ""IA_K1_FA23""}, {""fullname"": ""Phan Văn Sơn"", ""course_name"": ""Database Systems"", ""class_id"": ""IA_K1_FA23""}, {""fullname"": ""Phan Văn Sơn"", ""course_name"": ""Information Assurance and Security"", ""class_id"": ""IA_K1_FA23""}, {""fullname"": ""Phan Văn Sơn"", ""course_name"": ""Network Security"", ""class_id"": ""IA_K1_FA23""}, {""fullname"": ""Phan Văn Sơn"", ""course_name"": ""Programming Fundamentals"", ""class_id"": ""IA_K1_FA23""}, {""fullname"": ""Châu Thị Thảo"", ""course_name"": ""Database Systems"", ""class_id"": ""IA_K1_FA23""}, {""fullname"": ""Châu Thị Thảo"", ""course_name"": ""Information Assurance and Security"", ""class_id"": ""IA_K1_FA23""}, {""fullname"": ""Châu Thị Thảo"", ""course_name"": ""Network Security"", ""class_id"": ""IA_K1_FA23""}, {""fullname"": ""Châu Thị Thảo"", ""course_name"": ""Programming Fundamentals"", ""class_id"": ""IA_K1_FA23""}, {""fullname"": ""Tăng Văn Toàn"", ""course_name"": ""Database Systems"", ""class_id"": ""IA_K1_FA23""}, {""fullname"": ""Tăng Văn Toàn"", ""course_name"": ""Information Assurance and Security"", ""class_id"": ""IA_K1_FA23""}, {""fullname"": ""Tăng Văn Toàn"", ""course_name"": ""Network Security"", ""class_id"": ""IA_K1_FA23""}, {""fullname"": ""Tăng Văn Toàn"", ""course_name"": ""Programming Fundamentals"", ""class_id"": ""IA_K1_FA23""}, {""fullname"": ""Kiều Thị Trinh"", ""course_name"": ""Database Systems"", ""class_id"": ""IA_K2_SU24""}, {""fullname"": ""Kiều Thị Trinh"", ""course_name"": ""Information Assurance and Security"", ""class_id"": ""IA_K2_SU24""}, {""fullname"": ""Kiều Thị Trinh"", ""course_name"": ""Network Security"", ""class_id"": ""IA_K2_SU24""}, {""fullname"": ""Kiều Thị Trinh"", ""course_name"": ""Programming Fundamentals"", ""class_id"": ""IA_K2_SU24""}, {""fullname"": ""Trịnh Văn Tuấn"", ""course_name"": ""Database Systems"", ""class_id"": ""IA_K2_SU24""}, {""fullname"": ""Trịnh Văn Tuấn"", ""course_name"": ""Information Assurance and Security"", ""class_id"": ""IA_K2_SU24""}, {""fullname"": ""Trịnh Văn Tuấn"", ""course_name"": ""Network Security"", ""class_id"": ""IA_K2_SU24""}, {""fullname"": ""Trịnh Văn Tuấn"", ""course_name"": ""Programming Fundamentals"", ""class_id"": ""IA_K2_SU24""}, {""fullname"": ""Vương Thị Uyên"", ""course_name"": ""Database Systems"", ""class_id"": ""IA_K2_SU24""}, {""fullname"": ""Vương Thị Uyên"", ""course_name"": ""Information Assurance and Security"", ""class_id"": ""IA_K2_SU24""}, {""fullname"": ""Vương Thị Uyên"", ""course_name"": ""Network Security"", ""class_id"": ""IA_K2_SU24""}, {""fullname"": ""Vương Thị Uyên"", ""course_name"": ""Programming Fundamentals"", ""class_id"": ""IA_K2_SU24""}, {""fullname"": ""Nguyễn Đình Anh"", ""course_name"": ""Database Systems"", ""class_id"": ""IA_K2_SU24""}, {""fullname"": ""Nguyễn Đình Anh"", ""course_name"": ""Information Assurance and Security"", ""class_id"": ""IA_K2_SU24""}, {""fullname"": ""Nguyễn Đình Anh"", ""course_name"": ""Network Security"", ""class_id"": ""IA_K2_SU24""}, {""fullname"": ""Nguyễn Đình Anh"", ""course_name"": ""Programming Fundamentals"", ""class_id"": ""IA_K2_SU24""}, {""fullname"": ""Lê Ngọc Bích"", ""course_name"": ""Information Assurance and Security"", ""class_id"": ""IA_K2_SU24""}, {""fullname"": ""Lê Ngọc Bích"", ""course_name"": ""Network Security"", ""class_id"": ""IA_K2_SU24""}, {""fullname"": ""Trần Minh Chiến"", ""course_name"": ""Information Assurance and Security"", ""class_id"": ""IA_K2_SU24""}, {""fullname"": ""Trần Minh Chiến"", ""course_name"": ""Network Security"", ""class_id"": ""IA_K2_SU24""}, {""fullname"": ""Phạm Thu Diệu"", ""course_name"": ""Information Assurance and Security"", ""class_id"": ""IA_K2_SU24""}, {""fullname"": ""Phạm Thu Diệu"", ""course_name"": ""Network Security"", ""class_id"": ""IA_K2_SU24""}, {""fullname"": ""Võ Thành Đạt"", ""course_name"": ""Information Assurance and Security"", ""class_id"": ""IA_K2_SU24""}, {""fullname"": ""Võ Thành Đạt"", ""course_name"": ""Network Security"", ""class_id"": ""IA_K2_SU24""}, {""fullname"": ""Hoàng Thị Kim Anh"", ""course_name"": ""Mathematics for Developers"", ""class_id"": ""SE_K1_SP24""}, {""fullname"": ""Hoàng Thị Kim Anh"", ""course_name"": ""Programming Fundamentals"", ""class_id"": ""SE_K1_SP24""}, {""fullname"": ""Hoàng Thị Kim Anh"", ""course_name"": ""Software Project Management"", ""class_id"": ""SE_K1_SP24""}, {""fullname"": ""Hoàng Thị Kim Anh"", ""course_name"": ""Software Engineering Principles"", ""class_id"": ""SE_K1_SP24""}, {""fullname"": ""Đỗ Quốc Bảo"", ""course_name"": ""Mathematics for Developers"", ""class_id"": ""SE_K1_SP24""}, {""fullname"": ""Đỗ Quốc Bảo"", ""course_name"": ""Programming Fundamentals"", ""class_id"": ""SE_K1_SP24""}, {""fullname"": ""Đỗ Quốc Bảo"", ""course_name"": ""Software Project Management"", ""class_id"": ""SE_K1_SP24""}, {""fullname"": ""Đỗ Quốc Bảo"", ""course_name"": ""Software Engineering Principles"", ""class_id"": ""SE_K1_SP24""}, {""fullname"": ""Nguyễn Phương Linh"", ""course_name"": ""Mathematics for Developers"", ""class_id"": ""SE_K1_SP24""}, {""fullname"": ""Nguyễn Phương Linh"", ""course_name"": ""Programming Fundamentals"", ""class_id"": ""SE_K1_SP24""}, {""fullname"": ""Nguyễn Phương Linh"", ""course_name"": ""Software Project Management"", ""class_id"": ""SE_K1_SP24""}, {""fullname"": ""Nguyễn Phương Linh"", ""course_name"": ""Software Engineering Principles"", ""class_id"": ""SE_K1_SP24""}, {""fullname"": ""Lê Quang Huy"", ""course_name"": ""Mathematics for Developers"", ""class_id"": ""SE_K1_SP24""}, {""fullname"": ""Lê Quang Huy"", ""course_name"": ""Programming Fundamentals"", ""class_id"": ""SE_K1_SP24""}, {""fullname"": ""Lê Quang Huy"", ""course_name"": ""Software Project Management"", ""class_id"": ""SE_K1_SP24""}, {""fullname"": ""Lê Quang Huy"", ""course_name"": ""Software Engineering Principles"", ""class_id"": ""SE_K1_SP24""}, {""fullname"": ""Trần Diệu My"", ""course_name"": ""Mathematics for Developers"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Trần Diệu My"", ""course_name"": ""Programming Fundamentals"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Trần Diệu My"", ""course_name"": ""Software Project Management"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Trần Diệu My"", ""course_name"": ""Software Engineering Principles"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Phan Anh Tuấn"", ""course_name"": ""Mathematics for Developers"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Phan Anh Tuấn"", ""course_name"": ""Programming Fundamentals"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Phan Anh Tuấn"", ""course_name"": ""Software Project Management"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Phan Anh Tuấn"", ""course_name"": ""Software Engineering Principles"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Vũ Thùy Dương"", ""course_name"": ""Mathematics for Developers"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Vũ Thùy Dương"", ""course_name"": ""Programming Fundamentals"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Vũ Thùy Dương"", ""course_name"": ""Software Project Management"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Vũ Thùy Dương"", ""course_name"": ""Software Engineering Principles"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Hoàng Minh Đức"", ""course_name"": ""Mathematics for Developers"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Hoàng Minh Đức"", ""course_name"": ""Programming Fundamentals"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Hoàng Minh Đức"", ""course_name"": ""Software Project Management"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Hoàng Minh Đức"", ""course_name"": ""Software Engineering Principles"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Lê Thị Thu Trang"", ""course_name"": ""Mathematics for Developers"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Lê Thị Thu Trang"", ""course_name"": ""Programming Fundamentals"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Lê Thị Thu Trang"", ""course_name"": ""Software Project Management"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Lê Thị Thu Trang"", ""course_name"": ""Software Engineering Principles"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Nguyễn Tiến Dũng"", ""course_name"": ""Software Project Management"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Nguyễn Tiến Dũng"", ""course_name"": ""Software Engineering Principles"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Trần Ngọc Mai"", ""course_name"": ""Software Project Management"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Trần Ngọc Mai"", ""course_name"": ""Software Engineering Principles"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Phạm Văn Hải"", ""course_name"": ""Software Project Management"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Phạm Văn Hải"", ""course_name"": ""Software Engineering Principles"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Võ Thị Kim Chi"", ""course_name"": ""Software Project Management"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Võ Thị Kim Chi"", ""course_name"": ""Software Engineering Principles"", ""class_id"": ""SE_K2_SU24""}, {""fullname"": ""Đặng Minh Khôi"", ""course_name"": ""Data Structures and Algorithms"", ""class_id"": ""CS_K1_FA23""}, {""fullname"": ""Đặng Minh Khôi"", ""course_name"": ""Database Systems"", ""class_id"": ""CS_K1_FA23""}, {""fullname"": ""Đặng Minh Khôi"", ""course_name"": ""Operating Systems"", ""class_id"": ""CS_K1_FA23""}, {""fullname"": ""Đặng Minh Khôi"", ""course_name"": ""Theory of Computation"", ""class_id"": ""CS_K1_FA23""}, {""fullname"": ""Bùi Thanh Thảo"", ""course_name"": ""Data Structures and Algorithms"", ""class_id"": ""CS_K1_FA23""}, {""fullname"": ""Bùi Thanh Thảo"", ""course_name"": ""Database Systems"", ""class_id"": ""CS_K1_FA23""}, {""fullname"": ""Bùi Thanh Thảo"", ""course_name"": ""Operating Systems"", ""class_id"": ""CS_K1_FA23""}, {""fullname"": ""Bùi Thanh Thảo"", ""course_name"": ""Theory of Computation"", ""class_id"": ""CS_K1_FA23""}, {""fullname"": ""Hồ Đức Anh"", ""course_name"": ""Data Structures and Algorithms"", ""class_id"": ""CS_K1_FA23""}, {""fullname"": ""Hồ Đức Anh"", ""course_name"": ""Database Systems"", ""class_id"": ""CS_K1_FA23""}, {""fullname"": ""Hồ Đức Anh"", ""course_name"": ""Operating Systems"", ""class_id"": ""CS_K1_FA23""}, {""fullname"": ""Hồ Đức Anh"", ""course_name"": ""Theory of Computation"", ""class_id"": ""CS_K1_FA23""}, {""fullname"": ""Ngô Thùy Linh"", ""course_name"": ""Data Structures and Algorithms"", ""class_id"": ""CS_K1_FA23""}, {""fullname"": ""Ngô Thùy Linh"", ""course_name"": ""Database Systems"", ""class_id"": ""CS_K1_FA23""}, {""fullname"": ""Ngô Thùy Linh"", ""course_name"": ""Operating Systems"", ""class_id"": ""CS_K1_FA23""}, {""fullname"": ""Ngô Thùy Linh"", ""course_name"": ""Theory of Computation"", ""class_id"": ""CS_K1_FA23""}, {""fullname"": ""Dương Công Thành"", ""course_name"": ""Data Structures and Algorithms"", ""class_id"": ""CS_K2_SP24""}, {""fullname"": ""Dương Công Thành"", ""course_name"": ""Database Systems"", ""class_id"": ""CS_K2_SP24""}, {""fullname"": ""Dương Công Thành"", ""course_name"": ""Operating Systems"", ""class_id"": ""CS_K2_SP24""}, {""fullname"": ""Dương Công Thành"", ""course_name"": ""Theory of Computation"", ""class_id"": ""CS_K2_SP24""}, {""fullname"": ""Đoàn Minh Nguyệt"", ""course_name"": ""Data Structures and Algorithms"", ""class_id"": ""CS_K2_SP24""}, {""fullname"": ""Đoàn Minh Nguyệt"", ""course_name"": ""Database Systems"", ""class_id"": ""CS_K2_SP24""}, {""fullname"": ""Đoàn Minh Nguyệt"", ""course_name"": ""Operating Systems"", ""class_id"": ""CS_K2_SP24""}, {""fullname"": ""Đoàn Minh Nguyệt"", ""course_name"": ""Theory of Computation"", ""class_id"": ""CS_K2_SP24""}, {""fullname"": ""Lý Hoàng Nam"", ""course_name"": ""Data Structures and Algorithms"", ""class_id"": ""CS_K2_SP24""}, {""fullname"": ""Lý Hoàng Nam"", ""course_name"": ""Database Systems"", ""class_id"": ""CS_K2_SP24""}, {""fullname"": ""Lý Hoàng Nam"", ""course_name"": ""Operating Systems"", ""class_id"": ""CS_K2_SP24""}, {""fullname"": ""Lý Hoàng Nam"", ""course_name"": ""Theory of Computation"", ""class_id"": ""CS_K2_SP24""}, {""fullname"": ""Mai Bảo Châu"", ""course_name"": ""Data Structures and Algorithms"", ""class_id"": ""CS_K2_SP24""}, {""fullname"": ""Mai Bảo Châu"", ""course_name"": ""Database Systems"", ""class_id"": ""CS_K2_SP24""}, {""fullname"": ""Mai Bảo Châu"", ""course_name"": ""Operating Systems"", ""class_id"": ""CS_K2_SP24""}, {""fullname"": ""Mai Bảo Châu"", ""course_name"": ""Theory of Computation"", ""class_id"": ""CS_K2_SP24""}, {""fullname"": ""Phan Tuấn Kiệt"", ""course_name"": ""Operating Systems"", ""class_id"": ""CS_K2_SP24""}, {""fullname"": ""Phan Tuấn Kiệt"", ""course_name"": ""Theory of Computation"", ""class_id"": ""CS_K2_SP24""}, {""fullname"": ""Châu Mỹ Lệ"", ""course_name"": ""Operating Systems"", ""class_id"": ""CS_K2_SP24""}, {""fullname"": ""Châu Mỹ Lệ"", ""course_name"": ""Theory of Computation"", ""class_id"": ""CS_K2_SP24""}, {""fullname"": ""Tăng Quốc Hùng"", ""course_name"": ""Operating Systems"", ""class_id"": ""CS_K2_SP24""}, {""fullname"": ""Tăng Quốc Hùng"", ""course_name"": ""Theory of Computation"", ""class_id"": ""CS_K2_SP24""}, {""fullname"": ""Kiều Diễm My"", ""course_name"": ""Operating Systems"", ""class_id"": ""CS_K2_SP24""}, {""fullname"": ""Kiều Diễm My"", ""course_name"": ""Theory of Computation"", ""class_id"": ""CS_K2_SP24""}]"
+"SELECT T1.fullname, T2.student_id 
+FROM Users AS T1 
+INNER JOIN Students AS T2 ON T1.user_id = T2.student_id","[{""fullname"": ""Nguyễn Văn An"", ""student_id"": ""HE00001""}, {""fullname"": ""Trần Thị Bình"", ""student_id"": ""HE00002""}, {""fullname"": ""Lê Văn Cường"", ""student_id"": ""HE00003""}, {""fullname"": ""Phạm Thị Dung"", ""student_id"": ""HE00004""}, {""fullname"": ""Hoàng Văn Giang"", ""student_id"": ""HE00005""}, {""fullname"": ""Vũ Thị Hương"", ""student_id"": ""HE00006""}, {""fullname"": ""Đặng Văn Khánh"", ""student_id"": ""HE00007""}, {""fullname"": ""Bùi Thị Lan"", ""student_id"": ""HE00008""}, {""fullname"": ""Hồ Văn Minh"", ""student_id"": ""HE00009""}, {""fullname"": ""Ngô Thị Nga"", ""student_id"": ""HE00010""}, {""fullname"": ""Dương Văn Oai"", ""student_id"": ""HE00011""}, {""fullname"": ""Đoàn Thị Phượng"", ""student_id"": ""HE00012""}, {""fullname"": ""Lý Văn Quân"", ""student_id"": ""HE00013""}, {""fullname"": ""Mai Thị Quỳnh"", ""student_id"": ""HE00014""}, {""fullname"": ""Phan Văn Sơn"", ""student_id"": ""HE00015""}, {""fullname"": ""Châu Thị Thảo"", ""student_id"": ""HE00016""}, {""fullname"": ""Tăng Văn Toàn"", ""student_id"": ""HE00017""}, {""fullname"": ""Kiều Thị Trinh"", ""student_id"": ""HE00018""}, {""fullname"": ""Trịnh Văn Tuấn"", ""student_id"": ""HE00019""}, {""fullname"": ""Vương Thị Uyên"", ""student_id"": ""HE00020""}, {""fullname"": ""Nguyễn Đình Anh"", ""student_id"": ""HE00021""}, {""fullname"": ""Lê Ngọc Bích"", ""student_id"": ""HE00022""}, {""fullname"": ""Trần Minh Chiến"", ""student_id"": ""HE00023""}, {""fullname"": ""Phạm Thu Diệu"", ""student_id"": ""HE00024""}, {""fullname"": ""Võ Thành Đạt"", ""student_id"": ""HE00025""}, {""fullname"": ""Hoàng Thị Kim Anh"", ""student_id"": ""HE00026""}, {""fullname"": ""Đỗ Quốc Bảo"", ""student_id"": ""HE00027""}, {""fullname"": ""Nguyễn Phương Linh"", ""student_id"": ""HE00028""}, {""fullname"": ""Lê Quang Huy"", ""student_id"": ""HE00029""}, {""fullname"": ""Trần Diệu My"", ""student_id"": ""HE00030""}, {""fullname"": ""Phan Anh Tuấn"", ""student_id"": ""HE00031""}, {""fullname"": ""Vũ Thùy Dương"", ""student_id"": ""HE00032""}, {""fullname"": ""Hoàng Minh Đức"", ""student_id"": ""HE00033""}, {""fullname"": ""Lê Thị Thu Trang"", ""student_id"": ""HE00034""}, {""fullname"": ""Nguyễn Tiến Dũng"", ""student_id"": ""HE00035""}, {""fullname"": ""Trần Ngọc Mai"", ""student_id"": ""HE00036""}, {""fullname"": ""Phạm Văn Hải"", ""student_id"": ""HE00037""}, {""fullname"": ""Võ Thị Kim Chi"", ""student_id"": ""HE00038""}, {""fullname"": ""Đặng Minh Khôi"", ""student_id"": ""HE00039""}, {""fullname"": ""Bùi Thanh Thảo"", ""student_id"": ""HE00040""}, {""fullname"": ""Hồ Đức Anh"", ""student_id"": ""HE00041""}, {""fullname"": ""Ngô Thùy Linh"", ""student_id"": ""HE00042""}, {""fullname"": ""Dương Công Thành"", ""student_id"": ""HE00043""}, {""fullname"": ""Đoàn Minh Nguyệt"", ""student_id"": ""HE00044""}, {""fullname"": ""Lý Hoàng Nam"", ""student_id"": ""HE00045""}, {""fullname"": ""Mai Bảo Châu"", ""student_id"": ""HE00046""}, {""fullname"": ""Phan Tuấn Kiệt"", ""student_id"": ""HE00047""}, {""fullname"": ""Châu Mỹ Lệ"", ""student_id"": ""HE00048""}, {""fullname"": ""Tăng Quốc Hùng"", ""student_id"": ""HE00049""}, {""fullname"": ""Kiều Diễm My"", ""student_id"": ""HE00050""}]"
+"SELECT U.fullname, E.average
+FROM Enrollments AS E
+JOIN Students AS S ON E.student_id = S.student_id
+JOIN Users AS U ON S.student_id = U.user_id
+WHERE E.average = (
+    SELECT MIN(average)
+    FROM Enrollments
+    WHERE status <> 'Studying'
+) AND E.status <> 'Studying';","[{""fullname"": ""Lý Hoàng Nam"", ""average"": 2.5}]"
+"SELECT TOP 1 WITH TIES
+  u.fullname
+FROM Enrollments AS e
+JOIN Students AS s
+  ON e.student_id = s.student_id
+JOIN Users AS u
+  ON s.student_id = u.user_id
+WHERE
+  e.status <> 'Studying'
+GROUP BY
+  e.student_id,
+  u.fullname
+ORDER BY
+  AVG(e.average) DESC;","[{""fullname"": ""Mai Bảo Châu""}]"
+"SELECT
+    CG.grade_name,
+    AVG(SGD.grade_value) AS AverageGrade
+FROM
+    CourseGrade CG
+JOIN Courses C ON CG.course_id = C.course_id
+LEFT JOIN StudentGradeDetails SGD ON CG.course_grade_id = SGD.course_grade_id
+LEFT JOIN Enrollments E ON SGD.enrollment_id = E.enrollment_id  
+WHERE
+    C.course_name = 'Mathematics for Engineering'
+    AND (E.status <> 'Studying' OR E.status IS NULL)  
+GROUP BY
+    CG.grade_name;",Không có dòng nào được trả về.
+"SELECT
+    CG.grade_name,
+    SGD.grade_value,
+    SGD.comment
+FROM
+    StudentGradeDetails SGD
+JOIN CourseGrade CG ON SGD.course_grade_id = CG.course_grade_id
+JOIN Enrollments E ON SGD.enrollment_id = E.enrollment_id
+JOIN Students ST ON E.student_id = ST.student_id
+WHERE
+    ST.student_id = 'HE001' 
+    AND CG.course_id = 'MAE'; ",Không có dòng nào được trả về.
+"SELECT
+    CG.grade_name,
+    CG.grade_weight,
+    SGD.grade_value
+FROM
+    StudentGradeDetails SGD
+JOIN CourseGrade CG ON SGD.course_grade_id = CG.course_grade_id
+JOIN Enrollments E ON SGD.enrollment_id = E.enrollment_id
+JOIN ClassCourse CC ON E.class_course_id = CC.class_course_id
+JOIN Courses C ON CC.course_id = C.course_id
+JOIN Students ST ON E.student_id = ST.student_id
+JOIN Users U ON ST.student_id = U.user_id
+WHERE
+    U.user_id = 'HE001'  
+    AND C.course_id = 'MAE'; ",Không có dòng nào được trả về.
+"SELECT grade_weight 
+FROM CourseGrade cg 
+JOIN Courses c ON cg.course_id = c.course_id 
+WHERE c.course_name = 'Natural Language Processing' AND cg.grade_name = 'Final Exam'","[{""grade_weight"": 0.4}]"
+"SELECT L.lecturer_id
+FROM ClassCourse CC
+JOIN Courses C ON CC.course_id = C.course_id
+JOIN Lecturers L ON CC.lecturer_id = L.lecturer_id
+WHERE C.course_name = 'Machine Learning'
+INTERSECT
+SELECT L.lecturer_id
+FROM ClassCourse CC
+JOIN Courses C ON CC.course_id = C.course_id
+JOIN Lecturers L ON CC.lecturer_id = L.lecturer_id
+WHERE C.course_name = 'Mathematics for Engineering';",Không có dòng nào được trả về.
+"SELECT DISTINCT
+  L.lecturer_id
+FROM ClassCourse AS CC
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+JOIN Curriculums AS Curr
+  ON C.course_id = Curr.course_id
+JOIN Majors AS M
+  ON Curr.major_id = M.major_id
+JOIN Lecturers AS L
+  ON CC.lecturer_id = L.lecturer_id
+WHERE
+  M.major_name = 'Artificial Intelligence';","[{""lecturer_id"": ""LEC001""}, {""lecturer_id"": ""LEC002""}, {""lecturer_id"": ""LEC003""}, {""lecturer_id"": ""LEC004""}, {""lecturer_id"": ""LEC005""}, {""lecturer_id"": ""LEC006""}, {""lecturer_id"": ""LEC007""}, {""lecturer_id"": ""LEC008""}, {""lecturer_id"": ""LEC009""}]"
+"SELECT
+  l.lecturer_id,
+  COUNT(DISTINCT cc.course_id) AS course_count
+FROM Lecturers AS l
+JOIN ClassCourse AS cc
+  ON l.lecturer_id = cc.lecturer_id
+GROUP BY
+  l.lecturer_id;","[{""lecturer_id"": ""LEC001"", ""course_count"": 3}, {""lecturer_id"": ""LEC002"", ""course_count"": 4}, {""lecturer_id"": ""LEC003"", ""course_count"": 3}, {""lecturer_id"": ""LEC004"", ""course_count"": 3}, {""lecturer_id"": ""LEC005"", ""course_count"": 3}, {""lecturer_id"": ""LEC006"", ""course_count"": 3}, {""lecturer_id"": ""LEC007"", ""course_count"": 3}, {""lecturer_id"": ""LEC008"", ""course_count"": 3}, {""lecturer_id"": ""LEC009"", ""course_count"": 3}, {""lecturer_id"": ""LEC010"", ""course_count"": 2}]"
+"SELECT
+  L.lecturer_id,
+  U.fullname
+FROM Lecturers AS L
+JOIN Users AS U
+  ON L.lecturer_id = U.user_id;","[{""lecturer_id"": ""LEC001"", ""fullname"": ""Nguyễn Văn Bình""}, {""lecturer_id"": ""LEC002"", ""fullname"": ""Nguyễn Thị Hoàng""}, {""lecturer_id"": ""LEC003"", ""fullname"": ""Trần Đức Trung""}, {""lecturer_id"": ""LEC004"", ""fullname"": ""Phạm Hoài Linh""}, {""lecturer_id"": ""LEC005"", ""fullname"": ""Đỗ Việt Anh""}, {""lecturer_id"": ""LEC006"", ""fullname"": ""Trần Thị Mai""}, {""lecturer_id"": ""LEC007"", ""fullname"": ""Lê Hoàng Long""}, {""lecturer_id"": ""LEC008"", ""fullname"": ""Vũ Phương Quyên""}, {""lecturer_id"": ""LEC009"", ""fullname"": ""Hoàng Việt Sơn""}, {""lecturer_id"": ""LEC010"", ""fullname"": ""Hồ Thị Phương Thảo""}]"
+"SELECT
+  L.lecturer_id,
+  U.fullname
+FROM Lecturers AS L
+JOIN Users as U ON L.lecturer_id = U.user_id
+WHERE
+  L.lecturer_id LIKE 'LEC%';","[{""lecturer_id"": ""LEC005"", ""fullname"": ""Đỗ Việt Anh""}, {""lecturer_id"": ""LEC001"", ""fullname"": ""Nguyễn Văn Bình""}, {""lecturer_id"": ""LEC002"", ""fullname"": ""Nguyễn Thị Hoàng""}, {""lecturer_id"": ""LEC004"", ""fullname"": ""Phạm Hoài Linh""}, {""lecturer_id"": ""LEC007"", ""fullname"": ""Lê Hoàng Long""}, {""lecturer_id"": ""LEC006"", ""fullname"": ""Trần Thị Mai""}, {""lecturer_id"": ""LEC008"", ""fullname"": ""Vũ Phương Quyên""}, {""lecturer_id"": ""LEC009"", ""fullname"": ""Hoàng Việt Sơn""}, {""lecturer_id"": ""LEC010"", ""fullname"": ""Hồ Thị Phương Thảo""}, {""lecturer_id"": ""LEC003"", ""fullname"": ""Trần Đức Trung""}]"
+"SELECT
+  L.lecturer_id,
+  U.fullname
+FROM Lecturers AS L
+JOIN Users AS U
+  ON L.lecturer_id = U.user_id
+JOIN Departments AS D
+  ON L.dep_id = D.dep_id
+WHERE
+  D.dep_name = 'Software Engineering';","[{""lecturer_id"": ""LEC002"", ""fullname"": ""Nguyễn Thị Hoàng""}, {""lecturer_id"": ""LEC006"", ""fullname"": ""Trần Thị Mai""}, {""lecturer_id"": ""LEC010"", ""fullname"": ""Hồ Thị Phương Thảo""}]"
+"SELECT
+  L.lecturer_id,
+  U.fullname
+FROM Lecturers AS L
+JOIN Users AS U
+  ON L.lecturer_id = U.user_id
+WHERE   U.fullname like '%Trang%';",Không có dòng nào được trả về.
+"SELECT
+  major_id,
+  course_id
+FROM Curriculums;","[{""major_id"": ""AI"", ""course_id"": ""AIE303""}, {""major_id"": ""AI"", ""course_id"": ""AIL301""}, {""major_id"": ""AI"", ""course_id"": ""AIV304""}, {""major_id"": ""AI"", ""course_id"": ""CSD201""}, {""major_id"": ""AI"", ""course_id"": ""NLP302""}, {""major_id"": ""AI"", ""course_id"": ""PRF192""}, {""major_id"": ""CS"", ""course_id"": ""CNW203""}, {""major_id"": ""CS"", ""course_id"": ""CSD201""}, {""major_id"": ""CS"", ""course_id"": ""DBI202""}, {""major_id"": ""CS"", ""course_id"": ""OSG202""}, {""major_id"": ""CS"", ""course_id"": ""PPL204""}, {""major_id"": ""CS"", ""course_id"": ""TOC201""}, {""major_id"": ""IA"", ""course_id"": ""CRY303""}, {""major_id"": ""IA"", ""course_id"": ""DBI202""}, {""major_id"": ""IA"", ""course_id"": ""IAS301""}, {""major_id"": ""IA"", ""course_id"": ""ISS304""}, {""major_id"": ""IA"", ""course_id"": ""NET302""}, {""major_id"": ""IA"", ""course_id"": ""PRF192""}, {""major_id"": ""SE"", ""course_id"": ""MAD101""}, {""major_id"": ""SE"", ""course_id"": ""PRF192""}, {""major_id"": ""SE"", ""course_id"": ""PRJ302""}, {""major_id"": ""SE"", ""course_id"": ""SDE303""}, {""major_id"": ""SE"", ""course_id"": ""SWE301""}, {""major_id"": ""SE"", ""course_id"": ""SWT304""}]"
+"SELECT
+  major_id,
+  major_name
+FROM Majors;","[{""major_id"": ""AI"", ""major_name"": ""Artificial Intelligence""}, {""major_id"": ""CS"", ""major_name"": ""Computer Science""}, {""major_id"": ""IA"", ""major_name"": ""Information Assurance""}, {""major_id"": ""SE"", ""major_name"": ""Software Engineering""}]"
+"SELECT
+  major_id,
+  major_name
+FROM Majors
+WHERE
+  major_name LIKE 'I%';","[{""major_id"": ""IA"", ""major_name"": ""Information Assurance""}]"
+"SELECT
+  M.major_name
+FROM Students AS S
+JOIN Majors AS M
+  ON S.major_id = M.major_id
+WHERE
+  S.student_id = 'HE001';",Không có dòng nào được trả về.
+"SELECT TOP 1 WITH TIES
+    M.major_name
+FROM Students AS S
+         JOIN Majors AS M
+              ON S.major_id = M.major_id
+GROUP BY
+    M.major_name
+ORDER BY
+    COUNT(DISTINCT S.student_id);","[{""major_name"": ""Computer Science""}, {""major_name"": ""Information Assurance""}]"
+"SELECT
+  m.major_name
+FROM Majors AS m
+JOIN Curriculums AS c
+  ON m.major_id = c.major_id
+JOIN Courses AS co
+  ON c.course_id = co.course_id
+WHERE
+  co.course_name = 'Mathematics for Engineering';",Không có dòng nào được trả về.
+"SELECT
+  m.major_name
+FROM Curriculums AS c
+JOIN Majors AS m
+  ON c.major_id = m.major_id
+GROUP BY
+  m.major_name
+HAVING
+  COUNT(DISTINCT c.course_id) > 5;","[{""major_name"": ""Artificial Intelligence""}, {""major_name"": ""Computer Science""}, {""major_name"": ""Information Assurance""}, {""major_name"": ""Software Engineering""}]"
+"SELECT
+  M.major_name
+FROM Majors AS M
+JOIN Curriculums AS C1
+  ON M.major_id = C1.major_id
+JOIN Courses AS CO1
+  ON C1.course_id = CO1.course_id
+JOIN Curriculums AS C2
+  ON M.major_id = C2.major_id
+JOIN Courses AS CO2
+  ON C2.course_id = CO2.course_id
+WHERE
+  CO1.course_name = 'Mathematics for Engineering' AND CO2.course_name = 'Introduction to Computer Science';",Không có dòng nào được trả về.
+"SELECT
+  m.major_name
+FROM Majors AS m
+JOIN Curriculums AS c
+  ON m.major_id = c.major_id
+WHERE
+  c.course_id = 'MAE';",Không có dòng nào được trả về.
+"SELECT
+  m.major_name,
+  c.course_name
+FROM Curriculums AS cu
+JOIN Majors AS m
+  ON cu.major_id = m.major_id
+JOIN Courses AS c
+  ON cu.course_id = c.course_id;","[{""major_name"": ""Artificial Intelligence"", ""course_name"": ""AI Ethics and Society""}, {""major_name"": ""Artificial Intelligence"", ""course_name"": ""Artificial Intelligence and Machine Learning""}, {""major_name"": ""Artificial Intelligence"", ""course_name"": ""AI in Vision""}, {""major_name"": ""Artificial Intelligence"", ""course_name"": ""Data Structures and Algorithms""}, {""major_name"": ""Artificial Intelligence"", ""course_name"": ""Natural Language Processing""}, {""major_name"": ""Artificial Intelligence"", ""course_name"": ""Programming Fundamentals""}, {""major_name"": ""Computer Science"", ""course_name"": ""Computer Networks""}, {""major_name"": ""Computer Science"", ""course_name"": ""Data Structures and Algorithms""}, {""major_name"": ""Computer Science"", ""course_name"": ""Database Systems""}, {""major_name"": ""Computer Science"", ""course_name"": ""Operating Systems""}, {""major_name"": ""Computer Science"", ""course_name"": ""Programming Paradigms""}, {""major_name"": ""Computer Science"", ""course_name"": ""Theory of Computation""}, {""major_name"": ""Information Assurance"", ""course_name"": ""Cryptography""}, {""major_name"": ""Information Assurance"", ""course_name"": ""Database Systems""}, {""major_name"": ""Information Assurance"", ""course_name"": ""Information Assurance and Security""}, {""major_name"": ""Information Assurance"", ""course_name"": ""Information Security Systems""}, {""major_name"": ""Information Assurance"", ""course_name"": ""Network Security""}, {""major_name"": ""Information Assurance"", ""course_name"": ""Programming Fundamentals""}, {""major_name"": ""Software Engineering"", ""course_name"": ""Mathematics for Developers""}, {""major_name"": ""Software Engineering"", ""course_name"": ""Programming Fundamentals""}, {""major_name"": ""Software Engineering"", ""course_name"": ""Software Project Management""}, {""major_name"": ""Software Engineering"", ""course_name"": ""Software Design and Architecture""}, {""major_name"": ""Software Engineering"", ""course_name"": ""Software Engineering Principles""}, {""major_name"": ""Software Engineering"", ""course_name"": ""Software Testing and Quality Assurance""}]"
+"SELECT
+  m.major_name,
+  COUNT(c.course_id) AS num_courses
+FROM Majors AS m
+JOIN Curriculums AS c
+  ON m.major_id = c.major_id
+GROUP BY
+  m.major_name;","[{""major_name"": ""Artificial Intelligence"", ""num_courses"": 6}, {""major_name"": ""Computer Science"", ""num_courses"": 6}, {""major_name"": ""Information Assurance"", ""num_courses"": 6}, {""major_name"": ""Software Engineering"", ""num_courses"": 6}]"
+"SELECT TOP 1 WITH TIES
+    M.major_name,
+    COUNT(C.course_id) AS NumberOfCourses
+FROM
+    Majors M
+JOIN Curriculums CU ON M.major_id = CU.major_id
+JOIN Courses C ON CU.course_id = C.course_id
+GROUP BY
+    M.major_name
+ORDER BY
+    NumberOfCourses DESC;","[{""major_name"": ""Artificial Intelligence"", ""NumberOfCourses"": 6}, {""major_name"": ""Computer Science"", ""NumberOfCourses"": 6}, {""major_name"": ""Information Assurance"", ""NumberOfCourses"": 6}, {""major_name"": ""Software Engineering"", ""NumberOfCourses"": 6}]"
+"SELECT
+  COUNT(DISTINCT T1.student_id) AS number_of_students
+FROM Enrollments AS T1
+INNER JOIN ClassCourse AS T2
+  ON T1.class_course_id = T2.class_course_id
+WHERE
+  T2.class_id = 'AI01' AND T2.semester = 'SP25';","[{""number_of_students"": 0}]"
+"SELECT
+  COUNT(DISTINCT T1.class_course_id) AS NumberOfClasses
+FROM Schedules AS T1
+JOIN ClassCourse AS T2
+  ON T1.class_course_id = T2.class_course_id
+WHERE
+  T1.room = 'R001' AND T2.semester = 'SP25'; ","[{""NumberOfClasses"": 0}]"
+"SELECT
+  COUNT(DISTINCT T2.class_id) AS NumberOfClasses
+FROM Lecturers AS T1
+INNER JOIN ClassCourse AS T2
+  ON T1.lecturer_id = T2.lecturer_id
+INNER JOIN Users AS T3
+  ON T1.lecturer_id = T3.user_id
+WHERE
+  T3.fullname = 'Giang' AND T2.semester = 'SP25';","[{""NumberOfClasses"": 0}]"
+"SELECT T2.role_name
+FROM UserRole AS T1
+INNER JOIN Roles AS T2
+  ON T1.role_id = T2.role_id
+WHERE
+  T1.user_id = 'HE001';",Không có dòng nào được trả về.
+"SELECT
+  s.room,
+  COUNT(DISTINCT cc.class_id) AS class_count
+FROM Schedules AS s
+JOIN ClassCourse AS cc
+  ON s.class_course_id = cc.class_course_id
+WHERE cc.semester = 'SP25'
+GROUP BY s.room
+ORDER BY
+  s.room;",Không có dòng nào được trả về.
+"SELECT
+    CC.semester,
+    CG.grade_name,
+    SGD.grade_value,
+    SGD.comment
+FROM
+    StudentGradeDetails SGD
+JOIN CourseGrade CG ON SGD.course_grade_id = CG.course_grade_id
+JOIN Enrollments E ON SGD.enrollment_id = E.enrollment_id
+JOIN ClassCourse CC ON E.class_course_id = CC.class_course_id
+JOIN Courses C ON CC.course_id = C.course_id
+JOIN Students ST ON E.student_id = ST.student_id
+JOIN Users U ON ST.student_id = U.user_id
+WHERE
+    U.user_id = 'HE001'         
+    AND C.course_id = 'MAE'      
+    AND CG.grade_name LIKE '%Assignment%';",Không có dòng nào được trả về.
+"SELECT start_date
+FROM Students
+WHERE student_id = 'HE001';",Không có dòng nào được trả về.
+"SELECT start_semester
+FROM Students
+WHERE student_id = 'HE001';",Không có dòng nào được trả về.
+"SELECT
+  S.start_time,
+  S.end_time,
+  S.room,
+  S.slot,
+  Crs.course_name,
+  CC.class_id,
+  CC.semester
+FROM Schedules AS S
+JOIN ClassCourse AS CC ON S.class_course_id = CC.class_course_id
+JOIN Courses AS Crs ON CC.course_id = Crs.course_id
+WHERE Crs.course_name = 'Mathematics for Engineering' AND CC.semester = 'FA24';",Không có dòng nào được trả về.
+SELECT status FROM Enrollments e JOIN ClassCourse cc ON e.class_course_id = cc.class_course_id WHERE e.student_id = 'HE001' AND cc.course_id = 'MAE',Không có dòng nào được trả về.
+Select student_id from Students where student_id='HE001',Không có dòng nào được trả về.
+"SELECT
+  S.student_id,
+  U.fullname
+FROM Students AS S
+JOIN Majors AS M
+  ON S.major_id = M.major_id
+JOIN Users AS U
+  ON S.student_id = U.user_id
+WHERE
+  M.major_name = 'Artificial Intelligence';","[{""student_id"": ""HE00001"", ""fullname"": ""Nguyễn Văn An""}, {""student_id"": ""HE00002"", ""fullname"": ""Trần Thị Bình""}, {""student_id"": ""HE00003"", ""fullname"": ""Lê Văn Cường""}, {""student_id"": ""HE00004"", ""fullname"": ""Phạm Thị Dung""}, {""student_id"": ""HE00005"", ""fullname"": ""Hoàng Văn Giang""}, {""student_id"": ""HE00006"", ""fullname"": ""Vũ Thị Hương""}, {""student_id"": ""HE00007"", ""fullname"": ""Đặng Văn Khánh""}, {""student_id"": ""HE00008"", ""fullname"": ""Bùi Thị Lan""}, {""student_id"": ""HE00009"", ""fullname"": ""Hồ Văn Minh""}, {""student_id"": ""HE00010"", ""fullname"": ""Ngô Thị Nga""}, {""student_id"": ""HE00011"", ""fullname"": ""Dương Văn Oai""}, {""student_id"": ""HE00012"", ""fullname"": ""Đoàn Thị Phượng""}, {""student_id"": ""HE00013"", ""fullname"": ""Lý Văn Quân""}]"
+"SELECT S.student_id, U.fullname
+FROM Students AS S
+JOIN Users AS U ON S.student_id = U.user_id
+WHERE U.fullname LIKE 'Student%';",Không có dòng nào được trả về.
+"SELECT
+  S.student_id,
+  U.fullname
+FROM Students AS S
+JOIN Users AS U
+  ON S.student_id = U.user_id;","[{""student_id"": ""HE00001"", ""fullname"": ""Nguyễn Văn An""}, {""student_id"": ""HE00002"", ""fullname"": ""Trần Thị Bình""}, {""student_id"": ""HE00003"", ""fullname"": ""Lê Văn Cường""}, {""student_id"": ""HE00004"", ""fullname"": ""Phạm Thị Dung""}, {""student_id"": ""HE00005"", ""fullname"": ""Hoàng Văn Giang""}, {""student_id"": ""HE00006"", ""fullname"": ""Vũ Thị Hương""}, {""student_id"": ""HE00007"", ""fullname"": ""Đặng Văn Khánh""}, {""student_id"": ""HE00008"", ""fullname"": ""Bùi Thị Lan""}, {""student_id"": ""HE00009"", ""fullname"": ""Hồ Văn Minh""}, {""student_id"": ""HE00010"", ""fullname"": ""Ngô Thị Nga""}, {""student_id"": ""HE00011"", ""fullname"": ""Dương Văn Oai""}, {""student_id"": ""HE00012"", ""fullname"": ""Đoàn Thị Phượng""}, {""student_id"": ""HE00013"", ""fullname"": ""Lý Văn Quân""}, {""student_id"": ""HE00014"", ""fullname"": ""Mai Thị Quỳnh""}, {""student_id"": ""HE00015"", ""fullname"": ""Phan Văn Sơn""}, {""student_id"": ""HE00016"", ""fullname"": ""Châu Thị Thảo""}, {""student_id"": ""HE00017"", ""fullname"": ""Tăng Văn Toàn""}, {""student_id"": ""HE00018"", ""fullname"": ""Kiều Thị Trinh""}, {""student_id"": ""HE00019"", ""fullname"": ""Trịnh Văn Tuấn""}, {""student_id"": ""HE00020"", ""fullname"": ""Vương Thị Uyên""}, {""student_id"": ""HE00021"", ""fullname"": ""Nguyễn Đình Anh""}, {""student_id"": ""HE00022"", ""fullname"": ""Lê Ngọc Bích""}, {""student_id"": ""HE00023"", ""fullname"": ""Trần Minh Chiến""}, {""student_id"": ""HE00024"", ""fullname"": ""Phạm Thu Diệu""}, {""student_id"": ""HE00025"", ""fullname"": ""Võ Thành Đạt""}, {""student_id"": ""HE00026"", ""fullname"": ""Hoàng Thị Kim Anh""}, {""student_id"": ""HE00027"", ""fullname"": ""Đỗ Quốc Bảo""}, {""student_id"": ""HE00028"", ""fullname"": ""Nguyễn Phương Linh""}, {""student_id"": ""HE00029"", ""fullname"": ""Lê Quang Huy""}, {""student_id"": ""HE00030"", ""fullname"": ""Trần Diệu My""}, {""student_id"": ""HE00031"", ""fullname"": ""Phan Anh Tuấn""}, {""student_id"": ""HE00032"", ""fullname"": ""Vũ Thùy Dương""}, {""student_id"": ""HE00033"", ""fullname"": ""Hoàng Minh Đức""}, {""student_id"": ""HE00034"", ""fullname"": ""Lê Thị Thu Trang""}, {""student_id"": ""HE00035"", ""fullname"": ""Nguyễn Tiến Dũng""}, {""student_id"": ""HE00036"", ""fullname"": ""Trần Ngọc Mai""}, {""student_id"": ""HE00037"", ""fullname"": ""Phạm Văn Hải""}, {""student_id"": ""HE00038"", ""fullname"": ""Võ Thị Kim Chi""}, {""student_id"": ""HE00039"", ""fullname"": ""Đặng Minh Khôi""}, {""student_id"": ""HE00040"", ""fullname"": ""Bùi Thanh Thảo""}, {""student_id"": ""HE00041"", ""fullname"": ""Hồ Đức Anh""}, {""student_id"": ""HE00042"", ""fullname"": ""Ngô Thùy Linh""}, {""student_id"": ""HE00043"", ""fullname"": ""Dương Công Thành""}, {""student_id"": ""HE00044"", ""fullname"": ""Đoàn Minh Nguyệt""}, {""student_id"": ""HE00045"", ""fullname"": ""Lý Hoàng Nam""}, {""student_id"": ""HE00046"", ""fullname"": ""Mai Bảo Châu""}, {""student_id"": ""HE00047"", ""fullname"": ""Phan Tuấn Kiệt""}, {""student_id"": ""HE00048"", ""fullname"": ""Châu Mỹ Lệ""}, {""student_id"": ""HE00049"", ""fullname"": ""Tăng Quốc Hùng""}, {""student_id"": ""HE00050"", ""fullname"": ""Kiều Diễm My""}]"
+"SELECT
+  S.student_id,
+  U.fullname,
+  M.major_name
+FROM Students AS S
+JOIN Majors AS M
+  ON S.major_id = M.major_id
+JOIN Users AS U
+  ON S.student_id = U.user_id;","[{""student_id"": ""HE00001"", ""fullname"": ""Nguyễn Văn An"", ""major_name"": ""Artificial Intelligence""}, {""student_id"": ""HE00002"", ""fullname"": ""Trần Thị Bình"", ""major_name"": ""Artificial Intelligence""}, {""student_id"": ""HE00003"", ""fullname"": ""Lê Văn Cường"", ""major_name"": ""Artificial Intelligence""}, {""student_id"": ""HE00004"", ""fullname"": ""Phạm Thị Dung"", ""major_name"": ""Artificial Intelligence""}, {""student_id"": ""HE00005"", ""fullname"": ""Hoàng Văn Giang"", ""major_name"": ""Artificial Intelligence""}, {""student_id"": ""HE00006"", ""fullname"": ""Vũ Thị Hương"", ""major_name"": ""Artificial Intelligence""}, {""student_id"": ""HE00007"", ""fullname"": ""Đặng Văn Khánh"", ""major_name"": ""Artificial Intelligence""}, {""student_id"": ""HE00008"", ""fullname"": ""Bùi Thị Lan"", ""major_name"": ""Artificial Intelligence""}, {""student_id"": ""HE00009"", ""fullname"": ""Hồ Văn Minh"", ""major_name"": ""Artificial Intelligence""}, {""student_id"": ""HE00010"", ""fullname"": ""Ngô Thị Nga"", ""major_name"": ""Artificial Intelligence""}, {""student_id"": ""HE00011"", ""fullname"": ""Dương Văn Oai"", ""major_name"": ""Artificial Intelligence""}, {""student_id"": ""HE00012"", ""fullname"": ""Đoàn Thị Phượng"", ""major_name"": ""Artificial Intelligence""}, {""student_id"": ""HE00013"", ""fullname"": ""Lý Văn Quân"", ""major_name"": ""Artificial Intelligence""}, {""student_id"": ""HE00014"", ""fullname"": ""Mai Thị Quỳnh"", ""major_name"": ""Information Assurance""}, {""student_id"": ""HE00015"", ""fullname"": ""Phan Văn Sơn"", ""major_name"": ""Information Assurance""}, {""student_id"": ""HE00016"", ""fullname"": ""Châu Thị Thảo"", ""major_name"": ""Information Assurance""}, {""student_id"": ""HE00017"", ""fullname"": ""Tăng Văn Toàn"", ""major_name"": ""Information Assurance""}, {""student_id"": ""HE00018"", ""fullname"": ""Kiều Thị Trinh"", ""major_name"": ""Information Assurance""}, {""student_id"": ""HE00019"", ""fullname"": ""Trịnh Văn Tuấn"", ""major_name"": ""Information Assurance""}, {""student_id"": ""HE00020"", ""fullname"": ""Vương Thị Uyên"", ""major_name"": ""Information Assurance""}, {""student_id"": ""HE00021"", ""fullname"": ""Nguyễn Đình Anh"", ""major_name"": ""Information Assurance""}, {""student_id"": ""HE00022"", ""fullname"": ""Lê Ngọc Bích"", ""major_name"": ""Information Assurance""}, {""student_id"": ""HE00023"", ""fullname"": ""Trần Minh Chiến"", ""major_name"": ""Information Assurance""}, {""student_id"": ""HE00024"", ""fullname"": ""Phạm Thu Diệu"", ""major_name"": ""Information Assurance""}, {""student_id"": ""HE00025"", ""fullname"": ""Võ Thành Đạt"", ""major_name"": ""Information Assurance""}, {""student_id"": ""HE00026"", ""fullname"": ""Hoàng Thị Kim Anh"", ""major_name"": ""Software Engineering""}, {""student_id"": ""HE00027"", ""fullname"": ""Đỗ Quốc Bảo"", ""major_name"": ""Software Engineering""}, {""student_id"": ""HE00028"", ""fullname"": ""Nguyễn Phương Linh"", ""major_name"": ""Software Engineering""}, {""student_id"": ""HE00029"", ""fullname"": ""Lê Quang Huy"", ""major_name"": ""Software Engineering""}, {""student_id"": ""HE00030"", ""fullname"": ""Trần Diệu My"", ""major_name"": ""Software Engineering""}, {""student_id"": ""HE00031"", ""fullname"": ""Phan Anh Tuấn"", ""major_name"": ""Software Engineering""}, {""student_id"": ""HE00032"", ""fullname"": ""Vũ Thùy Dương"", ""major_name"": ""Software Engineering""}, {""student_id"": ""HE00033"", ""fullname"": ""Hoàng Minh Đức"", ""major_name"": ""Software Engineering""}, {""student_id"": ""HE00034"", ""fullname"": ""Lê Thị Thu Trang"", ""major_name"": ""Software Engineering""}, {""student_id"": ""HE00035"", ""fullname"": ""Nguyễn Tiến Dũng"", ""major_name"": ""Software Engineering""}, {""student_id"": ""HE00036"", ""fullname"": ""Trần Ngọc Mai"", ""major_name"": ""Software Engineering""}, {""student_id"": ""HE00037"", ""fullname"": ""Phạm Văn Hải"", ""major_name"": ""Software Engineering""}, {""student_id"": ""HE00038"", ""fullname"": ""Võ Thị Kim Chi"", ""major_name"": ""Software Engineering""}, {""student_id"": ""HE00039"", ""fullname"": ""Đặng Minh Khôi"", ""major_name"": ""Computer Science""}, {""student_id"": ""HE00040"", ""fullname"": ""Bùi Thanh Thảo"", ""major_name"": ""Computer Science""}, {""student_id"": ""HE00041"", ""fullname"": ""Hồ Đức Anh"", ""major_name"": ""Computer Science""}, {""student_id"": ""HE00042"", ""fullname"": ""Ngô Thùy Linh"", ""major_name"": ""Computer Science""}, {""student_id"": ""HE00043"", ""fullname"": ""Dương Công Thành"", ""major_name"": ""Computer Science""}, {""student_id"": ""HE00044"", ""fullname"": ""Đoàn Minh Nguyệt"", ""major_name"": ""Computer Science""}, {""student_id"": ""HE00045"", ""fullname"": ""Lý Hoàng Nam"", ""major_name"": ""Computer Science""}, {""student_id"": ""HE00046"", ""fullname"": ""Mai Bảo Châu"", ""major_name"": ""Computer Science""}, {""student_id"": ""HE00047"", ""fullname"": ""Phan Tuấn Kiệt"", ""major_name"": ""Computer Science""}, {""student_id"": ""HE00048"", ""fullname"": ""Châu Mỹ Lệ"", ""major_name"": ""Computer Science""}, {""student_id"": ""HE00049"", ""fullname"": ""Tăng Quốc Hùng"", ""major_name"": ""Computer Science""}, {""student_id"": ""HE00050"", ""fullname"": ""Kiều Diễm My"", ""major_name"": ""Computer Science""}]"
+"SELECT	E.student_id,
+  U.fullname ,
+  S.start_time,
+  A.status
+FROM Attendance AS A
+JOIN Enrollments AS E
+  ON A.enrollment_id = E.enrollment_id
+JOIN Students AS St
+  ON E.student_id = St.student_id
+JOIN Users AS U
+  ON St.student_id = U.user_id
+JOIN Schedules AS S
+  ON A.schedule_id = S.schedule_id
+JOIN ClassCourse AS CC
+  ON E.class_course_id = CC.class_course_id AND S.class_course_id = CC.class_course_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+WHERE
+  CC.class_id = 'AI01' AND C.course_name = 'Machine Learning';",Không có dòng nào được trả về.
+"SELECT E.student_id, COUNT(DISTINCT E.class_course_id) AS NumberOfCourses
+FROM Enrollments AS E
+GROUP BY E.student_id
+HAVING COUNT(DISTINCT E.class_course_id) = (
+    SELECT MAX(CourseCount)
+    FROM (
+        SELECT COUNT(DISTINCT class_course_id) AS CourseCount
+        FROM Enrollments
+        GROUP BY student_id
+    ) AS Subquery
+);","[{""student_id"": ""HE00001"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00002"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00003"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00004"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00005"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00006"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00007"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00008"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00009"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00014"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00015"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00016"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00017"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00018"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00019"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00020"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00021"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00026"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00027"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00028"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00029"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00030"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00031"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00032"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00033"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00034"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00039"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00040"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00041"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00042"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00043"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00044"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00045"", ""NumberOfCourses"": 4}, {""student_id"": ""HE00046"", ""NumberOfCourses"": 4}]"
+"SELECT e.student_id, u.fullname AS student_name, a.status
+FROM Attendance a
+JOIN Enrollments e ON a.enrollment_id = e.enrollment_id
+JOIN Users u ON e.student_id = u.user_id
+JOIN Schedules s ON a.schedule_id = s.schedule_id
+JOIN ClassCourse cc on cc.class_course_id = s.class_course_id
+JOIN Courses C ON CC.course_id = C.course_id
+WHERE C.course_name = 'Machine Learning'
+AND CAST(s.start_time AS DATE) = '2025-01-06';",Không có dòng nào được trả về.
+"SELECT DISTINCT E2.student_id
+FROM Enrollments AS E1
+JOIN Enrollments AS E2 ON E1.class_course_id = E2.class_course_id
+WHERE E1.student_id = 'HE001' AND E2.student_id <> 'HE001';",Không có dòng nào được trả về.
+"SELECT DISTINCT e.student_id 
+FROM Enrollments e 
+JOIN StudentGradeDetails sgd ON e.enrollment_id = sgd.enrollment_id 
+JOIN CourseGrade cg ON sgd.course_grade_id = cg.course_grade_id 
+JOIN ClassCourse cc ON e.class_course_id = cc.class_course_id 
+JOIN Courses c ON cc.course_id = c.course_id 
+WHERE cg.grade_name = 'Practical Exam' AND sgd.grade_value > 7 AND c.course_name = 'Malware Analysis and Reverse Engineering'",Không có dòng nào được trả về.
+"SELECT
+    S.student_id,
+        U.fullname,
+    CC.course_id,
+    Cls.class_id,
+        E.average,
+    E.status,
+    CC.semester
+FROM Enrollments AS E
+JOIN Students AS S ON E.student_id = S.student_id
+JOIN Users AS U ON S.student_id = U.user_id
+JOIN ClassCourse AS CC ON E.class_course_id = CC.class_course_id
+JOIN Classes AS Cls ON CC.class_id = Cls.class_id
+WHERE CC.lecturer_id = 'LEC01' AND E.status <> 'Studying';",Không có dòng nào được trả về.
+"WITH RankedEnrollments AS (
+  SELECT
+    E.student_id,
+    E.average,
+    C.no_credit,
+    ROW_NUMBER() OVER (
+      PARTITION BY
+        E.student_id,
+        CC.course_id
+      ORDER BY
+        RIGHT(CC.semester, 2) DESC,
+        CASE LEFT(CC.semester, 2)
+          WHEN 'FA' THEN 3 
+          WHEN 'SU' THEN 2 
+          WHEN 'SP' THEN 1 
+          ELSE 0
+        END DESC
+    ) as rn
+  FROM Enrollments AS E
+  JOIN ClassCourse AS CC
+    ON E.class_course_id = CC.class_course_id
+  JOIN Courses AS C
+    ON CC.course_id = C.course_id
+  WHERE
+    E.status <> 'Studying' 
+    AND C.no_credit > 0 
+), FilteredEnrollments AS (
+  SELECT
+    student_id,
+    average,
+    no_credit
+  FROM RankedEnrollments
+  WHERE
+    rn = 1
+), StudentGPA AS (
+  SELECT
+    FE.student_id,
+    SUM(FE.average * FE.no_credit) / SUM(FE.no_credit) AS CumulativeGPA
+  FROM FilteredEnrollments AS FE
+  GROUP BY
+    FE.student_id
+  HAVING
+    SUM(FE.no_credit) > 0 
+)
+SELECT TOP 1 WITH TIES
+  SG.student_id,
+  U.fullname,
+  SG.CumulativeGPA
+FROM StudentGPA AS SG
+JOIN Users AS U
+  ON SG.student_id = U.user_id
+ORDER BY
+  SG.CumulativeGPA DESC;","[{""student_id"": ""HE00046"", ""fullname"": ""Mai Bảo Châu"", ""CumulativeGPA"": 9.25}]"
+"SELECT DISTINCT
+  S.student_id
+FROM Students AS S
+JOIN Enrollments AS E
+  ON S.student_id = E.student_id
+JOIN Attendance AS A
+  ON E.enrollment_id = A.enrollment_id
+WHERE
+  A.status = 'Absent';","[{""student_id"": ""HE00001""}, {""student_id"": ""HE00002""}, {""student_id"": ""HE00003""}, {""student_id"": ""HE00004""}, {""student_id"": ""HE00005""}, {""student_id"": ""HE00006""}, {""student_id"": ""HE00007""}, {""student_id"": ""HE00008""}, {""student_id"": ""HE00009""}, {""student_id"": ""HE00010""}, {""student_id"": ""HE00011""}, {""student_id"": ""HE00012""}, {""student_id"": ""HE00013""}, {""student_id"": ""HE00014""}, {""student_id"": ""HE00015""}, {""student_id"": ""HE00016""}, {""student_id"": ""HE00017""}, {""student_id"": ""HE00018""}, {""student_id"": ""HE00019""}, {""student_id"": ""HE00020""}, {""student_id"": ""HE00022""}, {""student_id"": ""HE00023""}, {""student_id"": ""HE00024""}, {""student_id"": ""HE00025""}, {""student_id"": ""HE00026""}, {""student_id"": ""HE00027""}, {""student_id"": ""HE00028""}, {""student_id"": ""HE00029""}, {""student_id"": ""HE00030""}, {""student_id"": ""HE00031""}, {""student_id"": ""HE00032""}, {""student_id"": ""HE00034""}, {""student_id"": ""HE00035""}, {""student_id"": ""HE00036""}, {""student_id"": ""HE00037""}, {""student_id"": ""HE00038""}, {""student_id"": ""HE00039""}, {""student_id"": ""HE00040""}, {""student_id"": ""HE00041""}, {""student_id"": ""HE00042""}, {""student_id"": ""HE00043""}, {""student_id"": ""HE00044""}, {""student_id"": ""HE00045""}, {""student_id"": ""HE00046""}, {""student_id"": ""HE00047""}, {""student_id"": ""HE00048""}, {""student_id"": ""HE00049""}, {""student_id"": ""HE00050""}]"
+"WITH ClassScheduleCategories AS (
+  SELECT
+    cc.class_id,
+    CASE
+      WHEN CAST(s.start_time AS time) >= '07:00:00' AND CAST(s.start_time AS time) < '12:00:00'
+      THEN 'Morning'
+      WHEN CAST(s.start_time AS time) >= '12:00:00' AND CAST(s.start_time AS time) < '17:00:00'
+      THEN 'Afternoon'
+    END AS time_category
+  FROM Schedules AS s
+  JOIN ClassCourse AS cc
+    ON s.class_course_id = cc.class_course_id
+)
+SELECT
+  time_category,
+  COUNT(DISTINCT class_id) AS class_count
+FROM ClassScheduleCategories
+GROUP BY
+  time_category
+ORDER BY
+  time_category;","[{""time_category"": ""Afternoon"", ""class_count"": 3}, {""time_category"": ""Morning"", ""class_count"": 5}]"
+"SELECT
+  SUM(T3.no_credit) AS total_credits
+FROM Enrollments AS T1
+INNER JOIN ClassCourse AS T2
+  ON T1.class_course_id = T2.class_course_id
+INNER JOIN Courses AS T3
+  ON T2.course_id = T3.course_id
+WHERE
+  T1.student_id = 'HE001' AND T2.semester = 'SP25';","[{""total_credits"": null}]"
+"SELECT SUM(DATEDIFF(minute, s.start_time, s.end_time)) AS total_duration_minutes 
+FROM Schedules s 
+JOIN ClassCourse cc ON s.class_course_id = cc.class_course_id 
+JOIN Courses c ON cc.course_id = c.course_id 
+WHERE c.course_name = 'Malware Analysis and Reverse Engineering'","[{""total_duration_minutes"": null}]"
+"SELECT DISTINCT T1.user_id, T1.fullname
+FROM Users AS T1
+INNER JOIN Lecturers AS T2
+  ON T1.user_id = T2.lecturer_id
+INNER JOIN ClassCourse AS T3
+  ON T2.lecturer_id = T3.lecturer_id
+INNER JOIN Schedules AS T4
+  ON T3.class_course_id = T4.class_course_id
+INNER JOIN Courses AS T5
+  ON T3.course_id = T5.course_id
+WHERE
+  T5.course_name = 'Mathematics for Engineering'
+  AND T3.class_id = 'IA01'
+  AND DATENAME(weekday, T4.start_time) = 'Monday'
+  AND CONVERT(TIME, T4.start_time) = '07:30:00';",Không có dòng nào được trả về.
+"SELECT DISTINCT U.user_id,
+  U.fullname
+FROM Users AS U
+JOIN Lecturers AS L
+  ON U.user_id = L.lecturer_id
+JOIN ClassCourse AS CC
+  ON L.lecturer_id = CC.lecturer_id
+JOIN Schedules AS S
+  ON CC.class_course_id = S.class_course_id
+WHERE
+  DATEPART(hour, S.start_time) < 12 AND CC.semester = 'SP25';",Không có dòng nào được trả về.
+"SELECT username, fullname
+FROM Users
+WHERE
+  MONTH(user_dob) = 1;","[{""username"": ""he00001_user"", ""fullname"": ""Nguyễn Văn An""}, {""username"": ""he00013_user"", ""fullname"": ""Lý Văn Quân""}, {""username"": ""he00025_user"", ""fullname"": ""Võ Thành Đạt""}, {""username"": ""he00037_user"", ""fullname"": ""Phạm Văn Hải""}, {""username"": ""he00049_user"", ""fullname"": ""Tăng Quốc Hùng""}, {""username"": ""linhph"", ""fullname"": ""Phạm Hoài Linh""}]"
+"SELECT
+  username, user_id, fullname, user_gender, user_dob, user_address
+FROM Users
+WHERE
+  user_id = 'HE011';",Không có dòng nào được trả về.
+"SELECT course_id, course_name
+FROM Courses 
+WHERE description IS NULL OR description = '';",Không có dòng nào được trả về.
+SELECT course_name FROM Courses WHERE no_credit > 3;,Không có dòng nào được trả về.
+"SELECT CC.class_id
+FROM Enrollments AS E
+JOIN ClassCourse AS CC ON E.class_course_id = CC.class_course_id
+GROUP BY CC.class_id
+HAVING COUNT(DISTINCT E.student_id) > 30;",Không có dòng nào được trả về.
+"SELECT P.permission_name
+FROM Roles AS R
+JOIN RolePermission AS RP ON R.role_id = RP.role_id
+JOIN Permissions AS P ON RP.permission_id = P.permission_id
+WHERE R.role_name = 'Student';","[{""permission_name"": ""View all majors""}, {""permission_name"": ""View courses in curriculums""}, {""permission_name"": ""View course details""}, {""permission_name"": ""View course grade structure""}, {""permission_name"": ""View own personal information""}, {""permission_name"": ""View own major information""}, {""permission_name"": ""View own enrolled class courses""}, {""permission_name"": ""View classmates in enrolled class courses""}, {""permission_name"": ""View own class course schedules""}, {""permission_name"": ""View own attendance status""}, {""permission_name"": ""View own grade details""}, {""permission_name"": ""View own enrollment average and status""}, {""permission_name"": ""View own lecturers basic information""}]"
+"SELECT U.username, U.fullname
+FROM Users AS U
+JOIN UserRole AS UR ON U.user_id = UR.user_id
+JOIN Roles AS R ON UR.role_id = R.role_id
+JOIN RolePermission AS RP ON R.role_id = RP.role_id
+JOIN Permissions AS P ON RP.permission_id = P.permission_id
+WHERE P.permission_name = 'EditCourse';",Không có dòng nào được trả về.
+"SELECT TOP 1 WITH TIES R.role_name
+FROM Roles AS R
+JOIN RolePermission AS RP ON R.role_id = RP.role_id
+GROUP BY R.role_name
+ORDER BY COUNT(RP.permission_id) DESC;","[{""role_name"": ""Lecturer""}]"
+"SELECT DISTINCT
+    U.fullname
+FROM
+    Users U
+JOIN Students ST ON U.user_id = ST.student_id
+JOIN Enrollments E ON ST.student_id = E.student_id
+JOIN ClassCourse CC ON E.class_course_id = CC.class_course_id
+JOIN Attendance A ON E.enrollment_id = A.enrollment_id
+WHERE
+    CC.semester = 'SP25' 
+    AND A.status = 'Absent';",Không có dòng nào được trả về.
+"SELECT
+    S.start_time,
+        C.course_name,
+        CL.class_id,
+        S.room
+        
+FROM
+    Schedules S
+JOIN ClassCourse CC ON S.class_course_id = CC.class_course_id
+JOIN Courses C ON CC.course_id = C.course_id
+JOIN Classes CL ON CC.class_id = CL.class_id
+JOIN Enrollments E ON CC.class_course_id = E.class_course_id
+JOIN Students ST ON E.student_id = ST.student_id
+JOIN Users U ON ST.student_id = U.user_id
+WHERE U.user_id = 'HE001' AND S.start_time > GETDATE();",Không có dòng nào được trả về.
+"SELECT DISTINCT
+  U.fullname AS LecturerName,
+  C.course_name AS CourseName
+FROM ClassCourse AS CC
+JOIN Enrollments AS E
+  ON CC.class_course_id = E.class_course_id
+JOIN Lecturers AS L
+  ON CC.lecturer_id = L.lecturer_id
+JOIN Users AS U
+  ON L.lecturer_id = U.user_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+GROUP BY
+  CC.class_course_id,
+  U.fullname,
+  C.course_name
+HAVING
+  COUNT(E.student_id) > 40;",Không có dòng nào được trả về.
+"SELECT major_name
+FROM Majors
+WHERE major_id NOT IN (SELECT major_id FROM Curriculums WHERE course_id = 'CSI');","[{""major_name"": ""Artificial Intelligence""}, {""major_name"": ""Computer Science""}, {""major_name"": ""Information Assurance""}, {""major_name"": ""Software Engineering""}]"
+"SELECT c.course_name
+FROM Curriculums cu
+JOIN Majors m ON cu.major_id = m.major_id
+JOIN Courses c ON cu.course_id = c.course_id
+WHERE m.major_name = 'Software Engineering' AND c.no_credit > 3;",Không có dòng nào được trả về.
+"SELECT DISTINCT
+  S.student_id
+FROM Enrollments AS E1
+JOIN Enrollments AS E2
+  ON E1.class_course_id = E2.class_course_id
+JOIN Students AS S
+  ON E2.student_id = S.student_id
+WHERE
+  E1.student_id = 'HE001'
+  AND S.major_id <> (
+    SELECT
+      major_id
+    FROM Students
+    WHERE
+      student_id = 'HE001'
+  )
+  AND S.student_id <> 'HE001';",Không có dòng nào được trả về.
+"SELECT sgd.grade_value 
+FROM StudentGradeDetails sgd 
+JOIN Enrollments e ON sgd.enrollment_id = e.enrollment_id 
+JOIN CourseGrade cg ON sgd.course_grade_id = cg.course_grade_id 
+JOIN ClassCourse cc ON e.class_course_id = cc.class_course_id 
+JOIN Courses c ON cc.course_id = c.course_id 
+WHERE e.student_id = 'HE011' AND c.course_name = 'Malware Analysis and Reverse Engineering' AND cg.grade_name = '%Assignment%'",Không có dòng nào được trả về.
+"SELECT DISTINCT T3.course_name
+FROM Lecturers AS T1
+INNER JOIN ClassCourse AS T2
+  ON T1.lecturer_id = T2.lecturer_id
+INNER JOIN Courses AS T3
+  ON T2.course_id = T3.course_id
+INNER JOIN Users AS T4
+  ON T1.lecturer_id = T4.user_id
+WHERE
+  T4.fullname = '%Hai';",Không có dòng nào được trả về.
+"SELECT
+  T3.course_id,
+  T2.class_id,
+  T2.semester,
+  T1.start_time,
+  T1.end_time,
+  T1.room,
+  T1.slot
+FROM Schedules AS T1
+JOIN ClassCourse AS T2
+  ON T1.class_course_id = T2.class_course_id
+JOIN Courses AS T3
+  ON T2.course_id = T3.course_id
+WHERE T2.course_id = 'MAE' AND T2.semester = 'SP25';",Không có dòng nào được trả về.
+"SELECT
+    Cou.course_name,
+    CC.class_id,
+    Sch.start_time,
+    Sch.end_time,
+    Sch.room,
+    Sch.slot
+FROM Schedules AS Sch
+JOIN ClassCourse AS CC
+    ON Sch.class_course_id = CC.class_course_id
+JOIN Courses AS Cou
+    ON CC.course_id = Cou.course_id
+JOIN Enrollments AS E
+    ON CC.class_course_id = E.class_course_id
+JOIN Students AS S
+    ON E.student_id = S.student_id
+WHERE
+    S.student_id = 'HE001'
+    AND Sch.start_time >= GETDATE()
+    AND Sch.start_time < DATEADD(day, 7, GETDATE());",Không có dòng nào được trả về.
+"SELECT
+    Cou.course_name,
+    CC.class_id,
+    Sch.start_time,
+    Sch.end_time,
+    Sch.room,
+    Sch.slot
+FROM Schedules AS Sch
+JOIN ClassCourse AS CC
+    ON Sch.class_course_id = CC.class_course_id
+JOIN Courses AS Cou
+    ON CC.course_id = Cou.course_id
+WHERE
+    CC.lecturer_id = 'LEC01' 
+    AND Sch.start_time >= GETDATE() 
+    AND Sch.start_time < DATEADD(day, 7, GETDATE());",Không có dòng nào được trả về.

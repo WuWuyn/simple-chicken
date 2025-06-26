@@ -1,0 +1,164 @@
+【DB_ID】 text_to_sql
+【Schema】
+# Table: Attendance
+[
+  (enrollment_id:VARCHAR, Primary Key, Foreign key referencing Enrollments table. Maps to Enrollments(enrollment_id)., Examples: ['HE001_AI01_AIL', 'HE001_AI01_MAE', 'HE001_AI01_NLP']),
+  (schedule_id:VARCHAR, Primary Key, Foreign key referencing Schedules table. Maps to Schedules(schedule_id)., Examples: ['AI01_AIL_1', 'AI01_AIL_2', 'AI01_AIL_3']),
+  (status:VARCHAR, Attendance status (e.g., Present, Absent)., Examples: ['Present', 'Future', 'Absent'])
+]
+【Foreign keys】
+  Attendance.enrollment_id = Enrollments.enrollment_id
+  Attendance.schedule_id = Schedules.schedule_id
+
+# Table: ClassCourse
+[
+  (class_course_id:VARCHAR, Primary Key, Unique identifier for the class course., Examples: ['AI01_AIL', 'AI01_MAE', 'AI01_NLP']),
+  (class_id:VARCHAR, Foreign key referencing Classes table. Maps to Classes(class_id)., Examples: ['AI01', 'IA01']),
+  (course_id:VARCHAR, Foreign key referencing Courses table. Maps to Courses(course_id)., Examples: ['AIL', 'MAE', 'NLP']),
+  (lecturer_id:VARCHAR, Foreign key referencing Lecturers table. Maps to Lecturers(lecturer_id)., Examples: ['LEC01', 'LEC04', 'LEC05']),
+  (semester:VARCHAR, Semester of the class course (e.g., SP25, FA24)., Examples: ['SP25', 'FA24'])
+]
+【Foreign keys】
+  ClassCourse.class_id = Classes.class_id
+  ClassCourse.course_id = Courses.course_id
+  ClassCourse.lecturer_id = Lecturers.lecturer_id
+
+# Table: Classes
+[
+  (class_id:VARCHAR, Primary Key, Unique identifier for the class., Examples: ['AI01', 'IA01', 'IS01'])
+]
+
+# Table: CourseGrade
+[
+  (course_grade_id:VARCHAR, Primary Key, Unique identifier for the course grade., Examples: ['AIL_Assignment', 'AIL_Final_Exam', 'AIL_Lab_1']),
+  (course_id:VARCHAR, Foreign key referencing Courses table. Maps to Courses(course_id)., Examples: ['AIL', 'CEA', 'CPV']),
+  (grade_name:NVARCHAR, Name of the grade component (e.g., Assignment, Final Exam)., Examples: ['Assignment', 'Final Exam', 'Lab 1']),
+  (grade_weight:FLOAT, Weight of the grade component in the overall course grade., Examples: [0.2, 0.3, 0.1])
+]
+【Foreign keys】
+  CourseGrade.course_id = Courses.course_id
+
+# Table: Courses
+[
+  (course_id:VARCHAR, Primary Key, Unique identifier for the course., Examples: ['AIL', 'CEA', 'CPV']),
+  (course_name:NVARCHAR, Name of the course., Examples: ['Machine Learning', 'Computer Organization and Architecture', 'Computer Vision']),
+  (no_credit:TINYINT, Number of credits for the course., Examples: [3]),
+  (description:NVARCHAR, Description of the course., Examples: ['An introduction to machine learning algorithms and their applications in solving problems through data-driven insights and predictions.', 'Focuses on the internal structure of computers, including how hardware components interact and function together to execute software.', 'Covers the field of computer vision, focusing on techniques to enable computers to interpret and understand visual information from the world.'])
+]
+
+# Table: Curriculums
+[
+  (major_id:VARCHAR, Primary Key, Foreign key referencing Majors table. Maps to Majors(major_id)., Examples: ['AI', 'IA', 'IS']),
+  (course_id:VARCHAR, Primary Key, Foreign key referencing Courses table. Maps to Courses(course_id)., Examples: ['AIL', 'CEA', 'CPV'])
+]
+【Foreign keys】
+  Curriculums.major_id = Majors.major_id
+  Curriculums.course_id = Courses.course_id
+
+# Table: Departments
+[
+  (dep_id:VARCHAR, Primary Key, Unique identifier for the department., Examples: ['D01', 'D02', 'D03']),
+  (dep_name:NVARCHAR, Name of the department., Examples: ['Computing Fundamental', 'Artificial Intelligence', 'Information Assurance'])
+]
+
+# Table: Enrollments
+[
+  (enrollment_id:VARCHAR, Primary Key, Unique identifier for the enrollment., Examples: ['HE001_AI01_AIL', 'HE001_AI01_MAE', 'HE001_AI01_NLP']),
+  (student_id:VARCHAR, Foreign key referencing Students table. Maps to Students(student_id)., Examples: ['HE001', 'HE002', 'HE003']),
+  (class_course_id:VARCHAR, Foreign key referencing ClassCourse table. Maps to ClassCourse(class_course_id)., Examples: ['AI01_AIL', 'AI01_MAE', 'AI01_NLP']),
+  (average:FLOAT, Average grade for the enrollment., Examples: [0, 9.5, 3.96]),
+  (status:VARCHAR, Enrollment status (e.g., Studying, Passed, Failed)., Examples: ['Studying', 'Passed', 'Failed'])
+]
+【Foreign keys】
+  Enrollments.student_id = Students.student_id
+  Enrollments.class_course_id = ClassCourse.class_course_id
+
+# Table: Lecturers
+[
+  (lecturer_id:VARCHAR, Primary Key, Unique identifier for the lecturer, also a foreign key referencing Users table. Maps to Users(user_id)., Examples: ['LEC01', 'LEC02', 'LEC03']),
+  (dep_id:VARCHAR, Foreign key referencing Departments table. Maps to Departments(dep_id)., Examples: ['D02', 'D04', 'D01'])
+]
+【Foreign keys】
+  Lecturers.dep_id = Departments.dep_id
+  Lecturers.lecturer_id = Users.user_id
+
+# Table: Majors
+[
+  (major_id:VARCHAR, Primary Key, Unique identifier for the major., Examples: ['AI', 'IA', 'IS']),
+  (major_name:NVARCHAR, Name of the major., Examples: ['Artificial Intelligence', 'Information Insurance', 'Information System'])
+]
+
+# Table: Permissions
+[
+  (permission_id:VARCHAR, Primary Key, Unique identifier for the permission., Examples: []),
+  (permission_name:NVARCHAR, Name of the permission., Examples: [])
+]
+
+# Table: RolePermission
+[
+  (role_id:VARCHAR, Primary Key, Foreign key referencing Roles table. Maps to Roles(role_id)., Examples: []),
+  (permission_id:VARCHAR, Primary Key, Foreign key referencing Permissions table. Maps to Permissions(permission_id)., Examples: [])
+]
+【Foreign keys】
+  RolePermission.role_id = Roles.role_id
+  RolePermission.permission_id = Permissions.permission_id
+
+# Table: Roles
+[
+  (role_id:VARCHAR, Primary Key, Unique identifier for the role., Examples: ['R001', 'R002', 'R003']),
+  (role_name:NVARCHAR, Name of the role., Examples: ['Training Manager', 'Lecturer', 'Student'])
+]
+
+# Table: Schedules
+[
+  (schedule_id:VARCHAR, Primary Key, Unique identifier for the schedule., Examples: ['AI01_AIL_1', 'AI01_AIL_2', 'AI01_AIL_3']),
+  (class_course_id:VARCHAR, Foreign key referencing ClassCourse table. Maps to ClassCourse(class_course_id)., Examples: ['AI01_AIL', 'AI01_MAE', 'AI01_NLP']),
+  (start_time:DATETIME, Start time of the schedule., Examples: ['2025-01-06 07:30:00', '2025-01-08 10:00:00', '2025-01-13 07:30:00']),
+  (end_time:DATETIME, End time of the schedule., Examples: ['2025-01-06 09:50:00', '2025-01-08 12:20:00', '2025-01-13 09:50:00']),
+  (room:NVARCHAR, Room where the schedule takes place., Examples: ['R001', 'R002', 'R003']),
+  (slot:TINYINT, Slot number of the schedule., Examples: [1, 2, 3])
+]
+【Foreign keys】
+  Schedules.class_course_id = ClassCourse.class_course_id
+
+# Table: StudentGradeDetails
+[
+  (enrollment_id:VARCHAR, Primary Key, Foreign key referencing Enrollments table. Maps to Enrollments(enrollment_id)., Examples: ['HE001_AI01_AIL', 'HE001_AI01_MAE', 'HE001_AI01_NLP']),
+  (course_grade_id:VARCHAR, Primary Key, Foreign key referencing CourseGrade table. Maps to CourseGrade(course_grade_id)., Examples: ['AIL_Lab_1', 'AIL_Lab_2', 'MAE_Assignment']),
+  (grade_value:FLOAT, Grade value for the specific grade component., Examples: [9, 8, 9.2]),
+  (comment:NVARCHAR, Comment about the grade (e.g., Grade Recorded)., Examples: ['Grade Recorded'])
+]
+【Foreign keys】
+  StudentGradeDetails.enrollment_id = Enrollments.enrollment_id
+  StudentGradeDetails.course_grade_id = CourseGrade.course_grade_id
+
+# Table: Students
+[
+  (student_id:VARCHAR, Primary Key, Unique identifier for the student, also a foreign key referencing Users table. Maps to Users(user_id)., Examples: ['HE001', 'HE002', 'HE003']),
+  (major_id:VARCHAR, Foreign key referencing Majors table. Maps to Majors(major_id)., Examples: ['AI', 'IS', 'IA']),
+  (start_date:DATE, Start date of the student's program., Examples: ['2024-09-01']),
+  (start_semester:VARCHAR, Starting semester (e.g., FA24)., Examples: ['FA24'])
+]
+【Foreign keys】
+  Students.major_id = Majors.major_id
+  Students.student_id = Users.user_id
+
+# Table: UserRole
+[
+  (user_id:VARCHAR, Primary Key, Foreign key referencing Users table. Maps to Users(user_id)., Examples: ['HE001', 'HE002', 'HE003']),
+  (role_id:VARCHAR, Primary Key, Foreign key referencing Roles table. Maps to Roles(role_id)., Examples: ['R003', 'R002'])
+]
+【Foreign keys】
+  UserRole.user_id = Users.user_id
+  UserRole.role_id = Roles.role_id
+
+# Table: Users
+[
+  (username:VARCHAR, Primary Key, Username for login., Examples: ['giangdt', 'hailt', 'phuongvtm']),
+  (password:VARCHAR, Password for login., Examples: ['123']),
+  (user_id:VARCHAR, Unique identifier for the user., Examples: ['LEC01', 'LEC04', 'LEC05']),
+  (fullname:NVARCHAR, Full name of the user., Examples: ['Giang', 'Hai', 'Phuong']),
+  (user_gender:NVARCHAR, Gender of the user., Examples: ['male', 'female']),
+  (user_dob:DATE, Date of birth of the user., Examples: ['1986-11-12', '1980-01-01', '1995-01-01']),
+  (user_address:NVARCHAR, Address of the user., Examples: ['Hà Nội', 'Nghệ An', 'Bắc Ninh'])
+]

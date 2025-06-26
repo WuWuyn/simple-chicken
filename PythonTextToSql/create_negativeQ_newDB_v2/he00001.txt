@@ -1,0 +1,206 @@
+Student HE00001 Detailed Information
+This document summarizes all personal, academic, grade, and attendance information for the student with ID HE00001 based on the provided data.
+
+Personal Information
+
+Student ID: HE00001
+Full Name: Nguyen Van An
+Gender: Male
+Date of Birth: 2003-01-10
+Address: Hanoi
+Role: Student
+
+Academic Information
+
+Major: Artificial Intelligence
+Class name: AI01
+Start Date: 2023-09-04
+Start Semester: FA23
+
+Course Overview
+
+A summary of the courses the student has taken or is currently taking.
+
+Semester: SP24
+Course Code: PRF192
+Course Name: Programming Fundamentals
+Average Grade: 7.5
+Status: Passed
+
+Semester: SP24
+Course Code: CSD201
+Course Name: Data Structures and Algorithms
+Average Grade: 8.0
+Status: Passed
+
+Semester: SU24
+Course Code: AIL301
+Course Name: Artificial Intelligence and Machine Learning
+Average Grade: 0
+Status: Studying
+
+Semester: SU24
+Course Code: NLP302
+Course Name: Natural Language Processing
+Average Grade: 0
+Status: Studying
+
+Course Details
+
+Course: PRF192 - Programming Fundamentals (Semester SP24)
+
+Lecturer: Nguyen Van Binh (LEC001)
+Status: Completed (Passed)
+
+Detailed Grades:
+
+Grade Component: Assignment 1, Weight: 20%, Score: 8.0, Notes: Graded
+
+Grade Component: Lab 1, Weight: 15%, Score: 7.0, Notes: Graded
+
+Grade Component: Progress Test 1, Weight: 15%, Score: 7.5, Notes: Graded
+
+Grade Component: Progress Test 2, Weight: 10%, Score: 8.0, Notes: Graded
+
+Grade Component: Final Exam, Weight: 40%, Score: 7.5, Notes: Graded
+
+Attendance Record:
+
+Date: 2024-01-08, Time: 07:30:00 - 09:50:00, Room: R001, Slot: 1, Status: Present
+
+Date: 2024-01-15, Time: 07:30:00 - 09:50:00, Room: R001, Slot: 1, Status: Present
+
+Date: 2024-01-22, Time: 07:30:00 - 09:50:00, Room: R001, Slot: 1, Status: Absent
+
+Date: 2024-01-29, Time: 07:30:00 - 09:50:00, Room: R001, Slot: 1, Status: Present
+
+Date: 2024-02-05, Time: 07:30:00 - 09:50:00, Room: R001, Slot: 1, Status: Present
+
+Date: 2024-02-12, Time: 07:30:00 - 09:50:00, Room: R001, Slot: 1, Status: Present
+
+Date: 2024-02-19, Time: 07:30:00 - 09:50:00, Room: R001, Slot: 1, Status: Present
+
+Date: 2024-02-26, Time: 07:30:00 - 09:50:00, Room: R001, Slot: 1, Status: Absent
+
+Date: 2024-03-04, Time: 07:30:00 - 09:50:00, Room: R001, Slot: 1, Status: Present
+
+Date: 2024-03-11, Time: 07:30:00 - 09:50:00, Room: R001, Slot: 1, Status: Present
+
+Course: CSD201 - Data Structures and Algorithms (Semester SP24)
+
+Lecturer: Nguyen Thi Hoang (LEC002)
+Status: Completed (Passed)
+
+Detailed Grades:
+
+Grade Component: Assignment 1, Weight: 20%, Score: 8.5, Notes: Graded
+
+Grade Component: Lab 1, Weight: 15%, Score: 8.0, Notes: Graded
+
+Grade Component: Progress Test 1, Weight: 15%, Score: 7.0, Notes: Graded
+
+Grade Component: Progress Test 2, Weight: 10%, Score: 8.5, Notes: Graded
+
+Grade Component: Final Exam, Weight: 40%, Score: 8.0, Notes: Graded
+
+Attendance Record:
+
+Date: 2024-01-09, Time: 07:30:00 - 09:50:00, Room: R002, Slot: 1, Status: Present
+
+Date: 2024-01-16, Time: 07:30:00 - 09:50:00, Room: R002, Slot: 1, Status: Present
+
+Date: 2024-01-23, Time: 07:30:00 - 09:50:00, Room: R002, Slot: 1, Status: Present
+
+Date: 2024-01-30, Time: 07:30:00 - 09:50:00, Room: R002, Slot: 1, Status: Present
+
+Date: 2024-02-06, Time: 07:30:00 - 09:50:00, Room: R002, Slot: 1, Status: Absent
+
+Date: 2024-02-13, Time: 07:30:00 - 09:50:00, Room: R002, Slot: 1, Status: Present
+
+Date: 2024-02-20, Time: 07:30:00 - 09:50:00, Room: R002, Slot: 1, Status: Present
+
+Date: 2024-02-27, Time: 07:30:00 - 09:50:00, Room: R002, Slot: 1, Status: Present
+
+Date: 2024-03-05, Time: 07:30:00 - 09:50:00, Room: R002, Slot: 1, Status: Present
+
+Date: 2024-03-12, Time: 07:30:00 - 09:50:00, Room: R002, Slot: 1, Status: Present
+
+Course: AIL301 - Artificial Intelligence and Machine Learning (Semester SU24)
+
+Lecturer: Tran Duc Trung (LEC003)
+Status: Studying
+
+Detailed Grades:
+
+Grade Component: Assignment 1, Weight: 10%, Score: 9.0, Notes: Graded
+
+Grade Component: Assignment 2, Weight: 10%, Score: 7.5, Notes: Graded
+
+Grade Component: Lab 1, Weight: 10%, Score: 8.0, Notes: Graded
+
+Grade Component: Progress Test 1, Weight: 10%, Score: -, Notes: Awaiting Grade
+
+Grade Component: Progress Test 2, Weight: 10%, Score: -, Notes: Awaiting Grade
+
+Grade Component: Final Exam, Weight: 50%, Score: -, Notes: Awaiting Grade
+
+Attendance Record:
+
+Date: 2024-05-06, Time: 07:30:00 - 09:50:00, Room: R001, Slot: 1, Status: Present
+
+Date: 2024-05-13, Time: 07:30:00 - 09:50:00, Room: R001, Slot: 1, Status: Present
+
+Date: 2024-05-20, Time: 07:30:00 - 09:50:00, Room: R001, Slot: 1, Status: Present
+
+Date: 2024-05-27, Time: 07:30:00 - 09:50:00, Room: R001, Slot: 1, Status: Absent
+
+Date: 2024-06-03, Time: 07:30:00 - 09:50:00, Room: R001, Slot: 1, Status: Present
+
+Date: 2024-06-10, Time: 07:30:00 - 09:50:00, Room: R001, Slot: 1, Status: Present
+
+Date: 2024-06-17, Time: 07:30:00 - 09:50:00, Room: R001, Slot: 1, Status: Upcoming
+
+Date: 2024-06-24, Time: 07:30:00 - 09:50:00, Room: R001, Slot: 1, Status: Upcoming
+
+Date: 2024-07-01, Time: 07:30:00 - 09:50:00, Room: R001, Slot: 1, Status: Upcoming
+
+Date: 2024-07-08, Time: 07:30:00 - 09:50:00, Room: R001, Slot: 1, Status: Upcoming
+
+Course: NLP302 - Natural Language Processing (Semester SU24)
+
+Lecturer: Pham Hoai Linh (LEC004)
+Status: Studying
+
+Detailed Grades:
+
+Grade Component: Assignment 1, Weight: 20%, Score: 8.0, Notes: Graded
+
+Grade Component: Lab 1, Weight: 15%, Score: 7.0, Notes: Graded
+
+Grade Component: Progress Test 1, Weight: 15%, Score: -, Notes: Awaiting Grade
+
+Grade Component: Progress Test 2, Weight: 10%, Score: -, Notes: Awaiting Grade
+
+Grade Component: Final Exam, Weight: 40%, Score: -, Notes: Awaiting Grade
+
+Attendance Record:
+
+Date: 2024-05-07, Time: 07:30:00 - 09:50:00, Room: R002, Slot: 1, Status: Present
+
+Date: 2024-05-14, Time: 07:30:00 - 09:50:00, Room: R002, Slot: 1, Status: Absent
+
+Date: 2024-05-21, Time: 07:30:00 - 09:50:00, Room: R002, Slot: 1, Status: Present
+
+Date: 2024-05-28, Time: 07:30:00 - 09:50:00, Room: R002, Slot: 1, Status: Present
+
+Date: 2024-06-04, Time: 07:30:00 - 09:50:00, Room: R002, Slot: 1, Status: Present
+
+Date: 2024-06-11, Time: 07:30:00 - 09:50:00, Room: R002, Slot: 1, Status: Present
+
+Date: 2024-06-18, Time: 07:30:00 - 09:50:00, Room: R002, Slot: 1, Status: Upcoming
+
+Date: 2024-06-25, Time: 07:30:00 - 09:50:00, Room: R002, Slot: 1, Status: Upcoming
+
+Date: 2024-07-02, Time: 07:30:00 - 09:50:00, Room: R002, Slot: 1, Status: Upcoming
+
+Date: 2024-07-09, Time: 07:30:00 - 09:50:00, Room: R002, Slot: 1, Status: Upcoming

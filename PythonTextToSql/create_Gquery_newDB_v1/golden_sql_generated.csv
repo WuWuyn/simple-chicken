@@ -1,0 +1,1393 @@
+Question,SQL,User_info
+"List all students who have failed 3 or more courses, showing their full name, major, and the total count of failed courses.","SELECT
+  U.fullname,
+  M.major_name,
+  COUNT(E.enrollment_id) AS number_of_failed_courses
+FROM Enrollments AS E
+JOIN Students AS S
+  ON E.student_id = S.student_id
+JOIN Users AS U
+  ON S.student_id = U.user_id
+JOIN Majors AS M
+  ON S.major_id = M.major_id
+WHERE
+  E.status = 'Failed'
+GROUP BY
+  U.fullname,
+  M.major_name
+HAVING
+  COUNT(E.enrollment_id) >= 3;","Role: Training Manager, ID: TM001"
+"List all students who failed my courses in the SP24 semester, along with the course name and their average score.","SELECT
+  U.fullname,
+  C.course_name,
+  E.average
+FROM Enrollments AS E
+JOIN ClassCourse AS CC
+  ON E.class_course_id = CC.class_course_id
+JOIN Students AS S
+  ON E.student_id = S.student_id
+JOIN Users AS U
+  ON S.student_id = U.user_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+WHERE
+  CC.lecturer_id = 'LEC001' AND E.status = 'Failed' AND CC.semester = 'SP24';","Role: Lecturer, ID: LEC001"
+What is the total number of students enrolled in each major?,"SELECT
+  M.major_name,
+  COUNT(S.student_id) AS number_of_students
+FROM Students AS S
+JOIN Majors AS M
+  ON S.major_id = M.major_id
+GROUP BY
+  M.major_name
+ORDER BY
+  number_of_students DESC;","Role: Training Manager, ID: TM001"
+"For the SU24 semester, can you give me a breakdown of pass and fail counts for every course?","SELECT
+    C.course_name,
+    SUM(CASE WHEN E.status = 'Passed' THEN 1 ELSE 0 END) AS passed_count,
+    SUM(CASE WHEN E.status = 'Failed' THEN 1 ELSE 0 END) AS failed_count
+FROM Enrollments AS E
+JOIN ClassCourse AS CC
+    ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C
+    ON CC.course_id = C.course_id
+WHERE
+    CC.semester = 'SU24'
+GROUP BY
+    C.course_name
+ORDER BY
+    C.course_name;","Role: Training Manager, ID: TM001"
+What are my grades for the 'Programming Fundamentals' course?,"SELECT
+  CG.grade_name,
+  SGD.grade_value,
+  SGD.comment
+FROM StudentGradeDetails AS SGD
+JOIN Enrollments AS E
+  ON SGD.enrollment_id = E.enrollment_id
+JOIN ClassCourse AS CC
+  ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+JOIN CourseGrade AS CG
+  ON SGD.course_grade_id = CG.course_grade_id
+  AND C.course_id = CG.course_id
+WHERE
+  E.student_id = 'HE00001'
+  AND C.course_name = 'Programming Fundamentals';","Role: Student, ID: HE00001"
+Which lecturers are teaching the most classes in the SU24 semester? Please list them in descending order of their class count.,"SELECT
+  U.fullname,
+  COUNT(CC.class_course_id) AS class_count
+FROM ClassCourse AS CC
+JOIN Lecturers AS L
+  ON CC.lecturer_id = L.lecturer_id
+JOIN Users AS U
+  ON L.lecturer_id = U.user_id
+WHERE
+  CC.semester = 'SU24'
+GROUP BY
+  U.fullname
+ORDER BY
+  class_count DESC;","Role: Training Manager, ID: TM001"
+"Could you provide a count of students who have passed, failed, and are still studying for each course in the SU24 semester?","SELECT
+  C.course_name,
+  E.status,
+  COUNT(E.student_id) AS number_of_students
+FROM Enrollments AS E
+JOIN ClassCourse AS CC
+  ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+WHERE
+  CC.semester = 'SU24'
+GROUP BY
+  C.course_name,
+  E.status
+ORDER BY
+  C.course_name,
+  E.status;","Role: Training Manager, ID: TM001"
+What are the top 5 courses with the highest student failure rates?,"SELECT
+    C.course_name,
+    CAST(SUM(CASE WHEN E.status = 'Failed' THEN 1 ELSE 0 END) AS REAL) * 100.0 / COUNT(E.enrollment_id) AS failure_rate
+FROM Enrollments AS E
+JOIN ClassCourse AS CC
+    ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C
+    ON CC.course_id = C.course_id
+WHERE
+    E.status IN ('Passed', 'Failed')
+GROUP BY
+    C.course_name
+ORDER BY
+    failure_rate DESC
+LIMIT 5;","Role: Training Manager, ID: TM001"
+"How many lecturers are in each department? Please list the department name and the total count, ordered from most to least.","SELECT
+    D.dep_name,
+    COUNT(L.lecturer_id) AS number_of_lecturers
+FROM
+    Departments AS D
+JOIN
+    Lecturers AS L ON D.dep_id = L.dep_id
+GROUP BY
+    D.dep_id, D.dep_name
+ORDER BY
+    number_of_lecturers DESC","Role: Training Manager, ID: TM001"
+What are the pass and fail counts for each course?,"SELECT
+  C.course_name,
+  SUM(CASE WHEN E.status = 'Passed' THEN 1 ELSE 0 END) AS passed_count,
+  SUM(CASE WHEN E.status = 'Failed' THEN 1 ELSE 0 END) AS failed_count
+FROM Courses AS C
+LEFT JOIN ClassCourse AS CC
+  ON C.course_id = CC.course_id
+LEFT JOIN Enrollments AS E
+  ON CC.class_course_id = E.class_course_id
+WHERE
+  E.status IN ('Passed', 'Failed')
+GROUP BY
+  C.course_name
+ORDER BY
+  C.course_name;","Role: Training Manager, ID: TM001"
+"What is the average grade for each course, and which 5 courses have the highest averages?","SELECT
+    C.course_name,
+    AVG(E.average) AS average_grade
+FROM Enrollments AS E
+JOIN ClassCourse AS CC
+    ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C
+    ON CC.course_id = C.course_id
+GROUP BY
+    C.course_name
+ORDER BY
+    average_grade DESC
+LIMIT 5;","Role: Training Manager, ID: TM001"
+"What is the average grade for each major based on completed courses, and how many students are there in each major?","SELECT
+    M.major_name,
+    COUNT(DISTINCT S.student_id) AS number_of_students,
+    AVG(E.average) AS average_grade
+FROM Majors AS M
+JOIN Students AS S
+    ON M.major_id = S.major_id
+JOIN Enrollments AS E
+    ON S.student_id = E.student_id
+WHERE
+    E.status IN ('Passed', 'Failed')
+GROUP BY
+    M.major_name
+ORDER BY
+    average_grade DESC;","Role: Training Manager, ID: TM001"
+"Which of my students failed the Programming Fundamentals class, AI01, and what were their final averages?","SELECT
+  S.student_id,
+  U.fullname,
+  E.average
+FROM Enrollments AS E
+JOIN Students AS S
+  ON E.student_id = S.student_id
+JOIN Users AS U
+  ON S.student_id = U.user_id
+JOIN ClassCourse AS CC
+  ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+JOIN Classes AS CL
+  ON CC.class_id = CL.class_id
+WHERE
+  CC.lecturer_id = 'LEC001'
+  AND C.course_name = 'Programming Fundamentals'
+  AND CL.class_name = 'AI01'
+  AND E.status = 'Failed';","Role: Lecturer, ID: LEC001"
+Which lecturers are teaching the most courses across all semesters? List the top 5.,"SELECT
+  U.fullname,
+  COUNT(CC.class_course_id) AS course_count
+FROM ClassCourse AS CC
+JOIN Lecturers AS L
+  ON CC.lecturer_id = L.lecturer_id
+JOIN Users AS U
+  ON L.lecturer_id = U.user_id
+GROUP BY
+  U.fullname
+ORDER BY
+  course_count DESC
+LIMIT 5","Role: Training Manager, ID: TM001"
+Which students have failed more than one course? Please show their full name and the total count of failed courses.,"SELECT
+  U.fullname,
+  COUNT(E.enrollment_id) AS failed_courses_count
+FROM Enrollments AS E
+JOIN Users AS U
+  ON E.student_id = U.user_id
+WHERE
+  E.status = 'Failed'
+GROUP BY
+  U.user_id,
+  U.fullname
+HAVING
+  COUNT(E.enrollment_id) > 1
+ORDER BY
+  failed_courses_count DESC;","Role: Training Manager, ID: TM001"
+Can you show me the pass and fail counts for each course offered in the SU24 semester?,"SELECT
+  C.course_name,
+  SUM(CASE WHEN E.status = 'Passed' THEN 1 ELSE 0 END) AS pass_count,
+  SUM(CASE WHEN E.status = 'Failed' THEN 1 ELSE 0 END) AS fail_count
+FROM Enrollments AS E
+JOIN ClassCourse AS CC
+  ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+WHERE
+  CC.semester = 'SU24'
+GROUP BY
+  C.course_name
+ORDER BY
+  C.course_name;","Role: Training Manager, ID: TM001"
+"What is the average final grade for each major, and how many students are enrolled in each?","SELECT
+  M.major_name,
+  COUNT(DISTINCT S.student_id) AS number_of_students,
+  AVG(E.average) AS average_grade
+FROM Majors AS M
+JOIN Students AS S
+  ON M.major_id = S.major_id
+JOIN Enrollments AS E
+  ON S.student_id = E.student_id
+WHERE
+  E.status != 'Studying'
+GROUP BY
+  M.major_name
+ORDER BY
+  average_grade DESC;","Role: Training Manager, ID: TM001"
+"What is the average grade for each course, and how many students have completed it?","SELECT
+  C.course_name,
+  AVG(E.average) AS average_grade,
+  COUNT(E.student_id) AS number_of_students
+FROM Enrollments AS E
+JOIN ClassCourse AS CC
+  ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+WHERE
+  E.status IN ('Passed', 'Failed')
+GROUP BY
+  C.course_id,
+  C.course_name
+ORDER BY
+  C.course_name;","Role: Training Manager, ID: TM001"
+"Which students have failed more than two courses? Show their ID, name, and the total number of failed courses.","SELECT
+    S.student_id,
+    U.fullname,
+    COUNT(E.enrollment_id) AS failed_courses_count
+FROM Students AS S
+JOIN Enrollments AS E
+    ON S.student_id = E.student_id
+JOIN Users AS U
+    ON S.student_id = U.user_id
+WHERE
+    E.status = 'Failed'
+GROUP BY
+    S.student_id,
+    U.fullname
+HAVING
+    COUNT(E.enrollment_id) > 2
+ORDER BY
+    failed_courses_count DESC;","Role: Training Manager, ID: TM001"
+What is the average grade for each major in the SP24 semester?,"SELECT
+    M.major_name,
+    AVG(E.average) AS average_grade
+FROM Enrollments AS E
+JOIN Students AS S
+    ON E.student_id = S.student_id
+JOIN Majors AS M
+    ON S.major_id = M.major_id
+JOIN ClassCourse AS CC
+    ON E.class_course_id = CC.class_course_id
+WHERE
+    CC.semester = 'SP24'
+GROUP BY
+    M.major_name
+ORDER BY
+    average_grade DESC;","Role: Training Manager, ID: TM001"
+How many lecturers are in each department?,"SELECT
+    D.dep_name,
+    COUNT(L.lecturer_id) AS number_of_lecturers
+FROM
+    Departments AS D
+JOIN
+    Lecturers AS L ON D.dep_id = L.dep_id
+GROUP BY
+    D.dep_name
+ORDER BY
+    D.dep_name","Role: Training Manager, ID: TM001"
+What are the component grades for my 'Artificial Intelligence and Machine Learning' course?,"SELECT
+  T3.grade_name,
+  T1.grade_value,
+  T3.grade_weight,
+  T1.comment
+FROM StudentGradeDetails AS T1
+JOIN Enrollments AS T2
+  ON T1.enrollment_id = T2.enrollment_id
+JOIN CourseGrade AS T3
+  ON T1.course_grade_id = T3.course_grade_id
+JOIN ClassCourse AS T4
+  ON T2.class_course_id = T4.class_course_id
+JOIN Courses AS T5
+  ON T4.course_id = T5.course_id
+WHERE
+  T2.student_id = 'HE00001'
+  AND T5.course_name = 'Artificial Intelligence and Machine Learning'","Role: Student, ID: HE00001"
+How many students passed and failed in my Programming Fundamentals classes for the SP24 semester?,"SELECT
+  E.status,
+  COUNT(E.student_id) AS number_of_students
+FROM Enrollments AS E
+JOIN ClassCourse AS CC
+  ON E.class_course_id = CC.class_course_id
+WHERE
+  CC.lecturer_id = 'LEC001'
+  AND CC.course_id = 'PRF192'
+  AND CC.semester = 'SP24'
+GROUP BY
+  E.status;","Role: Lecturer, ID: LEC001"
+What are my detailed grades for the 'Programming Fundamentals' course?,"SELECT
+  T3.grade_name,
+  T1.grade_value
+FROM StudentGradeDetails AS T1
+JOIN Enrollments AS T2
+  ON T1.enrollment_id = T2.enrollment_id
+JOIN CourseGrade AS T3
+  ON T1.course_grade_id = T3.course_grade_id
+JOIN ClassCourse AS T4
+  ON T2.class_course_id = T4.class_course_id
+JOIN Courses AS T5
+  ON T4.course_id = T5.course_id
+WHERE
+  T2.student_id = 'HE00001'
+  AND T5.course_name = 'Programming Fundamentals'","Role: Student, ID: HE00001"
+How many lecturers are there in each department?,"SELECT
+  D.dep_name,
+  COUNT(L.lecturer_id) AS number_of_lecturers
+FROM Departments AS D
+JOIN Lecturers AS L
+  ON D.dep_id = L.dep_id
+GROUP BY
+  D.dep_name;","Role: Training Manager, ID: TM001"
+"Show me a list of all lecturers, their department, and the total number of classes they are assigned to teach.","SELECT
+  U.fullname,
+  D.dep_name,
+  COUNT(CC.class_course_id) AS number_of_classes
+FROM Lecturers AS L
+JOIN Users AS U
+  ON L.lecturer_id = U.user_id
+JOIN Departments AS D
+  ON L.dep_id = D.dep_id
+LEFT JOIN ClassCourse AS CC
+  ON L.lecturer_id = CC.lecturer_id
+GROUP BY
+  L.lecturer_id,
+  U.fullname,
+  D.dep_name
+ORDER BY
+  number_of_classes DESC;","Role: Training Manager, ID: TM001"
+Can you list all students in my 'Theory of Computation' class for the SU24 semester?,"SELECT
+  U.user_id AS student_id,
+  U.fullname
+FROM ClassCourse AS CC
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+JOIN Enrollments AS E
+  ON CC.class_course_id = E.class_course_id
+JOIN Users AS U
+  ON E.student_id = U.user_id
+WHERE
+  CC.lecturer_id = 'LEC001'
+  AND C.course_name = 'Theory of Computation'
+  AND CC.semester = 'SU24'","Role: Lecturer, ID: LEC001"
+Show me the names and average scores of all students who failed my Programming Fundamentals class in the SP24 semester.,"SELECT
+    U.fullname,
+    E.average
+FROM
+    Enrollments AS E
+JOIN
+    Users AS U ON E.student_id = U.user_id
+JOIN
+    ClassCourse AS CC ON E.class_course_id = CC.class_course_id
+WHERE
+    CC.lecturer_id = 'LEC001'
+    AND CC.course_id = 'PRF192'
+    AND CC.semester = 'SP24'
+    AND E.status = 'Failed'","Role: Lecturer, ID: LEC001"
+"What is the average grade for each major, sorted from highest to lowest?","SELECT
+    M.major_name,
+    AVG(E.average) AS average_grade
+FROM Enrollments AS E
+JOIN Students AS S
+    ON E.student_id = S.student_id
+JOIN Majors AS M
+    ON S.major_id = M.major_id
+GROUP BY
+    M.major_name
+ORDER BY
+    average_grade DESC;","Role: Training Manager, ID: TM001"
+"Can you show me a count of classes assigned to each lecturer, along with their name and department?","SELECT
+  U.fullname,
+  D.dep_name,
+  COUNT(CC.class_course_id) AS number_of_classes
+FROM ClassCourse AS CC
+JOIN Lecturers AS L
+  ON CC.lecturer_id = L.lecturer_id
+JOIN Users AS U
+  ON L.lecturer_id = U.user_id
+JOIN Departments AS D
+  ON L.dep_id = D.dep_id
+GROUP BY
+  U.fullname,
+  D.dep_name
+ORDER BY
+  number_of_classes DESC;","Role: Training Manager, ID: TM001"
+"Could you list all the dates I was marked absent, along with the name of the course for each absence?","SELECT
+  C.course_name,
+  S.start_time
+FROM Attendance AS A
+JOIN Enrollments AS E
+  ON A.enrollment_id = E.enrollment_id
+JOIN Schedules AS S
+  ON A.schedule_id = S.schedule_id
+JOIN ClassCourse AS CC
+  ON S.class_course_id = CC.class_course_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+WHERE
+  E.student_id = 'HE00001' AND A.status = 'Absent';","Role: Student, ID: HE00001"
+How many courses did each lecturer teach in the SU24 semester? List their names and the course count.,"SELECT
+    U.fullname,
+    COUNT(CC.course_id) AS course_count
+FROM Lecturers AS L
+JOIN Users AS U
+    ON L.lecturer_id = U.user_id
+JOIN ClassCourse AS CC
+    ON L.lecturer_id = CC.lecturer_id
+WHERE
+    CC.semester = 'SU24'
+GROUP BY
+    U.fullname
+ORDER BY
+    course_count DESC","Role: Training Manager, ID: TM001"
+How many students are enrolled in each major? Please list them from the most to the least populated.,"SELECT
+    M.major_name,
+    COUNT(S.student_id) AS number_of_students
+FROM Students AS S
+JOIN Majors AS M
+    ON S.major_id = M.major_id
+GROUP BY
+    M.major_name
+ORDER BY
+    number_of_students DESC","Role: Training Manager, ID: TM001"
+"Show me the students who failed my Programming Fundamentals class, AI01, along with their final average score.","SELECT
+  U.fullname,
+  E.average
+FROM Enrollments AS E
+JOIN Students AS S
+  ON E.student_id = S.student_id
+JOIN Users AS U
+  ON S.user_id = U.user_id
+JOIN ClassCourse AS CC
+  ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+JOIN Classes AS CL
+  ON CC.class_id = CL.class_id
+WHERE
+  CC.lecturer_id = 'LEC001'
+  AND C.course_name = 'Programming Fundamentals'
+  AND CL.class_name = 'AI01'
+  AND E.status = 'Failed';","Role: Lecturer, ID: LEC001"
+How many students are enrolled in each major? Please list the majors from most to least populated.,"SELECT
+    M.major_name,
+    COUNT(S.student_id) AS number_of_students
+FROM Students AS S
+JOIN Majors AS M
+    ON S.major_id = M.major_id
+GROUP BY
+    M.major_name
+ORDER BY
+    number_of_students DESC","Role: Training Manager, ID: TM001"
+List all departments and the total number of lecturers in each.,"SELECT
+  D.dep_name,
+  COUNT(L.lecturer_id) AS number_of_lecturers
+FROM Departments AS D
+LEFT JOIN Lecturers AS L
+  ON D.dep_id = L.dep_id
+GROUP BY
+  D.dep_name
+ORDER BY
+  D.dep_name;","Role: Training Manager, ID: TM001"
+"What is the average grade for each major, ordered from highest to lowest?","SELECT
+    T3.major_name,
+    AVG(T1.average) AS average_grade
+FROM Enrollments AS T1
+INNER JOIN Students AS T2
+    ON T1.student_id = T2.student_id
+INNER JOIN Majors AS T3
+    ON T2.major_id = T3.major_id
+GROUP BY
+    T3.major_name
+ORDER BY
+    average_grade DESC","Role: Training Manager, ID: TM001"
+"List each major and the total number of students enrolled in it, ordered from most to least populated.","SELECT
+  M.major_name,
+  COUNT(S.student_id) AS number_of_students
+FROM Students AS S
+JOIN Majors AS M
+  ON S.major_id = M.major_id
+GROUP BY
+  M.major_name
+ORDER BY
+  number_of_students DESC;","Role: Training Manager, ID: TM001"
+Show me the top 5 courses with the highest number of failed students.,"SELECT
+  C.course_name,
+  COUNT(E.enrollment_id) AS number_of_failures
+FROM Enrollments AS E
+JOIN ClassCourse AS CC
+  ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+WHERE
+  E.status = 'Failed'
+GROUP BY
+  C.course_name
+ORDER BY
+  number_of_failures DESC
+LIMIT 5;","Role: Training Manager, ID: TM001"
+List all majors and the total number of students in each.,"SELECT
+  M.major_name,
+  COUNT(S.student_id) AS total_students
+FROM Majors AS M
+JOIN Students AS S
+  ON M.major_id = S.major_id
+GROUP BY
+  M.major_name
+ORDER BY
+  total_students DESC;","Role: Training Manager, ID: TM001"
+"Can you provide a list of all lecturers, their full names, and the departments they belong to?","SELECT
+    L.lecturer_id,
+    U.fullname,
+    D.dep_name
+FROM Lecturers AS L
+JOIN Users AS U
+    ON L.lecturer_id = U.user_id
+JOIN Departments AS D
+    ON L.dep_id = D.dep_id","Role: Training Manager, ID: TM001"
+What were my scores for the assignments in the Artificial Intelligence and Machine Learning course?,"SELECT
+    T3.grade_name,
+    T1.grade_value
+FROM StudentGradeDetails AS T1
+JOIN Enrollments AS T2
+    ON T1.enrollment_id = T2.enrollment_id
+JOIN CourseGrade AS T3
+    ON T1.course_grade_id = T3.course_grade_id
+JOIN ClassCourse AS T4
+    ON T2.class_course_id = T4.class_course_id
+JOIN Courses AS T5
+    ON T4.course_id = T5.course_id
+WHERE
+    T2.student_id = 'HE00001'
+    AND T5.course_name = 'Artificial Intelligence and Machine Learning'
+    AND T3.grade_name LIKE '%Assignment%'","Role: Student, ID: HE00001"
+"Can you show me the number of students in each major, ordered from the most to the least populated?","SELECT
+  M.major_name,
+  COUNT(S.student_id) AS number_of_students
+FROM Students AS S
+JOIN Majors AS M
+  ON S.major_id = M.major_id
+GROUP BY
+  M.major_name
+ORDER BY
+  number_of_students DESC;","Role: Training Manager, ID: TM001"
+"Which students failed my Programming Fundamentals course during the SP24 semester, and what were their final averages?","SELECT
+  U.fullname,
+  S.student_id,
+  E.average
+FROM Enrollments AS E
+JOIN Students AS S
+  ON E.student_id = S.student_id
+JOIN Users AS U
+  ON S.student_id = U.user_id
+JOIN ClassCourse AS CC
+  ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+WHERE
+  CC.lecturer_id = 'LEC001'
+  AND C.course_name = 'Programming Fundamentals'
+  AND E.status = 'Failed'
+  AND CC.semester = 'SP24'","Role: Lecturer, ID: LEC001"
+"Can you list all lecturers, the department they work for, and the total number of classes they are currently assigned?","SELECT
+    U.fullname,
+    D.dep_name,
+    COUNT(CC.class_course_id) AS number_of_classes_assigned
+FROM Lecturers AS L
+JOIN Users AS U
+    ON L.lecturer_id = U.user_id
+JOIN Departments AS D
+    ON L.dep_id = D.dep_id
+JOIN ClassCourse AS CC
+    ON L.lecturer_id = CC.lecturer_id
+GROUP BY
+    U.fullname,
+    D.dep_name
+ORDER BY
+    number_of_classes_assigned DESC;","Role: Training Manager, ID: TM001"
+Show me the top 5 students with the highest overall average grades.,"SELECT
+  U.fullname,
+  S.student_id,
+  AVG(E.average) AS overall_average_grade
+FROM Students AS S
+JOIN Users AS U
+  ON S.student_id = U.user_id
+JOIN Enrollments AS E
+  ON S.student_id = E.student_id
+GROUP BY
+  S.student_id,
+  U.fullname
+ORDER BY
+  overall_average_grade DESC
+LIMIT 5;","Role: Training Manager, ID: TM001"
+How many students are enrolled in each of my classes for the SU24 semester?,"SELECT
+  C.course_name,
+  Cl.class_name,
+  COUNT(E.student_id) AS number_of_students
+FROM ClassCourse AS CC
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+JOIN Classes AS Cl
+  ON CC.class_id = Cl.class_id
+JOIN Enrollments AS E
+  ON CC.class_course_id = E.class_course_id
+WHERE
+  CC.lecturer_id = 'LEC001'
+  AND CC.semester = 'SU24'
+GROUP BY
+  C.course_name,
+  Cl.class_name;","Role: Lecturer, ID: LEC001"
+What are the dates I was absent for the Programming Fundamentals course?,"SELECT
+  T3.start_time
+FROM Attendance AS T1
+INNER JOIN Enrollments AS T2
+  ON T1.enrollment_id = T2.enrollment_id
+INNER JOIN Schedules AS T3
+  ON T1.schedule_id = T3.schedule_id
+INNER JOIN ClassCourse AS T4
+  ON T3.class_course_id = T4.class_course_id
+INNER JOIN Courses AS T5
+  ON T4.course_id = T5.course_id
+WHERE
+  T2.student_id = 'HE00001'
+  AND T5.course_name = 'Programming Fundamentals'
+  AND T1.status = 'Absent';","Role: Student, ID: HE00001"
+Can you show me a count of how many lecturers are in each department?,"SELECT
+  D.dep_name,
+  COUNT(L.lecturer_id) AS number_of_lecturers
+FROM Departments AS D
+JOIN Lecturers AS L
+  ON D.dep_id = L.dep_id
+GROUP BY
+  D.dep_name
+ORDER BY
+  number_of_lecturers DESC;","Role: Training Manager, ID: TM001"
+Who are the top 5 students with the highest overall average grades across all their courses?,"SELECT
+    U.fullname,
+    AVG(E.average) AS overall_average_grade
+FROM Enrollments AS E
+JOIN Students AS S
+    ON E.student_id = S.student_id
+JOIN Users AS U
+    ON S.student_id = U.user_id
+GROUP BY
+    U.user_id,
+    U.fullname
+ORDER BY
+    overall_average_grade DESC
+LIMIT 5;","Role: Training Manager, ID: TM001"
+How many times was I absent in the Programming Fundamentals course?,"SELECT
+  COUNT(T1.status)
+FROM Attendance AS T1
+INNER JOIN Enrollments AS T2
+  ON T1.enrollment_id = T2.enrollment_id
+INNER JOIN ClassCourse AS T3
+  ON T2.class_course_id = T3.class_course_id
+INNER JOIN Courses AS T4
+  ON T3.course_id = T4.course_id
+WHERE
+  T2.student_id = 'HE00001'
+  AND T4.course_name = 'Programming Fundamentals'
+  AND T1.status = 'Absent';","Role: Student, ID: HE00001"
+"Can you provide a breakdown of student enrollment numbers by major, ordered from most to least populated?","SELECT
+  M.major_name,
+  COUNT(S.student_id) AS number_of_students
+FROM Majors AS M
+JOIN Students AS S
+  ON M.major_id = S.major_id
+GROUP BY
+  M.major_name
+ORDER BY
+  number_of_students DESC;","Role: Training Manager, ID: TM001"
+"Which of my students scored higher than an 8.0 average, and in which course did they achieve it?","SELECT
+  U.fullname,
+  C.course_name,
+  E.average
+FROM Enrollments AS E
+JOIN ClassCourse AS CC
+  ON E.class_course_id = CC.class_course_id
+JOIN Users AS U
+  ON E.student_id = U.user_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+WHERE
+  CC.lecturer_id = 'LEC001'
+  AND E.average > 8.0;","Role: Lecturer, ID: LEC001"
+How many times was I absent from my Programming Fundamentals course?,"SELECT
+  COUNT(T1.status)
+FROM Attendance AS T1
+INNER JOIN Enrollments AS T2
+  ON T1.enrollment_id = T2.enrollment_id
+INNER JOIN ClassCourse AS T3
+  ON T2.class_course_id = T3.class_course_id
+WHERE
+  T2.student_id = 'HE00001'
+  AND T3.course_id = 'PRF192'
+  AND T1.status = 'Absent';","Role: Student, ID: HE00001"
+What were my scores for each graded component in the Data Structures and Algorithms course?,"SELECT
+    T4.grade_name,
+    T1.grade_value,
+    T1.comment
+FROM StudentGradeDetails AS T1
+INNER JOIN Enrollments AS T2
+    ON T1.enrollment_id = T2.enrollment_id
+INNER JOIN ClassCourse AS T3
+    ON T2.class_course_id = T3.class_course_id
+INNER JOIN CourseGrade AS T4
+    ON T1.course_grade_id = T4.course_grade_id
+INNER JOIN Courses AS T5
+    ON T3.course_id = T5.course_id
+WHERE
+    T2.student_id = 'HE00001'
+    AND T5.course_name = 'Data Structures and Algorithms'","Role: Student, ID: HE00001"
+What is the total number of students enrolled in each major? Please order the results by the student count in descending order.,"SELECT
+    M.major_name,
+    COUNT(S.student_id) AS number_of_students
+FROM Students AS S
+JOIN Majors AS M
+    ON S.major_id = M.major_id
+GROUP BY
+    M.major_name
+ORDER BY
+    number_of_students DESC","Role: Training Manager, ID: TM001"
+Can you show me the top 5 courses with the highest average grades across all students?,"SELECT
+  C.course_name,
+  AVG(E.average) AS overall_average_grade
+FROM Enrollments AS E
+JOIN ClassCourse AS CC
+  ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+GROUP BY
+  C.course_name
+ORDER BY
+  overall_average_grade DESC
+LIMIT 5;","Role: Training Manager, ID: TM001"
+What are my detailed grades for the Artificial Intelligence and Machine Learning course?,"SELECT
+  T3.grade_name,
+  T3.grade_weight,
+  T2.grade_value,
+  T2.comment
+FROM Enrollments AS T1
+JOIN StudentGradeDetails AS T2
+  ON T1.enrollment_id = T2.enrollment_id
+JOIN CourseGrade AS T3
+  ON T2.course_grade_id = T3.course_grade_id
+JOIN ClassCourse AS T4
+  ON T1.class_course_id = T4.class_course_id
+WHERE
+  T1.student_id = 'HE00001' AND T4.course_id = 'AIL301'","Role: Student, ID: HE00001"
+Which lecturers are teaching more than two courses in the SU24 semester? Show me their full name and the number of courses they are teaching.,"SELECT
+  U.fullname,
+  COUNT(CC.course_id) AS number_of_courses
+FROM Users AS U
+JOIN Lecturers AS L
+  ON U.user_id = L.lecturer_id
+JOIN ClassCourse AS CC
+  ON L.lecturer_id = CC.lecturer_id
+WHERE
+  CC.semester = 'SU24'
+GROUP BY
+  U.fullname
+HAVING
+  COUNT(CC.course_id) > 2;","Role: Training Manager, ID: TM001"
+"Can you give me a count of courses assigned to each lecturer, ordered from most to least?","SELECT
+    U.fullname,
+    COUNT(CC.course_id) AS course_count
+FROM Lecturers AS L
+JOIN Users AS U
+    ON L.lecturer_id = U.user_id
+JOIN ClassCourse AS CC
+    ON L.lecturer_id = CC.lecturer_id
+GROUP BY
+    U.fullname
+ORDER BY
+    course_count DESC;","Role: Training Manager, ID: TM001"
+"What is the average final grade for students in each major, considering only completed courses?","SELECT
+  M.major_name,
+  AVG(E.average) AS average_final_grade
+FROM Enrollments AS E
+JOIN Students AS S
+  ON E.student_id = S.student_id
+JOIN Majors AS M
+  ON S.major_id = M.major_id
+WHERE
+  E.status IN ('Passed', 'Failed')
+GROUP BY
+  M.major_name
+ORDER BY
+  average_final_grade DESC;","Role: Training Manager, ID: TM001"
+"Can you show me a list of all lecturers, including their full names and the departments they work for?","SELECT
+  U.fullname,
+  D.dep_name
+FROM Lecturers AS L
+JOIN Users AS U
+  ON L.lecturer_id = U.user_id
+JOIN Departments AS D
+  ON L.dep_id = D.dep_id
+ORDER BY
+  D.dep_name,
+  U.fullname;","Role: Training Manager, ID: TM001"
+How many lecturers are assigned to each department? Please list the department name and the total count.,"SELECT
+  D.dep_name,
+  COUNT(L.lecturer_id) AS number_of_lecturers
+FROM Departments AS D
+LEFT JOIN Lecturers AS L
+  ON D.dep_id = L.dep_id
+GROUP BY
+  D.dep_name
+ORDER BY
+  number_of_lecturers DESC;","Role: Training Manager, ID: TM001"
+"What is my attendance record for the 'Programming Fundamentals' course, including the dates I was absent?","SELECT
+  S.start_time,
+  A.status
+FROM Attendance AS A
+JOIN Enrollments AS E
+  ON A.enrollment_id = E.enrollment_id
+JOIN ClassCourse AS CC
+  ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+JOIN Schedules AS S
+  ON A.schedule_id = S.schedule_id
+WHERE
+  E.student_id = 'HE00001'
+  AND C.course_name = 'Programming Fundamentals'","Role: Student, ID: HE00001"
+Show me the number of students who passed and failed each course during the Spring 2024 semester.,"SELECT
+    C.course_id,
+    C.course_name,
+    COUNT(CASE WHEN E.status = 'Passed' THEN 1 END) AS passed_count,
+    COUNT(CASE WHEN E.status = 'Failed' THEN 1 END) AS failed_count
+FROM Enrollments AS E
+JOIN ClassCourse AS CC
+    ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C
+    ON CC.course_id = C.course_id
+WHERE
+    CC.semester = 'SP24'
+GROUP BY
+    C.course_id,
+    C.course_name
+ORDER BY
+    C.course_id;","Role: Training Manager, ID: TM001"
+"For the 'SU24' semester, can you show me the pass and fail counts for each course?","SELECT
+  C.course_name,
+  COUNT(CASE WHEN E.status = 'Passed' THEN 1 END) AS pass_count,
+  COUNT(CASE WHEN E.status = 'Failed' THEN 1 END) AS fail_count
+FROM Courses AS C
+JOIN ClassCourse AS CC
+  ON C.course_id = CC.course_id
+JOIN Enrollments AS E
+  ON CC.class_course_id = E.class_course_id
+WHERE
+  CC.semester = 'SU24'
+GROUP BY
+  C.course_id,
+  C.course_name
+ORDER BY
+  C.course_name;","Role: Training Manager, ID: TM001"
+How many times have I been absent from the Programming Fundamentals course?,"SELECT
+  COUNT(T1.status)
+FROM Attendance AS T1
+JOIN Enrollments AS T2
+  ON T1.enrollment_id = T2.enrollment_id
+JOIN ClassCourse AS T3
+  ON T2.class_course_id = T3.class_course_id
+JOIN Courses AS T4
+  ON T3.course_id = T4.course_id
+WHERE
+  T2.student_id = 'HE00001'
+  AND T4.course_name = 'Programming Fundamentals'
+  AND T1.status = 'Absent'","Role: Student, ID: HE00001"
+"What courses did I take in the SP24 semester, and what was my final average grade for each?","SELECT
+  C.course_name,
+  E.average
+FROM Enrollments AS E
+JOIN ClassCourse AS CC
+  ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+WHERE
+  E.student_id = 'HE00001'
+  AND CC.semester = 'SP24'","Role: Student, ID: HE00001"
+What is the total number of students enrolled in each major?,"SELECT
+    M.major_name,
+    COUNT(S.student_id) AS total_students
+FROM Students AS S
+JOIN Majors AS M
+    ON S.major_id = M.major_id
+GROUP BY
+    M.major_name
+ORDER BY
+    total_students DESC;","Role: Training Manager, ID: TM001"
+How many students are enrolled in each major?,"SELECT
+    M.major_name,
+    COUNT(S.student_id) AS number_of_students
+FROM Students AS S
+JOIN Majors AS M
+    ON S.major_id = M.major_id
+GROUP BY
+    M.major_name;","Role: Training Manager, ID: TM001"
+How many unique students are enrolled in the SU24 semester?,"SELECT
+    COUNT(DISTINCT T1.student_id)
+FROM Enrollments AS T1
+JOIN ClassCourse AS T2
+    ON T1.class_course_id = T2.class_course_id
+WHERE
+    T2.semester = 'SU24'","Role: Training Manager, ID: TM001"
+"Show me the top 5 students with the highest overall average grade, along with their major.","SELECT
+  U.fullname,
+  M.major_name,
+  AVG(E.average) AS overall_average_grade
+FROM Enrollments AS E
+JOIN Students AS S
+  ON E.student_id = S.student_id
+JOIN Users AS U
+  ON S.student_id = U.user_id
+JOIN Majors AS M
+  ON S.major_id = M.major_id
+GROUP BY
+  U.fullname,
+  M.major_name
+ORDER BY
+  overall_average_grade DESC
+LIMIT 5;","Role: Training Manager, ID: TM001"
+What are my assignment and lab scores for the AIL301 course?,"SELECT
+  T3.grade_name,
+  T2.grade_value
+FROM Enrollments AS T1
+INNER JOIN StudentGradeDetails AS T2
+  ON T1.enrollment_id = T2.enrollment_id
+INNER JOIN CourseGrade AS T3
+  ON T2.course_grade_id = T3.course_grade_id
+WHERE
+  T1.student_id = 'HE00001'
+  AND T1.class_course_id LIKE '%AIL301%'
+  AND (
+    T3.grade_name LIKE '%Assignment%'
+    OR T3.grade_name LIKE '%Lab%'
+  );","Role: Student, ID: HE00001"
+Which lecturers are in the 'Artificial Intelligence' department? Show me their IDs and full names.,"SELECT
+    L.lecturer_id,
+    U.fullname
+FROM Lecturers AS L
+JOIN Users AS U
+    ON L.lecturer_id = U.user_id
+JOIN Departments AS D
+    ON L.dep_id = D.dep_id
+WHERE
+    D.dep_name = 'Artificial Intelligence'","Role: Training Manager, ID: TM001"
+"Show me how many classes each lecturer is assigned to for the SU24 semester, sorted from most to least.","SELECT
+  U.fullname,
+  COUNT(CC.class_course_id) AS number_of_classes
+FROM Users AS U
+JOIN Lecturers AS L
+  ON U.user_id = L.lecturer_id
+JOIN ClassCourse AS CC
+  ON L.lecturer_id = CC.lecturer_id
+WHERE
+  CC.semester = 'SU24'
+GROUP BY
+  U.user_id,
+  U.fullname
+ORDER BY
+  number_of_classes DESC;","Role: Training Manager, ID: TM001"
+What is the total number of students enrolled in each major? Please list the major name and the corresponding student count.,"SELECT
+  M.major_name,
+  COUNT(S.student_id) AS student_count
+FROM Majors AS M
+JOIN Students AS S
+  ON M.major_id = S.major_id
+GROUP BY
+  M.major_name
+ORDER BY
+  student_count DESC;","Role: Training Manager, ID: TM001"
+Which students failed my Programming Fundamentals course during the SP24 semester?,"SELECT
+    U.fullname,
+    S.student_id
+FROM
+    ClassCourse AS CC
+JOIN Enrollments AS E
+    ON CC.class_course_id = E.class_course_id
+JOIN Students AS S
+    ON E.student_id = S.student_id
+JOIN Users AS U
+    ON S.student_id = U.user_id
+JOIN Courses AS C
+    ON CC.course_id = C.course_id
+WHERE
+    CC.lecturer_id = 'LEC001'
+    AND C.course_name = 'Programming Fundamentals'
+    AND CC.semester = 'SP24'
+    AND E.status = 'Failed'","Role: Lecturer, ID: LEC001"
+Show my absence count for each of my completed courses.,"SELECT
+  C.course_name,
+  COUNT(A.status) AS number_of_absences
+FROM Enrollments AS E
+JOIN ClassCourse AS CC
+  ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+JOIN Attendance AS A
+  ON E.enrollment_id = A.enrollment_id
+WHERE
+  E.student_id = 'HE00001'
+  AND E.status = 'Passed'
+  AND A.status = 'Absent'
+GROUP BY
+  C.course_name","Role: Student, ID: HE00001"
+"Show me a list of students who have failed one or more courses, along with the total count of failed courses for each.","SELECT
+  U.fullname,
+  E.student_id,
+  COUNT(E.enrollment_id) AS number_of_failed_courses
+FROM Enrollments AS E
+JOIN Users AS U
+  ON E.student_id = U.user_id
+WHERE
+  E.status = 'Failed'
+GROUP BY
+  U.fullname,
+  E.student_id
+ORDER BY
+  number_of_failed_courses DESC;","Role: Training Manager, ID: TM001"
+Which of my grade components for the Natural Language Processing course are still awaiting a grade?,"SELECT
+    CG.grade_name
+FROM Enrollments AS E
+JOIN ClassCourse AS CC
+    ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C
+    ON CC.course_id = C.course_id
+JOIN StudentGradeDetails AS SGD
+    ON E.enrollment_id = SGD.enrollment_id
+JOIN CourseGrade AS CG
+    ON SGD.course_grade_id = CG.course_grade_id
+WHERE
+    E.student_id = 'HE00001'
+    AND C.course_name = 'Natural Language Processing'
+    AND SGD.comment = 'Awaiting Grade'","Role: Student, ID: HE00001"
+How many times was I absent from my Programming Fundamentals class?,"SELECT
+  COUNT(T1.status)
+FROM Attendance AS T1
+INNER JOIN Enrollments AS T2
+  ON T1.enrollment_id = T2.enrollment_id
+INNER JOIN ClassCourse AS T3
+  ON T2.class_course_id = T3.class_course_id
+INNER JOIN Courses AS T4
+  ON T3.course_id = T4.course_id
+WHERE
+  T2.student_id = 'HE00001'
+  AND T4.course_name = 'Programming Fundamentals'
+  AND T1.status = 'Absent';","Role: Student, ID: HE00001"
+"What is the average grade for each major, considering only completed courses?","SELECT
+    M.major_name,
+    AVG(E.average) AS average_grade
+FROM
+    Majors AS M
+JOIN
+    Students AS S ON M.major_id = S.major_id
+JOIN
+    Enrollments AS E ON S.student_id = E.student_id
+WHERE
+    E.status <> 'Studying'
+GROUP BY
+    M.major_name
+ORDER BY
+    average_grade DESC;","Role: Training Manager, ID: TM001"
+"Which 5 classes have the highest overall average grade, and who teaches them?","SELECT
+  T2.class_name,
+  T3.course_name,
+  T5.fullname AS lecturer_name,
+  AVG(T1.average) AS overall_average_grade
+FROM Enrollments AS T1
+INNER JOIN ClassCourse AS T2
+  ON T1.class_course_id = T2.class_course_id
+INNER JOIN Courses AS T3
+  ON T2.course_id = T3.course_id
+INNER JOIN Lecturers AS T4
+  ON T2.lecturer_id = T4.lecturer_id
+INNER JOIN Users AS T5
+  ON T4.lecturer_id = T5.user_id
+GROUP BY
+  T2.class_name,
+  T3.course_name,
+  T5.fullname
+ORDER BY
+  overall_average_grade DESC
+LIMIT 5;","Role: Training Manager, ID: TM001"
+Show me the full names and average scores of students who failed my 'Programming Fundamentals' course.,"SELECT
+  U.fullname,
+  E.average
+FROM Enrollments AS E
+JOIN Students AS S
+  ON E.student_id = S.student_id
+JOIN Users AS U
+  ON S.user_id = U.user_id
+JOIN ClassCourse AS CC
+  ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+WHERE
+  CC.lecturer_id = 'LEC001'
+  AND C.course_name = 'Programming Fundamentals'
+  AND E.status = 'Failed'","Role: Lecturer, ID: LEC001"
+"Which students in my PRF192 class, SE02, passed the course?","SELECT
+  U.fullname,
+  E.average
+FROM Enrollments AS E
+JOIN ClassCourse AS CC
+  ON E.class_course_id = CC.class_course_id
+JOIN Students AS S
+  ON E.student_id = S.student_id
+JOIN Users AS U
+  ON S.user_id = U.user_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+JOIN Classes AS Cl
+  ON CC.class_id = Cl.class_id
+WHERE
+  CC.lecturer_id = 'LEC001'
+  AND C.course_id = 'PRF192'
+  AND Cl.class_name = 'SE02'
+  AND E.status = 'Passed'","Role: Lecturer, ID: LEC001"
+What are my grades for the assignments in the Artificial Intelligence and Machine Learning course?,"SELECT
+  T3.grade_name,
+  T1.grade_value,
+  T1.comment
+FROM StudentGradeDetails AS T1
+INNER JOIN CourseGrade AS T3
+  ON T1.course_grade_id = T3.course_grade_id
+INNER JOIN Enrollments AS T2
+  ON T1.enrollment_id = T2.enrollment_id
+INNER JOIN ClassCourse AS T4
+  ON T2.class_course_id = T4.class_course_id
+INNER JOIN Courses AS T5
+  ON T4.course_id = T5.course_id
+WHERE
+  T2.student_id = 'HE00001'
+  AND T5.course_name = 'Artificial Intelligence and Machine Learning'
+  AND T3.grade_name LIKE '%Assignment%'","Role: Student, ID: HE00001"
+"Show me the students who failed my PRF192 course in the SP24 semester, along with their final average.","SELECT
+  U.fullname,
+  E.average
+FROM Enrollments AS E
+JOIN ClassCourse AS CC
+  ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+JOIN Students AS S
+  ON E.student_id = S.student_id
+JOIN Users AS U
+  ON S.student_id = U.user_id
+WHERE
+  CC.lecturer_id = 'LEC001'
+  AND C.course_id = 'PRF192'
+  AND CC.semester = 'SP24'
+  AND E.status = 'Failed'","Role: Lecturer, ID: LEC001"
+What are the pass and fail counts for each course offered in the SU24 semester?,"SELECT
+  C.course_name,
+  SUM(CASE WHEN E.status = 'Passed' THEN 1 ELSE 0 END) AS pass_count,
+  SUM(CASE WHEN E.status = 'Failed' THEN 1 ELSE 0 END) AS fail_count
+FROM Enrollments AS E
+JOIN ClassCourse AS CC
+  ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+WHERE
+  CC.semester = 'SU24'
+GROUP BY
+  C.course_name
+ORDER BY
+  C.course_name;","Role: Training Manager, ID: TM001"
+"Can you show me a count of how many lecturers are in each department, sorted from most to least?","SELECT
+    D.dep_name,
+    COUNT(L.lecturer_id) AS number_of_lecturers
+FROM Departments AS D
+LEFT JOIN Lecturers AS L
+    ON D.dep_id = L.dep_id
+GROUP BY
+    D.dep_name
+ORDER BY
+    number_of_lecturers DESC","Role: Training Manager, ID: TM001"
+What is the average final grade for students across each major? Please list them from highest to lowest.,"SELECT
+    M.major_name,
+    AVG(E.average) AS average_final_grade
+FROM Majors AS M
+JOIN Students AS S
+    ON M.major_id = S.major_id
+JOIN Enrollments AS E
+    ON S.student_id = E.student_id
+GROUP BY
+    M.major_name
+ORDER BY
+    average_final_grade DESC;","Role: Training Manager, ID: TM001"
+What are my detailed grades for the Programming Fundamentals course?,"SELECT
+    CG.grade_name,
+    CG.grade_weight,
+    SGD.grade_value
+FROM
+    Enrollments AS E
+JOIN
+    StudentGradeDetails AS SGD ON E.enrollment_id = SGD.enrollment_id
+JOIN
+    CourseGrade AS CG ON SGD.course_grade_id = CG.course_grade_id
+JOIN
+    Courses AS C ON CG.course_id = C.course_id
+WHERE
+    E.student_id = 'HE00001' AND C.course_name = 'Programming Fundamentals'","Role: Student, ID: HE00001"
+What were my detailed grades for the Data Structures and Algorithms course?,"SELECT
+    T3.grade_name,
+    T3.grade_weight,
+    T2.grade_value
+FROM Enrollments AS T1
+JOIN StudentGradeDetails AS T2
+    ON T1.enrollment_id = T2.enrollment_id
+JOIN CourseGrade AS T3
+    ON T2.course_grade_id = T3.course_grade_id
+JOIN Courses AS T4
+    ON T3.course_id = T4.course_id
+WHERE
+    T1.student_id = 'HE00001' AND T4.course_name = 'Data Structures and Algorithms'","Role: Student, ID: HE00001"
+"Show me the number of classes each lecturer is teaching in the SU24 semester, sorted from most to least.","SELECT
+  U.fullname,
+  COUNT(CC.class_course_id) AS class_count
+FROM ClassCourse AS CC
+JOIN Lecturers AS L
+  ON CC.lecturer_id = L.lecturer_id
+JOIN Users AS U
+  ON L.lecturer_id = U.user_id
+WHERE
+  CC.semester = 'SU24'
+GROUP BY
+  U.user_id,
+  U.fullname
+ORDER BY
+  class_count DESC;","Role: Training Manager, ID: TM001"
+How many classes is each lecturer teaching in the SU24 semester? Please list them from most to least.,"SELECT
+  U.fullname,
+  COUNT(CC.class_course_id) AS class_count
+FROM ClassCourse AS CC
+JOIN Users AS U
+  ON CC.lecturer_id = U.user_id
+WHERE
+  CC.semester = 'SU24'
+GROUP BY
+  U.user_id,
+  U.fullname
+ORDER BY
+  class_count DESC","Role: Training Manager, ID: TM001"
+"Can you provide a count of how many lecturers are in each department, and show the department name?","SELECT
+  D.dep_name,
+  COUNT(L.lecturer_id) AS number_of_lecturers
+FROM Departments AS D
+JOIN Lecturers AS L
+  ON D.dep_id = L.dep_id
+GROUP BY
+  D.dep_name
+ORDER BY
+  D.dep_name;","Role: Training Manager, ID: TM001"
+"Which of my students failed in the SP24 semester, and what were their final average scores?","SELECT
+  U.fullname,
+  C.course_name,
+  Cl.class_name,
+  E.average
+FROM ClassCourse AS CC
+JOIN Enrollments AS E
+  ON CC.class_course_id = E.class_course_id
+JOIN Students AS S
+  ON E.student_id = S.student_id
+JOIN Users AS U
+  ON S.student_id = U.user_id
+JOIN Courses AS C
+  ON CC.course_id = C.course_id
+JOIN Classes AS Cl
+  ON CC.class_id = Cl.class_id
+WHERE
+  CC.lecturer_id = 'LEC001'
+  AND E.status = 'Failed'
+  AND CC.semester = 'SP24'","Role: Lecturer, ID: LEC001"
+Can you show me the dates I was absent for the Programming Fundamentals course?,"SELECT
+    S.start_time
+FROM
+    Attendance AS A
+JOIN Enrollments AS E
+    ON A.enrollment_id = E.enrollment_id
+JOIN ClassCourse AS CC
+    ON E.class_course_id = CC.class_course_id
+JOIN Courses AS C
+    ON CC.course_id = C.course_id
+JOIN Schedules AS S
+    ON A.schedule_id = S.schedule_id
+WHERE
+    E.student_id = 'HE00001'
+    AND C.course_name = 'Programming Fundamentals'
+    AND A.status = 'Absent'","Role: Student, ID: HE00001"
+"Show me the grading breakdown for my Artificial Intelligence and Machine Learning course, including the weight of each component.","SELECT
+  T3.grade_name,
+  T3.grade_weight
+FROM Enrollments AS T1
+JOIN ClassCourse AS T2
+  ON T1.class_course_id = T2.class_course_id
+JOIN CourseGrade AS T3
+  ON T2.course_id = T3.course_id
+JOIN Courses AS T4
+  ON T2.course_id = T4.course_id
+WHERE
+  T1.student_id = 'HE00001'
+  AND T4.course_name = 'Artificial Intelligence and Machine Learning'","Role: Student, ID: HE00001"
+Can you give me a breakdown of enrollment statuses for each major?,"SELECT
+  M.major_name,
+  E.status,
+  COUNT(E.enrollment_id) AS number_of_enrollments
+FROM Majors AS M
+JOIN Students AS S
+  ON M.major_id = S.major_id
+JOIN Enrollments AS E
+  ON S.student_id = E.student_id
+GROUP BY
+  M.major_name,
+  E.status
+ORDER BY
+  M.major_name,
+  E.status;","Role: Training Manager, ID: TM001"
+What are my detailed grades for the 'Artificial Intelligence and Machine Learning' course?,"SELECT
+  T3.grade_name,
+  T1.grade_value,
+  T1.comment
+FROM StudentGradeDetails AS T1
+INNER JOIN Enrollments AS T2
+  ON T1.enrollment_id = T2.enrollment_id
+INNER JOIN CourseGrade AS T3
+  ON T1.course_grade_id = T3.course_grade_id
+INNER JOIN ClassCourse AS T4
+  ON T2.class_course_id = T4.class_course_id
+INNER JOIN Courses AS T5
+  ON T4.course_id = T5.course_id
+WHERE
+  T2.student_id = 'HE00001'
+  AND T5.course_name = 'Artificial Intelligence and Machine Learning';","Role: Student, ID: HE00001"

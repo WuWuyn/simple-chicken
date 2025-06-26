@@ -1,0 +1,18 @@
+Majors: 4
+Departments: 4
+Roles: 3
+Permissions: 0
+RolePermission: 0
+Courses: 20
+Curriculums: 24
+Users: 61
+Students (Table): 50
+Lecturers (Table): 10
+UserRole: 61
+Classes: 8
+ClassCourse: 32
+Enrollments: 168
+Schedules: 320
+Attendance: 2200
+CourseGrade: 120
+StudentGradeDetails: 1049

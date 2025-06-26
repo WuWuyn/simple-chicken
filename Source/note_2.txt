@@ -1,0 +1,43 @@
+dưới đây là mô tả về yêu cầu tạo dữ liệu cho website quản lý sinh viên của 1 trường đại học, có thể chưa đầy đủ nên bạn có thể bổ sung:
+dữ liệu trong 1 năm: 2024
+=> 1 năm 3 kì (1 kì 3 tháng, tháng 1 đến 3: SP, tháng 5-7:SU, tháng 9-11: FA) 
+=> 1 kì học sinh học 2 môn  => 1 môn 10 slot phân bổ đều trong 3 tháng học kì, trừ t7 chủ nhật. Mỗi ngày học 1 slot, slot từ 1-4, slot 1: 7h30-9h50, slot 2: 10h-12h20, slot 3: 12h50-3h20, slot 4: 3h30-5h20
+4 ngành => 1 ngành 6 môn (các ngành có thể trùng nhau 1 vài môn cơ bản)
+Có 4 departments: Computing Fundamental, Artificial Intelligence, Information Assurance, Software Engineering
+1 giáo viên có thể dạy nhiều lớp nhưng phải đảm bảo về lịch trình
+1 lớp 5-10 học sinh
+Lưu ý: 
+-	giả định thời gian hiện tại là 15 tháng 6
+-	lịch trình chỉ được xác định trong kì học đấy (ví dụ: đang học kì SU24 thì có thể biết lịch của SP24 và SU24, còn FA24 thì chưa tồn tại), lịch trong các kì tương lai chưa được sắp xếp
+-	sinh viên có thể nhập học vào các năm khác nhau, không phải mặc định vào năm 2023.
+-	nên duy trì việc một môn được dạy ở tất cả các kì trong năm (có thể do khởi điểm học của các học sinh khác kì nhau)
+-	sinh viên có thể học lại (trạng thái enrollment phải là failed và điểm average <5). 
+-	Lưu ý cơ chế học lại: khi sinh viên phải học lại, sinh viên sẽ được đăng kí vào một lớp dạy môn đấy trong 1 kì học bất kì sau đó (có thể không phải kì liền sau). Có nghĩa là thành viên trong 1 lớp sẽ có sự biến động khi có người phải học lại, cũng như có người tham gia vào vì phải học lại
+Ví dụ: Nếu tôi trượt môn A ở kì này, thì trong những kì sau đó, tôi có thể đăng kí học lại môn đấy vào một lớp bất kì, miễn sao lớp đấy đang được dạy môn A (nhưng trong đó có những người mới học môn A lần đầu, không tạo một lớp riêng để retake).
+-	các môn đang được học thì average = 0
+-	đảm báo logic về thời gian, lịch trình
+-	có 3 role: student, lecturer và train manager
+-	không cần tạo hay quan tâm gì tới permission
+-	về CourseGrade mỗi môn khác nhau, các đầu điểm như Assignment, Assignment 1, Assignment 2, Assignment3, Lab 1, Lab 2, Lab 3, PT 1, PT 2, PT 3, , luôn tồn tại Final và Final Resit
+-	Final < 5 thì Final resit != 0, final >=5 thì final resit = 0;
+Các record của bảng khác như Class, Lecturer… bạn hãy tính toán và tự điều chỉnh
+
+
+Majors: 4
+Departments: 4
+Roles: 3
+Permissions: 0
+RolePermission: 0
+Courses: ~20
+Curriculums: 24
+Users: 61
+Students (Table): 50
+Lecturers (Table): 10
+UserRole: 61
+Classes: ~8
+ClassCourse: 32
+Enrollments: ~220
+Schedules: 320
+Attendance: 2200
+CourseGrade: ~120
+StudentGradeDetails: ~880

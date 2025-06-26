@@ -1,0 +1,169 @@
+【DB_ID】 text_to_sql_final
+【Schema】
+# Table: Attendance
+[
+  (enrollment_id:VARCHAR(50), Primary Key, Foreign key referencing Enrollments table. Maps to Enrollments(enrollment_id). NOT NULL., Examples: ['HE00001_AI_K1_FA23_AIL301_SU24', 'HE00001_AI_K1_FA23_CSD201_SP24']),
+  (schedule_id:VARCHAR(50), Primary Key, Foreign key referencing Schedules table. Maps to Schedules(schedule_id). NOT NULL., Examples: ['AI_K1_FA23_AIL301_SU24_S1', 'AI_K1_FA23_CSD201_SP24_S1']),
+  (status:VARCHAR(50), Attendance status (e.g., Present, Absent, Future). NOT NULL., Examples: ['Present', 'Absent', 'Future'])
+]
+【Foreign keys】
+  Attendance.enrollment_id = Enrollments.enrollment_id
+  Attendance.schedule_id = Schedules.schedule_id
+
+# Table: ClassCourse
+[
+  (class_course_id:VARCHAR(50), Primary Key, Unique identifier for the class course. NOT NULL., Examples: ['AI_K1_FA23_AIL301_SU24', 'AI_K1_FA23_CSD201_SP24']),
+  (class_id:VARCHAR(10), Foreign key referencing Classes table. Maps to Classes(class_id). NOT NULL., Examples: ['AI_K1_FA23', 'IA_K1_FA23']),
+  (course_id:VARCHAR(10), Foreign key referencing Courses table. Maps to Courses(course_id). NOT NULL., Examples: ['AIL301', 'CSD201', 'PRF192']),
+  (lecturer_id:VARCHAR(10), Foreign key referencing Lecturers table. Maps to Lecturers(lecturer_id). NOT NULL., Examples: ['LEC001', 'LEC002', 'LEC003']),
+  (semester:VARCHAR(10), Semester of the class course (e.g., SP24, SU24, FA23). NOT NULL., Examples: ['SP24', 'SU24', 'FA23'])
+]
+【Foreign keys】
+  ClassCourse.class_id = Classes.class_id
+  ClassCourse.course_id = Courses.course_id
+  ClassCourse.lecturer_id = Lecturers.lecturer_id
+
+# Table: Classes
+[
+  (class_id:VARCHAR(10), Primary Key, Unique identifier for the class. NOT NULL., Examples: ['AI_K1_FA23', 'IA_K2_SU24', 'SE_K1_SP24']),
+  (class_name:VARCHAR(255), Name of the class. NOT NULL., Examples: ['AI01', 'IA02', 'SE01'])
+]
+
+# Table: CourseGrade
+[
+  (course_grade_id:VARCHAR(50), Primary Key, Unique identifier for the course grade. NOT NULL., Examples: ['AIL301_Assignment_1', 'CSD201_Final_Exam', 'PRF192_Lab_1']),
+  (course_id:VARCHAR(10), Foreign key referencing Courses table. Maps to Courses(course_id). NOT NULL., Examples: ['AIL301', 'CSD201', 'PRF192']),
+  (grade_name:NVARCHAR(150), Name of the grade component (e.g., Assignment 1, Final Exam, Lab 1). NOT NULL., Examples: ['Assignment 1', 'Final Exam', 'Lab 1']),
+  (grade_weight:FLOAT, Weight of the grade component in the overall course grade. NOT NULL., Examples: [0.1, 0.2, 0.4, 0.5])
+]
+【Foreign keys】
+  CourseGrade.course_id = Courses.course_id
+
+# Table: Courses
+[
+  (course_id:VARCHAR(10), Primary Key, Unique identifier for the course. NOT NULL., Examples: ['AIL301', 'CSD201', 'PRF192']),
+  (course_name:NVARCHAR(150), Name of the course. NOT NULL., Examples: ['Artificial Intelligence and Machine Learning', 'Data Structures and Algorithms', 'Programming Fundamentals']),
+  (no_credit:TINYINT, Number of credits for the course. NOT NULL., Examples: [3]),
+  (description:NVARCHAR(255), Description of the course. NULLABLE., Examples: ['Core concepts of AI and machine learning algorithms.', 'Study of fundamental data structures and algorithmic techniques.', 'Introduction to basic programming concepts and problem-solving.'])
+]
+
+# Table: Curriculums
+[
+  (major_id:VARCHAR(10), Primary Key, Foreign key referencing Majors table. Maps to Majors(major_id). NOT NULL., Examples: ['AI', 'IA', 'SE', 'CS']),
+  (course_id:VARCHAR(10), Primary Key, Foreign key referencing Courses table. Maps to Courses(course_id). NOT NULL., Examples: ['AIL301', 'CSD201', 'PRF192'])
+]
+【Foreign keys】
+  Curriculums.major_id = Majors.major_id
+  Curriculums.course_id = Courses.course_id
+
+# Table: Departments
+[
+  (dep_id:VARCHAR(10), Primary Key, Unique identifier for the department. NOT NULL., Examples: ['D01', 'D02', 'D03', 'D04']),
+  (dep_name:NVARCHAR(150), Name of the department. NOT NULL., Examples: ['Computing Fundamental', 'Artificial Intelligence', 'Information Assurance', 'Software Engineering'])
+]
+
+# Table: Enrollments
+[
+  (enrollment_id:VARCHAR(50), Primary Key, Unique identifier for the enrollment. NOT NULL., Examples: ['HE00001_AI_K1_FA23_AIL301_SU24', 'HE00002_AI_K1_FA23_CSD201_SP24']),
+  (student_id:VARCHAR(10), Foreign key referencing Students table. Maps to Students(student_id). NOT NULL., Examples: ['HE00001', 'HE00002', 'HE00003']),
+  (class_course_id:VARCHAR(50), Foreign key referencing ClassCourse table. Maps to ClassCourse(class_course_id). NOT NULL., Examples: ['AI_K1_FA23_AIL301_SU24', 'AI_K1_FA23_CSD201_SP24']),
+  (average:FLOAT, Average grade for the enrollment. NOT NULL., Examples: [0, 6.5, 8, 9.2]),
+  (status:VARCHAR(50), Enrollment status (e.g., Studying, Passed, Failed). NOT NULL., Examples: ['Studying', 'Passed', 'Failed'])
+]
+【Foreign keys】
+  Enrollments.student_id = Students.student_id
+  Enrollments.class_course_id = ClassCourse.class_course_id
+【Unique keys】
+  (student_id, class_course_id)
+
+# Table: Lecturers
+[
+  (lecturer_id:VARCHAR(10), Primary Key, Unique identifier for the lecturer, also a foreign key referencing Users table. Maps to Users(user_id). NOT NULL., Examples: ['LEC001', 'LEC002', 'LEC003']),
+  (dep_id:VARCHAR(10), Foreign key referencing Departments table. Maps to Departments(dep_id). NOT NULL., Examples: ['D01', 'D02', 'D03', 'D04'])
+]
+【Foreign keys】
+  Lecturers.dep_id = Departments.dep_id
+  Lecturers.lecturer_id = Users.user_id
+
+# Table: Majors
+[
+  (major_id:VARCHAR(10), Primary Key, Unique identifier for the major. NOT NULL., Examples: ['AI', 'IA', 'SE', 'CS']),
+  (major_name:NVARCHAR(150), Name of the major. NOT NULL., Examples: ['Artificial Intelligence', 'Information Assurance', 'Software Engineering', 'Computer Science'])
+]
+
+# Table: Permissions
+[
+  (permission_id:VARCHAR(10), Primary Key, Unique identifier for the permission. NOT NULL., Examples: ['P001', 'P012', 'P024']),
+  (permission_name:NVARCHAR(150), Name of the permission. NOT NULL., Examples: ['View all majors', 'View own enrollment average and status', 'View all system data except other peoples password(Training Manager)'])
+]
+
+# Table: RolePermission
+[
+  (role_id:VARCHAR(10), Primary Key, Foreign key referencing Roles table. Maps to Roles(role_id). NOT NULL., Examples: ['R001', 'R002', 'R003']),
+  (permission_id:VARCHAR(10), Primary Key, Foreign key referencing Permissions table. Maps to Permissions(permission_id). NOT NULL., Examples: ['P001', 'P015', 'P024'])
+]
+【Foreign keys】
+  RolePermission.role_id = Roles.role_id
+  RolePermission.permission_id = Permissions.permission_id
+
+# Table: Roles
+[
+  (role_id:VARCHAR(10), Primary Key, Unique identifier for the role. NOT NULL., Examples: ['R001', 'R002', 'R003']),
+  (role_name:NVARCHAR(150), Name of the role. NOT NULL., Examples: ['Student', 'Lecturer', 'Training Manager'])
+]
+
+# Table: Schedules
+[
+  (schedule_id:VARCHAR(50), Primary Key, Unique identifier for the schedule. NOT NULL., Examples: ['AI_K1_FA23_AIL301_SU24_S1', 'AI_K1_FA23_CSD201_SP24_S2']),
+  (class_course_id:VARCHAR(50), Foreign key referencing ClassCourse table. Maps to ClassCourse(class_course_id). NOT NULL., Examples: ['AI_K1_FA23_AIL301_SU24', 'AI_K1_FA23_CSD201_SP24']),
+  (start_time:DATETIME, Start time of the schedule. NOT NULL., Examples: ['2024-05-06 07:30:00', '2024-01-16 07:30:00']),
+  (end_time:DATETIME, End time of the schedule. NOT NULL., Examples: ['2024-05-06 09:50:00', '2024-01-16 09:50:00']),
+  (room:NVARCHAR(50), Room where the schedule takes place. NOT NULL., Examples: ['R001', 'R002', 'R003']),
+  (slot:TINYINT, Slot number of the schedule. NOT NULL., Examples: [1, 2, 3, 4])
+]
+【Foreign keys】
+  Schedules.class_course_id = ClassCourse.class_course_id
+
+# Table: StudentGradeDetails
+[
+  (enrollment_id:VARCHAR(50), Primary Key, Foreign key referencing Enrollments table. Maps to Enrollments(enrollment_id). NOT NULL., Examples: ['HE00001_AI_K1_FA23_AIL301_SU24', 'HE00001_AI_K1_FA23_CSD201_SP24']),
+  (course_grade_id:VARCHAR(50), Primary Key, Foreign key referencing CourseGrade table. Maps to CourseGrade(course_grade_id). NOT NULL., Examples: ['AIL301_Assignment_1', 'CSD201_Final_Exam']),
+  (grade_value:FLOAT, Grade value for the specific grade component. NULLABLE., Examples: [9, 8.5, 7, 6.8]),
+  (comment:NVARCHAR(50), Comment about the grade (e.g., Grade Recorded, Awaiting Grade). NOT NULL., Examples: ['Grade Recorded', 'Awaiting Grade'])
+]
+【Foreign keys】
+  StudentGradeDetails.enrollment_id = Enrollments.enrollment_id
+  StudentGradeDetails.course_grade_id = CourseGrade.course_grade_id
+
+# Table: Students
+[
+  (student_id:VARCHAR(10), Primary Key, Unique identifier for the student, also a foreign key referencing Users table. Maps to Users(user_id). NOT NULL., Examples: ['HE00001', 'HE00002', 'HE00015']),
+  (major_id:VARCHAR(10), Foreign key referencing Majors table. Maps to Majors(major_id). NOT NULL., Examples: ['AI', 'IA', 'SE', 'CS']),
+  (start_date:DATE, Start date of the student's program. NOT NULL., Examples: ['2023-09-04', '2024-01-08', '2024-05-06']),
+  (start_semester:VARCHAR(50), Starting semester (e.g., FA23, SP24, SU24). NOT NULL., Examples: ['FA23', 'SP24', 'SU24'])
+]
+【Foreign keys】
+  Students.major_id = Majors.major_id
+  Students.student_id = Users.user_id
+
+# Table: UserRole
+[
+  (user_id:VARCHAR(10), Primary Key, Foreign key referencing Users table. Maps to Users(user_id). NOT NULL., Examples: ['HE00001', 'LEC001', 'TM001']),
+  (role_id:VARCHAR(10), Primary Key, Foreign key referencing Roles table. Maps to Roles(role_id). NOT NULL., Examples: ['R001', 'R002', 'R003'])
+]
+【Foreign keys】
+  UserRole.user_id = Users.user_id
+  UserRole.role_id = Roles.role_id
+
+# Table: Users
+[
+  (username:VARCHAR(50), Primary Key, Username for login. NOT NULL., Examples: ['binhnv', 'anhdv', 'tm001', 'he00001_user']),
+  (password:VARCHAR(150), Password for login. NOT NULL., Examples: ['hashed_password_lec', 'hashed_password_stu', 'hashed_password_tm']),
+  (user_id:VARCHAR(10), Unique identifier for the user. NOT NULL., Examples: ['LEC001', 'LEC005', 'TM001', 'HE00001']),
+  (fullname:NVARCHAR(50), Full name of the user. NOT NULL., Examples: ['Nguyễn Văn Bình', 'Đỗ Việt Anh', 'Quản Trọng Minh', 'Nguyễn Văn An']),
+  (user_gender:NVARCHAR(50), Gender of the user. NOT NULL., Examples: ['male', 'female']),
+  (user_dob:DATE, Date of birth of the user. NOT NULL., Examples: ['1980-03-15', '1983-09-12', '1975-05-10', '2003-01-10']),
+  (user_address:NVARCHAR(150), Address of the user. NOT NULL., Examples: ['Hà Nội', 'Cần Thơ', 'TP. Hồ Chí Minh'])
+]
+【Unique keys】
+  (user_id)
