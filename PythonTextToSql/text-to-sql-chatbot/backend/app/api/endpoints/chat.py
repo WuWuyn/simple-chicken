@@ -249,45 +249,35 @@ async def websocket_endpoint(
                             success=True,
                             execution_time_ms=pipeline_response.execution_time_ms
                         )
-                        
                     else:
                         # Handle failed SQL execution
                         response_message = "I understand your question, but I couldn't execute the query successfully."
-                        if pipeline_response.error_message:
-                            response_message += f"\n\nError: {pipeline_response.error_message}"
                         
                         chat_response = ChatWebSocketResponse(
                             message_id=message_id,
                             user_message=user_message,
                             assistant_response=response_message,
                             success=False,
-                            error_message=pipeline_response.error_message,
+                            error_message="Failed to execute the generated SQL query.",
                             execution_time_ms=pipeline_response.execution_time_ms
                         )
                 else:
-                    # Handle blocked or failed queries
-                    if pipeline_response.blocked_at_step:
-                        # Use smart formatter for security messages
-                        smart_formatter = get_smart_formatter()
-                        response_message = smart_formatter.format_security_response(
-                            user_question=user_message,
-                            blocked_step=pipeline_response.blocked_at_step,
-                            error_message=pipeline_response.error_message or "",
-                            user_id=user_data.user_id,
-                            user_role=user_data.user_role
-                        )
-                    else:
-                        response_message = "I couldn't process your question. Please try rephrasing it."
-                    
-                    if pipeline_response.error_message:
-                        response_message += f"\n\nDetails: {pipeline_response.error_message}"
+                    # Handle blocked or failed queries using the safe formatter
+                    smart_formatter = get_smart_formatter()
+                    response_message = smart_formatter.format_security_response(
+                        user_question=user_message,
+                        blocked_step=str(pipeline_response.blocked_at_step or "general_error"),
+                        error_message=str(pipeline_response.error_message or ""),
+                        user_id=user_data.user_id,
+                        user_role=user_data.user_role
+                    )
                     
                     chat_response = ChatWebSocketResponse(
                         message_id=message_id,
                         user_message=user_message,
                         assistant_response=response_message,
                         success=False,
-                        error_message=pipeline_response.error_message,
+                        error_message=response_message,  # Use the safe, formatted message
                         execution_time_ms=pipeline_response.execution_time_ms
                     )
                 

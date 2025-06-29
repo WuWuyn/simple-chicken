@@ -135,7 +135,7 @@ class AdvancedSecurityChecker:
         query = request_data['Query']
         if len(query) > 2000:
             violations.append("Query too long (>2000 characters)")
-        if len(query.strip()) < 3:
+        if len(query.strip()) < 1:
             violations.append("Query too short (<3 characters)")
             
         # Role validation

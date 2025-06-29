@@ -450,56 +450,57 @@ Generate a natural, friendly response:
         return "\n".join(formatted_results)
 
     def format_security_response(self, user_question: str, blocked_step: str, error_message: str, user_id: str = "", user_role: str = "") -> str:
-        """Format security-blocked responses in a user-friendly way"""
-        try:
-            # First try with LLM if available
-            if self.llm_enabled:
-                llm_response = self._format_security_with_llm(user_question, blocked_step, error_message, user_id, user_role)
-                if llm_response:
-                    return llm_response
-            
-            # Fallback to rule-based security messages
-            return self._format_security_with_rules(user_question, blocked_step, error_message)
-            
-        except Exception as e:
-            logger.error(f"Error in security response formatting: {e}")
-            return self._format_security_fallback(user_question)
+        """
+        Format a security or permission-related response
+        """
+        # Ensure parameters are strings to prevent downstream errors
+        safe_blocked_step = blocked_step or "unknown"
+        safe_error_message = error_message or ""
+
+        # Use LLM if available for more natural responses
+        if self.llm_enabled:
+            llm_response = self._format_security_with_llm(user_question, safe_blocked_step, safe_error_message, user_id, user_role)
+            if llm_response:
+                return llm_response
+        
+        # Fallback to rule-based formatting
+        return self._format_security_with_rules(user_question, safe_blocked_step, safe_error_message)
     
     def _format_security_with_llm(self, user_question: str, blocked_step: str, error_message: str, user_id: str, user_role: str) -> Optional[str]:
         """Format security response using Gemini LLM"""
         try:
             prompt = f"""
-You are a friendly academic assistant. A user's query was blocked for security reasons and you need to respond in a helpful, educational way.
+You are a friendly academic assistant chatbot. Your role is to help users, but you must also handle security issues gracefully.
+
+A user's request was blocked for security reasons. Your task is to explain this to the user in a helpful, non-technical way. Do NOT reveal internal security details.
 
 USER QUESTION: {user_question}
 USER ID: {user_id}
 USER ROLE: {user_role}
-BLOCKED AT: {blocked_step}
-SECURITY ISSUE: {error_message}
+
+REASON FOR BLOCK: The request was blocked at the "{blocked_step}" step.
 
 INSTRUCTIONS:
-1. Be friendly and understanding, not accusatory
-2. Explain why the request couldn't be processed in simple terms
-3. Suggest what the user CAN ask about instead
-4. Keep it educational and helpful
-5. Don't mention technical terms like "SQL injection" or "security validation"
-6. Focus on what they can do rather than what they can't
-7. Keep response under 150 words
-8. Use a warm, helpful tone
+1. DO NOT mention the specific reason for the block (e.g., "SQL injection").
+2. DO NOT repeat any technical details.
+3. Provide a polite, generic, and safe response.
+4. If the block is for "security_check", tell the user their query seems unusual and to rephrase it.
+5. If the block is for "access_control", inform them they don't have permission and to contact an admin if they think it's a mistake.
+6. Be friendly and reassuring. Don't sound accusatory.
+7. Keep the response concise.
 
-EXAMPLES:
-- For harmful queries: "I can't help with that type of request, but I'd be happy to help you find information about your courses, grades, or schedule!"
-- For overly broad queries: "I can only show you information you have access to. Try asking about your specific courses or grades."
-- For database modification attempts: "I can help you find information, but I can't make changes to records. What would you like to know about your academic data?"
+GOOD RESPONSE EXAMPLES:
+- For security_check: "I'm sorry, but I can't process that request. It seems to contain unusual patterns. Please try rephrasing your question."
+- For access_control: "I'm sorry, but you don't have permission to access this information. If you believe this is an error, please contact your administrator."
 
-Generate a helpful response:
+Generate a safe, user-friendly response based on these instructions:
 """
             
             response = self.model.generate_content(prompt)
             formatted_response = response.text.strip()
             
             # Basic validation
-            if len(formatted_response) > 10 and len(formatted_response) < 300:
+            if len(formatted_response) > 10 and len(formatted_response) < 500:
                 return formatted_response
                 
         except Exception as e:
@@ -508,62 +509,21 @@ Generate a helpful response:
         return None
     
     def _format_security_with_rules(self, user_question: str, blocked_step: str, error_message: str) -> str:
-        """Format security response using rules"""
-        error_lower = error_message.lower() if error_message else ""
-        question_lower = user_question.lower()
+        """Format a security-related response using rule-based templates"""
         
-        # Handle different types of security violations with friendly messages
-        if "sql injection" in error_lower:
-            return (
-                "I can't process that request as it seems to contain database commands. "
-                "Please ask me about your academic information in a natural way, like 'What are my grades?' or 'Show me my courses.'"
-            )
-        
-        elif "prompt injection" in error_lower:
-            return (
-                "I'm here to help with your academic questions! "
-                "Feel free to ask about your courses, grades, schedule, or personal information."
-            )
-        
-        elif "data leaking" in error_lower or "unauthorized access" in error_lower:
-            return (
-                "I can only show you information you have permission to access. "
-                "Try asking about your own courses, grades, or schedule."
-            )
-        
-        elif "role escalation" in error_lower:
-            return (
-                "I can only provide information appropriate for your role. "
-                "You can ask about your own academic data, but I can't access other users' information."
-            )
-        
-        elif "forbidden operation" in error_lower:
-            return (
-                "I can help you find information, but I can't make changes to records. "
-                "What would you like to know about your academic data?"
-            )
-        
-        elif "format validation" in error_lower:
-            return (
-                "There seems to be an issue with your request. "
-                "Please try asking your question in a simple way, like 'What courses am I taking?'"
-            )
-        
-        elif "user behavior" in error_lower or "suspicious" in error_lower:
-            return (
-                "For security reasons, please stick to asking about your academic information. "
-                "I'm here to help with questions about your courses, grades, and schedules!"
-            )
-        
+        # Security violation (e.g., SQL injection, prompt injection)
+        if blocked_step == "security_check":
+            # Generic, safe response that doesn't reveal details
+            return "I'm sorry, but I can't process that request. It seems to contain unusual patterns. Please try rephrasing your question."
+            
+        # Permission denied
+        elif blocked_step == "access_control":
+            # User-friendly message for permission issues
+            return "I'm sorry, but you don't have permission to access this information. If you believe this is an error, please contact your administrator."
+            
+        # General fallback for other block reasons
         else:
-            return self._format_security_fallback(user_question)
-    
-    def _format_security_fallback(self, user_question: str) -> str:
-        """Fallback security message"""
-        return (
-            "I couldn't process that request, but I'm here to help! "
-            "Try asking about your courses, grades, schedule, or personal information."
-        )
+            return "I'm sorry, but I was unable to process your request due to an internal security check. Please try asking in a different way."
 
 # Singleton instance
 _formatter_instance = None
