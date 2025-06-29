@@ -61,4 +61,9 @@ logs/
 *key*
 *secret*
 *token*
-credentials.json 
+credentials.json
+
+# Node.js / npm
+node_modules/
+.npm/
+npm-debug.log* 
