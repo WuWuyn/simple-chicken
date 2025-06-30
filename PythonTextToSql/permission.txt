@@ -1,0 +1,39 @@
+I. Common Query Permissions for All Roles (Student, Lecturer, Training Manager)
+All roles have access (view-only) to the following information:
+•	View information about all majors (Majors): Can view the major ID (major_id) and major name (major_name) of all existing majors in the system. 
+•	View the list of courses (Courses) in each major (Curriculums): Can see which courses (course_id) belong to a specific major (major_id). 
+•	View detailed information of those courses, including course ID (course_id), course name (course_name), number of credits (no_credit), and course description (description). 
+•	View the grade components (CourseGrade) in each course: Can see the grade structure of any course, including the course grade ID (course_grade_id), grade component name (grade_name), and the weight of that grade component (grade_weight) in the overall course grade. 
+II. Student Role - Query Only
+•	View personal information: 
+o	View their own personal information (username, fullname, user_gender, user_dob, user_address) from the linked user information. 
+o	View information about their enrolled major (major_id), start date (start_date), and starting semester (start_semester). 
+•	View academic information: 
+o	View the list of class courses (class_course_id) they have registered for through enrollment information. 
+o	View the list of students (student_id) in the class courses they have registered for (by querying enrollments with the same class_course_id). 
+o	View the detailed class schedule (start_time, end_time, room, slot) of registered class courses. 
+o	View their own attendance status (status) in class sessions. 
+o	View their detailed component grades (grade_value, comment) in their courses. 
+o	View the average score (average) and registration status (e.g., Studying, Passed, Failed - status) of registered courses. 
+•	View other information: 
+o	View basic information of the lecturer teaching their class courses (lecturer_id, fullname). 
+III. Lecturer Role - Query Only
+•	View personal information: 
+o	View their own personal information (username, fullname, user_gender, user_dob, user_address) from the linked user information. 
+o	View information about the department (dep_id) they belong to. 
+•	View class course and teaching information: 
+o	View the list of class courses (class_course_id) they are assigned to teach. 
+o	View the detailed class schedule (start_time, end_time, room, slot) for the class courses they are in charge of. 
+o	View the attendance status (status) of students in the class courses they teach. 
+•	View student grade information: 
+o	View detailed component grades (grade_value, comment) of students in the class courses they teach. 
+o	View the average score (average) and academic status (status) of students in the class courses they teach. 
+•	View student and course information: 
+o	View the list of students (student_id) registered in the class courses they teach. 
+o	View basic personal information of students in their classes (student_id, fullname, major_id). 
+•	View other information: 
+o	View information about departments (dep_id, dep_name). 
+o	View basic information of other lecturers (fullname, dep_id). 
+IV. Training Manager Role - Query All Data
+•	Comprehensive information view: 
+o	Can view all information from all tables (e.g., Attendance, ClassCourse, Classes, CourseGrade, Courses, Curriculums, Departments, Enrollments, Lecturers, Majors, Permissions, RolePermission, Roles, Schedules, StudentGradeDetails, Students, UserRole, Users), with the exception of other users' passwords. 
