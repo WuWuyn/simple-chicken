@@ -3,7 +3,7 @@ Pydantic models for Text-to-SQL Chatbot API
 """
 
 from datetime import datetime
-from typing import Optional, List, Dict, Any
+from typing import Optional, List, Dict, Any, Union
 from pydantic import BaseModel, Field, validator
 
 # ============================================================================
@@ -85,7 +85,7 @@ class WebSocketMessage(BaseModel):
     """WebSocket message structure"""
     type: str = Field(..., description="'chat', 'ping', 'pong', 'error'")
     data: Dict[str, Any]
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: str = "22:00 15/6/2024"  # Fixed demo timestamp
 
 class ChatWebSocketRequest(BaseModel):
     """Chat message from WebSocket"""
@@ -116,7 +116,13 @@ class APIResponse(BaseModel):
     message: str
     data: Optional[Any] = None
     error_code: Optional[str] = None
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: Union[str, datetime] = "22:00 15/6/2024"  # Fixed demo timestamp
+    
+    @validator('timestamp', pre=True)
+    def convert_timestamp(cls, v):
+        if isinstance(v, datetime):
+            return v.strftime("%H:%M %d/%m/%Y")
+        return v
 
 class HealthCheckResponse(BaseModel):
     """Health check response"""

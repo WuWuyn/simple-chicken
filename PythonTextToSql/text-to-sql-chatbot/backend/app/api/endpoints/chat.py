@@ -17,6 +17,7 @@ from ...utils.auth import get_current_active_user, TokenData, jwt_manager, Authe
 from ...utils.pipeline_wrapper import get_pipeline, TextToSQLPipelineWrapper
 from ...utils.context_manager import get_context_manager, ConversationContextManager
 from ...utils.smart_response_formatter import get_smart_formatter
+from ...utils.demo_time import get_current_iso, get_demo_timestamp, DEMO_ISO
 from ...core.config import settings
 
 # Setup logging
@@ -111,11 +112,13 @@ async def websocket_endpoint(
         # Send welcome message
         welcome_message = {
             "type": "system",
-            "message": f"Welcome {user_data.username}! How can I help you with your academic queries?",
-            "timestamp": datetime.utcnow().isoformat(),
+            "message": f"Welcome {user_data.user_id}! How can I help you with your academic queries?",
+            "timestamp": get_current_iso(),
             "metadata": {
                 "user_role": user_data.user_role,
-                "pipeline_ready": pipeline.is_ready()
+                "pipeline_ready": pipeline.is_ready(),
+                "demo_mode": True,
+                "fixed_time": get_demo_timestamp()
             }
         }
         await manager.send_personal_message(welcome_message, user_data.user_id)
@@ -137,7 +140,7 @@ async def websocket_endpoint(
                     error_response = {
                         "type": "error",
                         "message": "Invalid message format. 'message' field required.",
-                        "timestamp": datetime.utcnow().isoformat()
+                        "timestamp": get_current_iso()
                     }
                     await manager.send_personal_message(error_response, user_data.user_id)
                     continue
@@ -153,7 +156,7 @@ async def websocket_endpoint(
                 typing_response = {
                     "type": "typing",
                     "message": "Processing your question...",
-                    "timestamp": datetime.utcnow().isoformat()
+                    "timestamp": get_current_iso()
                 }
                 await manager.send_personal_message(typing_response, user_data.user_id)
                 
@@ -171,7 +174,7 @@ async def websocket_endpoint(
                     user_question=user_message,
                     user_id=user_data.user_id,
                     user_role=user_data.user_role,
-                    timestamp=settings.FIXED_TIMESTAMP,
+                    timestamp=get_demo_timestamp(),  # Use demo timestamp consistently
                     additional_context={}
                 )
                 
@@ -190,7 +193,7 @@ async def websocket_endpoint(
                                     "message": msg,
                                     "step": i + 1,
                                     "total_steps": len(progress_messages),
-                                    "timestamp": datetime.utcnow().isoformat()
+                                    "timestamp": get_current_iso()
                                 }
                                 await manager.send_personal_message(progress_response, user_data.user_id)
                             else:
@@ -308,7 +311,7 @@ async def websocket_endpoint(
                 error_response = {
                     "type": "error",
                     "message": "Invalid JSON format",
-                    "timestamp": datetime.utcnow().isoformat()
+                    "timestamp": get_current_iso()
                 }
                 await manager.send_personal_message(error_response, user_data.user_id)
                 
@@ -318,7 +321,7 @@ async def websocket_endpoint(
                     timeout_response = {
                         "type": "error",
                         "message": "⏰ Query processing took too long and was stopped. Please try a simpler question.",
-                        "timestamp": datetime.utcnow().isoformat()
+                        "timestamp": get_current_iso()
                     }
                     await manager.send_personal_message(timeout_response, user_data.user_id)
                     
@@ -329,7 +332,7 @@ async def websocket_endpoint(
                     error_response = {
                         "type": "error",
                         "message": "An error occurred while processing your message",
-                        "timestamp": datetime.utcnow().isoformat()
+                        "timestamp": get_current_iso()
                     }
                     await manager.send_personal_message(error_response, user_data.user_id)
                 else:
@@ -349,7 +352,7 @@ async def websocket_endpoint(
                 error_message = {
                     "type": "error",
                     "message": "Connection error occurred. Please refresh and try again.",
-                    "timestamp": datetime.utcnow().isoformat()
+                    "timestamp": get_current_iso()
                 }
                 await websocket.send_text(json.dumps(error_message, default=str))
         except:
@@ -379,7 +382,7 @@ async def process_chat_query(
             success=True,
             message="Query processed successfully",
             data=result.dict(),
-            timestamp=datetime.utcnow()
+            timestamp=get_current_iso()
         )
         
     except Exception as e:
@@ -406,9 +409,9 @@ async def get_conversation_history(
         
         return APIResponse(
             success=True,
-            message="Conversation history retrieved",
+            message="Conversation history retrieved", 
             data=history,
-            timestamp=datetime.utcnow()
+            timestamp=get_current_iso()
         )
         
     except Exception as e:
@@ -432,7 +435,7 @@ async def clear_conversation_history(
         return APIResponse(
             success=True,
             message="Conversation history cleared",
-            timestamp=datetime.utcnow()
+            timestamp=get_current_iso()
         )
         
     except Exception as e:
@@ -465,7 +468,7 @@ async def get_chat_status(
             success=True,
             message="Chat status retrieved",
             data=status_data,
-            timestamp=datetime.utcnow()
+            timestamp=get_current_iso()
         )
         
     except Exception as e:

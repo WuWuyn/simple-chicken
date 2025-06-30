@@ -166,7 +166,9 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ user, onLogout }) => {
 
   // Handle incoming WebSocket messages
   const handleWebSocketMessage = (data: any) => {
-    const timestamp = new Date().toISOString();
+    // Use demo timestamp consistently
+    const demoTimestamp = "2024-06-15T22:00:00.000Z";
+    const timestamp = data.timestamp || demoTimestamp;
 
     switch (data.type) {
       case 'system':
@@ -265,11 +267,13 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ user, onLogout }) => {
       return;
     }
 
+    // Use demo timestamp for consistency
+    const demoTimestamp = "2024-06-15T22:00:00.000Z";
     const userMessage: ChatMessage = {
       id: `user-${Date.now()}`,
       type: 'user',
       content: inputMessage.trim(),
-      timestamp: new Date().toISOString()
+      timestamp: demoTimestamp
     };
 
     // Add user message to UI immediately
@@ -371,7 +375,6 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ user, onLogout }) => {
 
       <ChatContainer>
         <Container maxWidth="xl" sx={{ flex: 1, display: 'flex', flexDirection: 'column', p: 0 }}>
-          {/* Connection Error */}
           {connectionError && (
             <Alert severity="error" sx={{ m: 2 }}>
               {connectionError}

@@ -36,11 +36,11 @@ class TextToSQLPipelineWrapper:
     def _setup_pipeline_path(self):
         """Setup Python path to include Text-to-SQL pipeline"""
         try:
-            # Get the path to the Method directory
+            # Get the path to the method directory, which is inside the backend directory.
             # From: backend/app/utils/pipeline_wrapper.py
-            # To:   ../../Method (need 5 levels up to reach PythonTextToSql/)
-            current_dir = Path(__file__).parent.parent.parent.parent.parent
-            pipeline_path = current_dir / "Method"
+            # To:   backend/method/
+            backend_dir = Path(__file__).parent.parent.parent
+            pipeline_path = backend_dir / "method"
             
             if pipeline_path.exists():
                 pipeline_path_str = str(pipeline_path.absolute())

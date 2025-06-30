@@ -64,7 +64,10 @@ class Settings(BaseSettings):
     # Text-to-SQL Pipeline Integration
     PIPELINE_PATH: str = config("PIPELINE_PATH", default="../Method")
     PIPELINE_MOCK_MODE: bool = config("PIPELINE_MOCK_MODE", default=True, cast=bool)
-    FIXED_TIMESTAMP: str = "22:00 15/6/2024"  # As per requirements
+    FIXED_TIMESTAMP: str = "22:00 15/6/2024"  # Fixed demo timestamp
+    
+    # Demo Mode Configuration
+    DEMO_MODE: bool = config("DEMO_MODE", default=True, cast=bool)  # Enable demo mode by default
     
     # Conversation Context
     MAX_CONVERSATION_HISTORY: int = 50

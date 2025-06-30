@@ -27,7 +27,7 @@ def simple_demo():
     
     # Test query
     print("\nTest Query:")
-    test_question = "What courses am I taking this semester?"
+    test_question = "What is my name?"
     print(f"Question: {test_question}")
     
     # Process query

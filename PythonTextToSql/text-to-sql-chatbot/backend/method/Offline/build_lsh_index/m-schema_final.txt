@@ -1,0 +1,187 @@
+【DB_ID】 text_to_sql_final
+【Schema】
+# Table: Attendance
+【Table Description】 "This table tracks the attendance status of each student for every scheduled class session. It links an enrollment to a specific schedule."
+[
+  (enrollment_id:VARCHAR(50), "A unique identifier linking a student to a specific class course. Foreign key to Enrollments.", Primary Key, NOT NULL., Examples: ['HE00001_AI_K1_FA23_AIL301_SU24', 'HE00001_AI_K1_FA23_CSD201_SP24']),
+  (schedule_id:VARCHAR(50), "Identifier for a specific scheduled session (date, time, room) of a class course. Foreign key to Schedules.", Primary Key, NOT NULL., Examples: ['AI_K1_FA23_AIL301_SU24_S1', 'AI_K1_FA23_CSD201_SP24_S1']),
+  (status:VARCHAR(50), "The attendance status for the student in that session, such as 'Present', 'Absent', or 'Future' for an upcoming class.", NOT NULL., Examples: ['Present', 'Absent', 'Future'])
+]
+【Foreign keys】
+  Attendance.enrollment_id = Enrollments.enrollment_id
+  Attendance.schedule_id = Schedules.schedule_id
+
+# Table: ClassCourse
+【Table Description】 "This is a central bridge table that defines a specific instance of a course offered to a particular class of students during a specific semester, taught by a specific lecturer."
+[
+  (class_course_id:VARCHAR(50), "Unique identifier for this specific course instance.", Primary Key, NOT NULL., Examples: ['AI_K1_FA23_AIL301_SU24', 'AI_K1_FA23_CSD201_SP24']),
+  (class_id:VARCHAR(10), "Identifier for the group of students (class) taking this course. Foreign key to Classes.", NOT NULL., Examples: ['AI_K1_FA23', 'IA_K1_FA23']),
+  (course_id:VARCHAR(10), "Identifier for the course being taught. Foreign key to Courses.", NOT NULL., Examples: ['AIL301', 'CSD201', 'PRF192']),
+  (lecturer_id:VARCHAR(10), "Identifier for the lecturer teaching this course instance. Foreign key to Lecturers.", NOT NULL., Examples: ['LEC001', 'LEC002', 'LEC003']),
+  (semester:VARCHAR(10), "The academic semester (e.g., SP24, SU24) when this course instance is offered.", NOT NULL., Examples: ['SP24', 'SU24', 'FA23'])
+]
+【Foreign keys】
+  ClassCourse.class_id = Classes.class_id
+  ClassCourse.course_id = Courses.course_id
+  ClassCourse.lecturer_id = Lecturers.lecturer_id
+
+# Table: Classes
+【Table Description】 "Represents a group or cohort of students, typically admitted at the same time."
+[
+  (class_id:VARCHAR(10), "Unique identifier for the class.", Primary Key, NOT NULL., Examples: ['AI_K1_FA23', 'IA_K2_SU24', 'SE_K1_SP24']),
+  (class_name:VARCHAR(255), "The name or code of the class.", NOT NULL., Examples: ['AI01', 'IA02', 'SE01'])
+]
+
+# Table: CourseGrade
+【Table Description】 "Defines the grading structure for a course, listing all grade components and their weight in the final score."
+[
+  (course_grade_id:VARCHAR(50), "Unique identifier for a specific grade component within a course.", Primary Key, NOT NULL., Examples: ['AIL301_Assignment_1', 'CSD201_Final_Exam']),
+  (course_id:VARCHAR(10), "Identifier for the course this grade component belongs to. Foreign key to Courses.", NOT NULL., Examples: ['AIL301', 'CSD201', 'PRF192']),
+  (grade_name:NVARCHAR(150), "Name of the grade component (e.g., Assignment 1, Final Exam).", NOT NULL., Examples: ['Assignment 1', 'Final Exam', 'Lab 1']),
+  (grade_weight:FLOAT, "The weight of this component in the overall course grade (e.g., 0.4 for 40%).", NOT NULL., Examples: [0.1, 0.4, 0.5])
+]
+【Foreign keys】
+  CourseGrade.course_id = Courses.course_id
+
+# Table: Courses
+【Table Description】 "Stores information about all available courses in the academic catalog."
+[
+  (course_id:VARCHAR(10), "Unique identifier for the course.", Primary Key, NOT NULL., Examples: ['AIL301', 'CSD201', 'PRF192']),
+  (course_name:NVARCHAR(150), "Full name of the course.", NOT NULL., Examples: ['Artificial Intelligence and Machine Learning', 'Data Structures and Algorithms']),
+  (no_credit:TINYINT, "Number of academic credits the course is worth.", NOT NULL., Examples: [3]),
+  (description:NVARCHAR(255), "A brief description of the course content.", NULLABLE., Examples: ['Core concepts of AI and machine learning algorithms.'])
+]
+
+# Table: Curriculums
+【Table Description】 "Maps which courses are required for each major, defining the academic program structure."
+[
+  (major_id:VARCHAR(10), "Identifier for the major. Foreign key to Majors.", Primary Key, NOT NULL., Examples: ['AI', 'IA', 'SE']),
+  (course_id:VARCHAR(10), "Identifier for a course required by the major. Foreign key to Courses.", Primary Key, NOT NULL., Examples: ['AIL301', 'CSD201'])
+]
+【Foreign keys】
+  Curriculums.major_id = Majors.major_id
+  Curriculums.course_id = Courses.course_id
+
+# Table: Departments
+【Table Description】 "Lists all academic departments in the institution."
+[
+  (dep_id:VARCHAR(10), "Unique identifier for the department.", Primary Key, NOT NULL., Examples: ['D01', 'D02']),
+  (dep_name:NVARCHAR(150), "Full name of the department.", NOT NULL., Examples: ['Computing Fundamental', 'Artificial Intelligence'])
+]
+
+# Table: Enrollments
+【Table Description】 "Records a student's enrollment in a specific class course instance. It holds the final academic result for that enrollment."
+[
+  (enrollment_id:VARCHAR(50), "Unique identifier for a single student's enrollment in one class course.", Primary Key, NOT NULL., Examples: ['HE00001_AI_K1_FA23_AIL301_SU24']),
+  (student_id:VARCHAR(10), "Identifier for the student who is enrolled. Foreign key to Students.", NOT NULL., Examples: ['HE00001', 'HE00002']),
+  (class_course_id:VARCHAR(50), "Identifier for the specific class course the student is enrolled in. Foreign key to ClassCourse.", NOT NULL., Examples: ['AI_K1_FA23_AIL301_SU24']),
+  (average:FLOAT, "The final average grade for the student in this enrollment.", NOT NULL., Examples: [6.5, 8, 9.2]),
+  (status:VARCHAR(50), "The final academic status of the enrollment (e.g., 'Studying', 'Passed', 'Failed').", NOT NULL., Examples: ['Studying', 'Passed', 'Failed'])
+]
+【Foreign keys】
+  Enrollments.student_id = Students.student_id
+  Enrollments.class_course_id = ClassCourse.class_course_id
+【Unique keys】
+  (student_id, class_course_id)
+
+# Table: Lecturers
+【Table Description】 "Stores information specific to lecturers, linking a user to a department."
+[
+  (lecturer_id:VARCHAR(10), "Unique identifier for the lecturer. This is also a foreign key to the Users table.", Primary Key, NOT NULL., Examples: ['LEC001', 'LEC002']),
+  (dep_id:VARCHAR(10), "Identifier for the department the lecturer belongs to. Foreign key to Departments.", NOT NULL., Examples: ['D01', 'D02'])
+]
+【Foreign keys】
+  Lecturers.dep_id = Departments.dep_id
+  Lecturers.lecturer_id = Users.user_id
+
+# Table: Majors
+【Table Description】 "Lists all academic majors offered by the institution."
+[
+  (major_id:VARCHAR(10), "Unique identifier for the major.", Primary Key, NOT NULL., Examples: ['AI', 'IA', 'SE', 'CS']),
+  (major_name:NVARCHAR(150), "Full name of the major.", NOT NULL., Examples: ['Artificial Intelligence', 'Information Assurance', 'Software Engineering'])
+]
+
+# Table: Permissions
+【Table Description】 "Defines a list of specific actions or data access rights that can be granted to roles."
+[
+  (permission_id:VARCHAR(10), "Unique identifier for the permission.", Primary Key, NOT NULL., Examples: ['P001', 'P012']),
+  (permission_name:NVARCHAR(150), "A human-readable description of the permission.", NOT NULL., Examples: ['View all majors', 'View own enrollment average and status'])
+]
+
+# Table: RolePermission
+【Table Description】 "A mapping table that assigns permissions to roles."
+[
+  (role_id:VARCHAR(10), "Identifier for the role being granted the permission. Foreign key to Roles.", Primary Key, NOT NULL., Examples: ['R001', 'R002']),
+  (permission_id:VARCHAR(10), "Identifier for the permission being granted. Foreign key to Permissions.", Primary Key, NOT NULL., Examples: ['P001', 'P015'])
+]
+【Foreign keys】
+  RolePermission.role_id = Roles.role_id
+  RolePermission.permission_id = Permissions.permission_id
+
+# Table: Roles
+【Table Description】 "Defines the user roles within the system, such as 'Student' or 'Lecturer'."
+[
+  (role_id:VARCHAR(10), "Unique identifier for the role.", Primary Key, NOT NULL., Examples: ['R001', 'R002', 'R003']),
+  (role_name:NVARCHAR(150), "The name of the role.", NOT NULL., Examples: ['Student', 'Lecturer', 'Training Manager'])
+]
+
+# Table: Schedules
+【Table Description】 "Stores the detailed schedule for each session of a class course, including time and location."
+[
+  (schedule_id:VARCHAR(50), "Unique identifier for a single scheduled session.", Primary Key, NOT NULL., Examples: ['AI_K1_FA23_AIL301_SU24_S1']),
+  (class_course_id:VARCHAR(50), "Identifier for the class course this schedule belongs to. Foreign key to ClassCourse.", NOT NULL., Examples: ['AI_K1_FA23_AIL301_SU24']),
+  (start_time:DATETIME, "The start date and time of the class session.", NOT NULL., Examples: ['2024-05-06 07:30:00']),
+  (end_time:DATETIME, "The end date and time of the class session.", NOT NULL., Examples: ['2024-05-06 09:50:00']),
+  (room:NVARCHAR(50), "The room or location where the class session takes place.", NOT NULL., Examples: ['R001', 'R002']),
+  (slot:TINYINT, "The slot number of the schedule within the day.", NOT NULL., Examples: [1, 2, 3, 4])
+]
+【Foreign keys】
+  Schedules.class_course_id = ClassCourse.class_course_id
+
+# Table: StudentGradeDetails
+【Table Description】 "Stores the specific grade a student received for a particular grade component in an enrollment."
+[
+  (enrollment_id:VARCHAR(50), "Identifier for the student's enrollment in the course. Foreign key to Enrollments.", Primary Key, NOT NULL., Examples: ['HE00001_AI_K1_FA23_AIL301_SU24']),
+  (course_grade_id:VARCHAR(50), "Identifier for the specific grade component (e.g., final exam). Foreign key to CourseGrade.", Primary Key, NOT NULL., Examples: ['AIL301_Assignment_1']),
+  (grade_value:FLOAT, "The numerical grade value the student received for this component.", NULLABLE., Examples: [9, 8.5, 7]),
+  (comment:NVARCHAR(50), "A comment about the grade, e.g., 'Grade Recorded' or 'Awaiting Grade'.", NOT NULL., Examples: ['Grade Recorded', 'Awaiting Grade'])
+]
+【Foreign keys】
+  StudentGradeDetails.enrollment_id = Enrollments.enrollment_id
+  StudentGradeDetails.course_grade_id = CourseGrade.course_grade_id
+
+# Table: Students
+【Table Description】 "Stores information specific to students, such as their major and start date."
+[
+  (student_id:VARCHAR(10), "Unique identifier for the student. This is also a foreign key to the Users table.", Primary Key, NOT NULL., Examples: ['HE00001', 'HE00002']),
+  (major_id:VARCHAR(10), "Identifier for the student's declared major. Foreign key to Majors.", NOT NULL., Examples: ['AI', 'IA', 'SE']),
+  (start_date:DATE, "The date the student started their program.", NOT NULL., Examples: ['2023-09-04', '2024-01-08']),
+  (start_semester:VARCHAR(50), "The student's starting semester (e.g., FA23, SP24).", NOT NULL., Examples: ['FA23', 'SP24', 'SU24'])
+]
+【Foreign keys】
+  Students.major_id = Majors.major_id
+  Students.student_id = Users.user_id
+
+# Table: UserRole
+【Table Description】 "A mapping table that assigns a role to a user."
+[
+  (user_id:VARCHAR(10), "Identifier for the user being assigned a role. Foreign key to Users.", Primary Key, NOT NULL., Examples: ['HE00001', 'LEC001', 'TM001']),
+  (role_id:VARCHAR(10), "Identifier for the role being assigned. Foreign key to Roles.", Primary Key, NOT NULL., Examples: ['R001', 'R002', 'R003'])
+]
+【Foreign keys】
+  UserRole.user_id = Users.user_id
+  UserRole.role_id = Roles.role_id
+
+# Table: Users
+【Table Description】 "A master table containing basic personal information for all users in the system, including students, lecturers, and managers."
+[
+  (username:VARCHAR(50), "The username used for login.", Primary Key, NOT NULL., Examples: ['binhnv', 'anhdv', 'he00001_user']),
+  (password:VARCHAR(150), "The user's hashed password for login.", NOT NULL., Examples: ['hashed_password']),
+  (user_id:VARCHAR(10), "A unique identifier for the user across the system.", Unique, NOT NULL., Examples: ['LEC001', 'TM001', 'HE00001']),
+  (fullname:NVARCHAR(50), "The full name of the user.", NOT NULL., Examples: ['Nguyễn Văn Bình', 'Đỗ Việt Anh', 'Nguyễn Văn An']),
+  (user_gender:NVARCHAR(50), "The gender of the user.", NOT NULL., Examples: ['male', 'female']),
+  (user_dob:DATE, "The user's date of birth.", NOT NULL., Examples: ['1980-03-15', '2003-01-10']),
+  (user_address:NVARCHAR(150), "The address of the user.", NOT NULL., Examples: ['Hà Nội', 'Cần Thơ', 'TP. Hồ Chí Minh'])
+]
+【Unique keys】
+  (user_id)
